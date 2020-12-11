@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Post-processing</title>
+
+    <link rel="stylesheet" href="/assets/css/readdy_documentation.css">
+    <link rel="canonical" href="https://readdy.github.io/results.html">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto+Mono|Lora|Lato|Source+Sans+Pro|Roboto+Slab|Merriweather" rel="stylesheet">
+    <link rel="stylesheet" href="https://readdy.github.io/libraries/perfect-scrollbar/css/perfect-scrollbar.min.css"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false},
+                ]
+            });
+        });
+    </script>
+
+    <link rel="icon" type="image/png" href="/assets/icon_black_32px.png">
+
+</head>
+
+
+<body>
+<div class="side-wrapper" id="unique-side-container">
+<div class="side">
+    <div class="side-logo logo-readdy"><a href="https://readdy.github.io/index.html"></a></div>
+    <div style="margin-right: 1.5rem; text-align: center;">
+        <a href="https://readdy.github.io/index.html">ReaDDy - A particle-based<br>reaction-diffusion simulator</a>
+    </div>
+
+    <div class="side-searchbar-wrapper">
+        <form action="https://readdy.github.io/search.html" method="get">
+            <input type="text" id="search-box" name="query" placeholder="Search ...">
+        </form>
+    </div>
+    <nav class="side-nav">
+        <a class="side-nav-item" href="https://readdy.github.io/index.html">Home</a>
+        <a class="side-nav-item" href="https://readdy.github.io/installation.html">Install readdy</a>
+        <div class="nav-supergroup-delimiter">
+            <b>API</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/system.html">System configuration</a>
+        
+        <a class="side-nav-item" href="https://readdy.github.io/simulation.html">Simulation</a>
+        
+        <a class="side-nav-item active" href="https://readdy.github.io/results.html">Post-processing</a>
+
+        <div class="nav-supergroup-delimiter">
+            <b>Examples</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/demonstration.html">Demonstration</a>
+        
+
+        <a class="side-nav-item" href="https://readdy.github.io/validation.html">Validation</a>
+        
+
+        <a class="side-nav-item" href="https://readdy.github.io/benchmark.html">Benchmark</a>
+        
+
+
+        <div class="nav-supergroup-delimiter">
+            <b>Advanced topics</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/cookbook.html">Cookbook</a>
+        <a class="side-nav-item" href="https://readdy.github.io/development.html">Development</a>
+        
+
+        
+
+        <div class="nav-supergroup-delimiter">
+            <b>Legal notices</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/imprint.html">Imprint</a>
+        <a class="side-nav-item" href="https://readdy.github.io/software_license.html">Software license</a>
+
+        
+
+    </nav>
+
+    <div class="github-wrapper">
+        <a href="https://github.com/readdy/readdy" style="width: 16rem; height:100%; position:absolute; top:0; left:0;">
+            <div class="github-text">ReaDDy on GitHub</div>
+            <div class="side-logo logo-github"></div>
+        </a>
+    </div>
+    <div class="side-logo logo-cmb"><a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/"></a></div>
+</div>
+</div>
+
+<div class="main-container" id="unique-main-container">
+    <div class="main">
+        <article>
+            <h1 style="font-size: 2.7rem; padding-left: 0.5rem;">Post-processing</h1>
+<p>Once the system is simulated, the trajectory and stored observables can be analyzed. For this purpose a trajectory
+object can be created by providing a path to the output file of a simulation:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">trajectory</span> <span class="o">=</span> <span class="n">readdy</span><span class="p">.</span><span class="n">Trajectory</span><span class="p">(</span><span class="s">'out.h5'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="visual-representation-of-the-trajectory">Visual representation of the trajectory</h1>
+
+<p>To look at the time-series of the position of particles, one can use <a href="http://www.ks.uiuc.edu/Research/vmd/">VMD</a>.
+To this end there is a function to convert the hdf5 trajectory into a VMD-readable <code class="highlighter-rouge">xyz</code> file.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">trajectory</span><span class="p">.</span><span class="n">convert_to_xyz</span><span class="p">(</span><span class="n">particle_radii</span><span class="o">=</span><span class="p">{</span><span class="s">'A'</span><span class="p">:</span> <span class="mf">1.</span><span class="p">})</span>
+</code></pre></div></div>
+
+<p>In shell you can then call <code class="highlighter-rouge">vmd</code> as follows</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vmd <span class="nt">-e</span> out.xyz.tcl
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">particle_radii</code> are all defaulted to <code class="highlighter-rouge">1.</code> unless otherwise specified.</p>
+
+<h1 id="information-about-the-simulated-system">Information about the simulated system</h1>
+
+<p>The trajectory file stores some information about the system that was simulated. Given a trajectory object, one can obtain</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># the thermal energy
+</span><span class="n">trajectory</span><span class="p">.</span><span class="n">kbt</span>
+<span class="c1"># the volume of the simulation box
+</span><span class="n">trajectory</span><span class="p">.</span><span class="n">box_volume</span>
+<span class="c1"># the dimensions of the simulation box
+</span><span class="n">trajectory</span><span class="p">.</span><span class="n">box_size</span>
+<span class="c1"># whether periodic boundary conditions were used
+</span><span class="n">trajectory</span><span class="p">.</span><span class="n">periodic_boundary_conditions</span>
+<span class="c1"># diffusion constants for registered particle types
+</span><span class="n">trajectory</span><span class="p">.</span><span class="n">diffusion_constants</span>
+<span class="c1"># a mapping from particle type name -&gt; internal particle type id
+</span><span class="n">trajectory</span><span class="p">.</span><span class="n">particle_types</span>
+<span class="c1"># registered reactions
+</span><span class="n">trajectory</span><span class="p">.</span><span class="n">reactions</span>
+</code></pre></div></div>
+
+<h1 id="reading-observable-data">Reading observable data</h1>
+
+<p>All observables including the actual trajectory have functions to read back the recorded data.</p>
+
+<p>The actual trajectory can be read back as a list of lists by invoking</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">trajectory</span><span class="p">.</span><span class="n">read</span><span class="p">():</span>
+  <span class="k">for</span> <span class="n">particle</span> <span class="ow">in</span> <span class="n">frame</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Particle with id {} of type {} at position {}"</span> 
+          <span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">particle</span><span class="p">.</span><span class="nb">id</span><span class="p">,</span> <span class="n">particle</span><span class="p">.</span><span class="nb">type</span><span class="p">,</span> <span class="n">particle</span><span class="p">.</span><span class="n">position</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Except for the trajectory all observables can be stored at a different place in the file by providing a <code class="highlighter-rouge">save</code> argument 
+when <a href="/simulation.html#observables">registering them</a>. For such a case each method of the trajectory 
+object that can obtain observable data has an additional argument <code class="highlighter-rouge">data_set_name</code> that needs to be set accordingly.
+If the default <code class="highlighter-rouge">save</code> argument was used or it was not specified, one can omit the <code class="highlighter-rouge">data_set_name</code>.</p>
+
+<p>Since one can configure observables with different strides an array with simulation times is always returned, i.e.,
+if an observable was configured with a stride of 5, it would contain <code class="highlighter-rouge">[0, 5, 10, ...]</code>.</p>
+
+<ul>
+  <li>The <a href="/simulation.html#radial-distribution-function">radial distribution function</a> data can be read back by
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">time</span><span class="p">,</span> <span class="n">bin_centers</span><span class="p">,</span> <span class="n">distribution</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">.</span><span class="n">read_observable_rdf</span><span class="p">()</span>
+</code></pre></div>    </div>
+    <p>where <code class="highlighter-rouge">time</code> is a list of simulation times, <code class="highlighter-rouge">bin_centers</code> are the bin centers and <code class="highlighter-rouge">distribution</code> contains the RDF
+in shape of a <code class="highlighter-rouge">(T, N)</code> array (T being the number of recordings and N being the number of bins).</p>
+  </li>
+  <li>The <a href="/simulation.html#particles">particles</a> data can be obtained by
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">time</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">positions</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">.</span><span class="n">read_observable_particles</span><span class="p">()</span>
+</code></pre></div>    </div>
+    <p>where <code class="highlighter-rouge">time</code> is a list of simulation times, <code class="highlighter-rouge">types</code> is a list of particle type ids that can be converted to their respective
+names by calling <code class="highlighter-rouge">trajectory.species_name(a_particular_id)</code>, <code class="highlighter-rouge">ids</code> is a list of lists containing the unique ids of each particle, and 
+<code class="highlighter-rouge">positions</code> is a list of lists containing particle positions.</p>
+  </li>
+  <li>The <a href="/simulation.html#particle-positions">particle positions</a> data can be obtained by
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">time</span><span class="p">,</span> <span class="n">positions</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">.</span><span class="n">read_observable_particle_positions</span><span class="p">()</span>
+</code></pre></div>    </div>
+    <p>where <code class="highlighter-rouge">time</code> is a list of simulation times and <code class="highlighter-rouge">positions</code> is a list of <code class="highlighter-rouge">(N_t, 3)</code>-shaped arrays, where <code class="highlighter-rouge">N_t</code> is the number of
+particles in particular time step.</p>
+  </li>
+  <li>The <a href="/simulation.html#number-of-particles">number of particles</a> data can be obtained by
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">time</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">.</span><span class="n">read_observable_number_of_particles</span><span class="p">()</span>
+</code></pre></div>    </div>
+    <p>where <code class="highlighter-rouge">time</code> is a list of simulation times and <code class="highlighter-rouge">counts</code> is an array containing the recorded number of particles per 
+requested type.</p>
+  </li>
+  <li>The <a href="/simulation.html#energy">energy</a> observable data can be obtained by
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">time</span><span class="p">,</span> <span class="n">energy</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">.</span><span class="n">read_observable_energy</span><span class="p">()</span>
+</code></pre></div>    </div>
+    <p>where <code class="highlighter-rouge">time</code> is a list of simulation times and <code class="highlighter-rouge">energy</code> is a list of potential energy values.</p>
+  </li>
+  <li>The <a href="/simulation.html#forces">forces</a> observable data can be obtained by
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">time</span><span class="p">,</span> <span class="n">forces</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">.</span><span class="n">read_observable_forces</span><span class="p">()</span>
+</code></pre></div>    </div>
+    <p>where <code class="highlighter-rouge">time</code> is a list of simulation times and <code class="highlighter-rouge">forces</code> is a list of arrays containing the forces acting on each
+particle for each evaluated time step.</p>
+  </li>
+  <li>The <a href="/simulation.html#reactions">reactions</a> observable data can be obtained by
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">time</span><span class="p">,</span> <span class="n">reactions</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">.</span><span class="n">read_observable_reactions</span><span class="p">()</span>
+</code></pre></div>    </div>
+    <p>where <code class="highlighter-rouge">time</code> is a list of simulation times and <code class="highlighter-rouge">reactions</code> is a list of lists containing the occurred reaction events
+for each evaluated time step. The reaction event data can be accessed just like in the callback function of the observable.</p>
+  </li>
+  <li>The <a href="/simulation.html#reaction-counts">reaction counts</a> observable data can be obtained by
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">time</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">.</span><span class="n">read_observable_reaction_counts</span><span class="p">()</span>
+</code></pre></div>    </div>
+    <p>where <code class="highlighter-rouge">time</code> is a list of simulation times and <code class="highlighter-rouge">counts</code> is a dictionary with the reaction names as keys and the corresponding counts
+as values, i.e.,</p>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">counts</span><span class="p">[</span><span class="s">'my_reaction'</span><span class="p">]</span>
+</code></pre></div>    </div>
+    <p>is an array of length <code class="highlighter-rouge">N</code> where <code class="highlighter-rouge">N</code> is the number of evaluations of the observable with the number of occurrences of <code class="highlighter-rouge">my_reaction</code>.</p>
+  </li>
+  <li>The <a href="/simulation.html#virial">virial</a> observable data can be obtained by
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">time</span><span class="p">,</span> <span class="n">virials</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">.</span><span class="n">read_observable_virial</span><span class="p">()</span>
+</code></pre></div>    </div>
+    <p>where <code class="highlighter-rouge">time</code> is a list of simulation times and <code class="highlighter-rouge">virials</code> contains the system’s pressure virial for each simulation 
+time in that it was evaluated.</p>
+  </li>
+  <li>The <a href="/simulation.html#pressure">pressure</a> observable data can be obtained by
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">time</span><span class="p">,</span> <span class="n">pressure</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">.</span><span class="n">read_observable_pressure</span><span class="p">()</span>
+</code></pre></div>    </div>
+    <p>where <code class="highlighter-rouge">time</code> is a list of simulation times and <code class="highlighter-rouge">pressure</code> contains the corresponding pressure per simulation time.</p>
+  </li>
+</ul>
+
+
+        </article>
+        <div class="foot">
+            © Copyright 2020 <a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/">AI4Science (former CMB) Group</a>
+        </div>
+    </div>
+</div>
+<script src="https://readdy.github.io/libraries/perfect-scrollbar/js/perfect-scrollbar.min.js"></script>
+<script src="https://readdy.github.io/assets/js/scrollbar.js"></script>
+</body>
+</html>
