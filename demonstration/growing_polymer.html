@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Growing polymer</title>
+
+    <link rel="stylesheet" href="/assets/css/readdy_documentation.css">
+    <link rel="canonical" href="https://readdy.github.io/demonstration/growing_polymer">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto+Mono|Lora|Lato|Source+Sans+Pro|Roboto+Slab|Merriweather" rel="stylesheet">
+    <link rel="stylesheet" href="https://readdy.github.io/libraries/perfect-scrollbar/css/perfect-scrollbar.min.css"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false},
+                ]
+            });
+        });
+    </script>
+
+    <link rel="icon" type="image/png" href="/assets/icon_black_32px.png">
+
+</head>
+
+
+<body>
+<div class="side-wrapper" id="unique-side-container">
+<div class="side">
+    <div class="side-logo logo-readdy"><a href="https://readdy.github.io/index.html"></a></div>
+    <div style="margin-right: 1.5rem; text-align: center;">
+        <a href="https://readdy.github.io/index.html">ReaDDy - A particle-based<br>reaction-diffusion simulator</a>
+    </div>
+
+    <div class="side-searchbar-wrapper">
+        <form action="https://readdy.github.io/search.html" method="get">
+            <input type="text" id="search-box" name="query" placeholder="Search ...">
+        </form>
+    </div>
+    <nav class="side-nav">
+        <a class="side-nav-item" href="https://readdy.github.io/index.html">Home</a>
+        <a class="side-nav-item" href="https://readdy.github.io/installation.html">Install readdy</a>
+        <div class="nav-supergroup-delimiter">
+            <b>API</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/system.html">System configuration</a>
+        
+        <a class="side-nav-item" href="https://readdy.github.io/simulation.html">Simulation</a>
+        
+        <a class="side-nav-item" href="https://readdy.github.io/results.html">Post-processing</a>
+
+        <div class="nav-supergroup-delimiter">
+            <b>Examples</b>
+        </div>
+        <a class="side-nav-item active" href="https://readdy.github.io/demonstration.html">Demonstration</a>
+        
+            
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/demonstration/api">
+                    Simple example
+
+                </a>
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/demonstration/topologies">
+                    Topologies
+
+                </a>
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/demonstration/growing_polymer">
+                    Growing polymer
+
+                </a>
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/demonstration/living_polymers">
+                    Living polymers
+
+                </a>
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/demonstration/constant_concentration">
+                    Constant concentration
+
+                </a>
+            
+        
+
+        <a class="side-nav-item" href="https://readdy.github.io/validation.html">Validation</a>
+        
+
+        <a class="side-nav-item" href="https://readdy.github.io/benchmark.html">Benchmark</a>
+        
+
+
+        <div class="nav-supergroup-delimiter">
+            <b>Advanced topics</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/cookbook.html">Cookbook</a>
+        <a class="side-nav-item" href="https://readdy.github.io/development.html">Development</a>
+        
+
+        
+
+        <div class="nav-supergroup-delimiter">
+            <b>Legal notices</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/imprint.html">Imprint</a>
+        <a class="side-nav-item" href="https://readdy.github.io/software_license.html">Software license</a>
+
+        
+
+    </nav>
+
+    <div class="github-wrapper">
+        <a href="https://github.com/readdy/readdy" style="width: 16rem; height:100%; position:absolute; top:0; left:0;">
+            <div class="github-text">ReaDDy on GitHub</div>
+            <div class="side-logo logo-github"></div>
+        </a>
+    </div>
+    <div class="side-logo logo-cmb"><a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/"></a></div>
+</div>
+</div>
+
+<div class="main-container" id="unique-main-container">
+    <div class="main notebook">
+        <article>
+            <div class="docpage-heading"><h1>Growing polymer</h1></div>
+
+            <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">readdy</span>
+<span class="kn">import</span> <span class="nn">os</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">readdy</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;v2.0.3-27&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Set-up-reaction-diffusion-system">Set up reaction-diffusion system<a class="anchor-link" href="#Set-up-reaction-diffusion-system">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">system</span> <span class="o">=</span> <span class="n">readdy</span><span class="o">.</span><span class="n">ReactionDiffusionSystem</span><span class="p">(</span><span class="n">box_size</span><span class="o">=</span><span class="p">[</span><span class="mf">30.</span><span class="p">,</span> <span class="mf">30.</span><span class="p">,</span> <span class="mf">30.</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">system</span><span class="o">.</span><span class="n">add_species</span><span class="p">(</span><span class="s2">&quot;Substrate&quot;</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">add_type</span><span class="p">(</span><span class="s2">&quot;Polymer&quot;</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s2">&quot;Head&quot;</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s2">&quot;Core&quot;</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">configure_harmonic_bond</span><span class="p">(</span><span class="s2">&quot;Head&quot;</span><span class="p">,</span> <span class="s2">&quot;Core&quot;</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">configure_harmonic_bond</span><span class="p">(</span><span class="s2">&quot;Core&quot;</span><span class="p">,</span> <span class="s2">&quot;Core&quot;</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">configure_harmonic_angle</span><span class="p">(</span><span class="s2">&quot;Core&quot;</span><span class="p">,</span> <span class="s2">&quot;Core&quot;</span><span class="p">,</span> <span class="s2">&quot;Core&quot;</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">5.</span><span class="p">,</span> <span class="n">equilibrium_angle</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+<span class="n">system</span><span class="o">.</span><span class="n">potentials</span><span class="o">.</span><span class="n">add_harmonic_repulsion</span><span class="p">(</span><span class="s2">&quot;Core&quot;</span><span class="p">,</span> <span class="s2">&quot;Core&quot;</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">70.</span><span class="p">,</span> <span class="n">interaction_distance</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Define reaction that is called "Bind" and attaches a "Substrate" particle to a "Polymer" topologies "Head" particle with a fixed rate once they are close enough, changing types from "Head" to "Core" and from "Substrate" to "Head".</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">add_spatial_reaction</span><span class="p">(</span>
+    <span class="s2">&quot;Bind: Polymer(Head) + (Substrate) -&gt; Polymer(Core--Head)&quot;</span><span class="p">,</span> 
+    <span class="n">rate</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.5</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Set-up-simulation">Set up simulation<a class="anchor-link" href="#Set-up-simulation">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulation</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">simulation</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;SingleCPU&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>One initial topology with three particles (<code>Head--Core--Head</code>).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">init_top_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span> <span class="mf">1.</span> <span class="p">,</span><span class="mf">0.</span> <span class="p">,</span><span class="mf">0.</span><span class="p">],</span>
+    <span class="p">[</span> <span class="mf">0.</span> <span class="p">,</span><span class="mf">0.</span> <span class="p">,</span><span class="mf">0.</span><span class="p">],</span>
+    <span class="p">[</span><span class="o">-</span><span class="mf">1.</span> <span class="p">,</span><span class="mf">0.</span> <span class="p">,</span><span class="mf">0.</span><span class="p">]</span>
+<span class="p">])</span>
+<span class="n">top</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">add_topology</span><span class="p">(</span><span class="s2">&quot;Polymer&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Head&quot;</span><span class="p">,</span> <span class="s2">&quot;Core&quot;</span><span class="p">,</span> <span class="s2">&quot;Head&quot;</span><span class="p">],</span> <span class="n">init_top_pos</span><span class="p">)</span>
+<span class="n">top</span><span class="o">.</span><span class="n">get_graph</span><span class="p">()</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">top</span><span class="o">.</span><span class="n">get_graph</span><span class="p">()</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Some substrate particles, randomly distributed in the simulation box.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">n_particles</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">positions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span> <span class="o">*</span> <span class="n">system</span><span class="o">.</span><span class="n">box_size</span><span class="o">.</span><span class="n">magnitude</span> <span class="o">-</span> <span class="n">system</span><span class="o">.</span><span class="n">box_size</span><span class="o">.</span><span class="n">magnitude</span> <span class="o">*</span> <span class="mf">0.5</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">add_particles</span><span class="p">(</span><span class="s2">&quot;Substrate&quot;</span><span class="p">,</span> <span class="n">positions</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Save the trajectory and topologies observable to an output file (which is removed if it already exists).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulation</span><span class="o">.</span><span class="n">output_file</span> <span class="o">=</span> <span class="s1">&#39;growing_polymer.h5&#39;</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">output_file</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">observe</span><span class="o">.</span><span class="n">topologies</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">record_trajectory</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">progress_output_stride</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Run the simulation.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulation</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">200000</span><span class="p">,</span> <span class="mf">.001</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>  0%|          | 20/20000 [00:00&lt;01:42, 195.66it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Configured kernel context with:
+--------------------------------
+ - kBT = 2.43614
+ - periodic b.c. = (true, true, true)
+ - box size = (30.0, 30.0, 30.0)
+ - particle types:
+     * Topology particle type &#34;Core&#34; with D=1.0
+     *  particle type &#34;Substrate&#34; with D=1.0
+     * Topology particle type &#34;Head&#34; with D=1.0
+ - potentials of order 2:
+     * for types &#34;Core&#34; and &#34;Core&#34;
+         * Harmonic repulsion with Force constant k=70.0
+ - topology potential configuration:
+     - bonds (2):
+         - Bonds for particle types Core and Core:
+             * Harmonic bond with force constant 70.0 and length 1.0
+         - Bonds for particle types Head and Core:
+             * Harmonic bond with force constant 70.0 and length 1.0
+     - angles (1):
+             * Harmonic angle with force constant 5.0 and equilibrium angle 3.14159
+ - topology types:
+     * topology type &#34;Polymer&#34; with 0 structural reactions
+ - spatial topology reactions:
+     * Topology-particle fusion reaction &#34;Bind: Polymer(Head) + (Substrate) -&gt; Polymer(Core--Head)&#34;
+
+Configured simulation loop with:
+--------------------------------
+ - timeStep = 0.00100000
+ - evaluateObservables = true
+ - progressOutputStride = 100
+ - context written to file = true
+ - Performing actions:
+   * Initialize neighbor list? true
+   * Update neighbor list? true
+   * Clear neighbor list? true
+   * Integrate diffusion? true
+   * Calculate forces? true
+   * Handle reactions? true
+   * Handle topology reactions? true
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>100%|██████████| 20000/20000 [01:35&lt;00:00, 208.84it/s]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Read back the recorded data.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">traj</span> <span class="o">=</span> <span class="n">readdy</span><span class="o">.</span><span class="n">Trajectory</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+<span class="n">time</span><span class="p">,</span> <span class="n">topology_records</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">read_observable_topologies</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <code>topology_records</code> object is a list of lists, each outer element representing a frame and each frame containing a list of topologies at that point of the simulation.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">chain_length</span> <span class="o">=</span> <span class="p">[</span> <span class="nb">len</span><span class="p">(</span><span class="n">tops</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">particles</span><span class="p">)</span> <span class="k">for</span> <span class="n">tops</span> <span class="ow">in</span> <span class="n">topology_records</span> <span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">chain_length</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+ 
+
+
+        </article>
+        <div class="foot">
+            © Copyright 2020 <a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/">AI4Science (former CMB) Group</a>
+        </div>
+    </div>
+</div>
+<script src="https://readdy.github.io/libraries/perfect-scrollbar/js/perfect-scrollbar.min.js"></script>
+<script src="https://readdy.github.io/assets/js/scrollbar.js"></script>
+</body>
+</html>

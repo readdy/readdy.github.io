@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>System configuration</title>
+
+    <link rel="stylesheet" href="/assets/css/readdy_documentation.css">
+    <link rel="canonical" href="https://readdy.github.io/system.html">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto+Mono|Lora|Lato|Source+Sans+Pro|Roboto+Slab|Merriweather" rel="stylesheet">
+    <link rel="stylesheet" href="https://readdy.github.io/libraries/perfect-scrollbar/css/perfect-scrollbar.min.css"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false},
+                ]
+            });
+        });
+    </script>
+
+    <link rel="icon" type="image/png" href="/assets/icon_black_32px.png">
+
+</head>
+
+
+<body>
+<div class="side-wrapper" id="unique-side-container">
+<div class="side">
+    <div class="side-logo logo-readdy"><a href="https://readdy.github.io/index.html"></a></div>
+    <div style="margin-right: 1.5rem; text-align: center;">
+        <a href="https://readdy.github.io/index.html">ReaDDy - A particle-based<br>reaction-diffusion simulator</a>
+    </div>
+
+    <div class="side-searchbar-wrapper">
+        <form action="https://readdy.github.io/search.html" method="get">
+            <input type="text" id="search-box" name="query" placeholder="Search ...">
+        </form>
+    </div>
+    <nav class="side-nav">
+        <a class="side-nav-item" href="https://readdy.github.io/index.html">Home</a>
+        <a class="side-nav-item" href="https://readdy.github.io/installation.html">Install readdy</a>
+        <div class="nav-supergroup-delimiter">
+            <b>API</b>
+        </div>
+        <a class="side-nav-item active" href="https://readdy.github.io/system.html">System configuration</a>
+        
+            
+            
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/system.html#reactions">
+                    Reactions
+
+                </a>
+            
+            
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/system.html#potentials">
+                    Potentials
+
+                </a>
+            
+            
+            
+                <a class="side-nav-sub-item side-nav-sub-sub-item" href="https://readdy.github.io/system.html#external_potentials">
+                    External potentials
+
+                </a>
+            
+            
+            
+                <a class="side-nav-sub-item side-nav-sub-sub-item" href="https://readdy.github.io/system.html#pair_potentials">
+                    Pair potentials
+
+                </a>
+            
+            
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/system.html#topologies">
+                    Topologies
+
+                </a>
+            
+            
+            
+                <a class="side-nav-sub-item side-nav-sub-sub-item" href="https://readdy.github.io/system.html#topology_potentials">
+                    Potentials
+
+                </a>
+            
+            
+            
+                <a class="side-nav-sub-item side-nav-sub-sub-item" href="https://readdy.github.io/system.html#topology_reactions">
+                    Topology reactions
+
+                </a>
+            
+            
+        
+        <a class="side-nav-item" href="https://readdy.github.io/simulation.html">Simulation</a>
+        
+        <a class="side-nav-item" href="https://readdy.github.io/results.html">Post-processing</a>
+
+        <div class="nav-supergroup-delimiter">
+            <b>Examples</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/demonstration.html">Demonstration</a>
+        
+
+        <a class="side-nav-item" href="https://readdy.github.io/validation.html">Validation</a>
+        
+
+        <a class="side-nav-item" href="https://readdy.github.io/benchmark.html">Benchmark</a>
+        
+
+
+        <div class="nav-supergroup-delimiter">
+            <b>Advanced topics</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/cookbook.html">Cookbook</a>
+        <a class="side-nav-item" href="https://readdy.github.io/development.html">Development</a>
+        
+
+        
+
+        <div class="nav-supergroup-delimiter">
+            <b>Legal notices</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/imprint.html">Imprint</a>
+        <a class="side-nav-item" href="https://readdy.github.io/software_license.html">Software license</a>
+
+        
+
+    </nav>
+
+    <div class="github-wrapper">
+        <a href="https://github.com/readdy/readdy" style="width: 16rem; height:100%; position:absolute; top:0; left:0;">
+            <div class="github-text">ReaDDy on GitHub</div>
+            <div class="side-logo logo-github"></div>
+        </a>
+    </div>
+    <div class="side-logo logo-cmb"><a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/"></a></div>
+</div>
+</div>
+
+<div class="main-container" id="unique-main-container">
+    <div class="main">
+        <article>
+            <h1 style="font-size: 2.7rem; padding-left: 0.5rem;">System configuration</h1>
+<p>At first create a <code class="highlighter-rouge">ReactionDiffusionSystem</code>, which determines <em>what</em> to simulate.
+This includes setting a unit system, the size and periodicity of
+the simulation-box, particle species, <a href="/system.html#reactions">reactions</a>,
+<a href="/system.html#potentials">potentials</a> and <a href="/system.html#topologies">topologies</a>.
+These are set via properties and methods of the <code class="highlighter-rouge">system</code> object.</p>
+
+<h2 id="physical-units">Physical units</h2>
+<p>The for ReaDDy relevant units are units of length, time, and energy. An instance of a <code class="highlighter-rouge">ReactionDiffusionSystem</code> is equipped with a particular set of these units, internally expressing everything in terms of that set. Per default it is given by</p>
+<ul>
+  <li>length in nanometers,</li>
+  <li>time in nanoseconds,</li>
+  <li>energy in kilojoule per mol.</li>
+</ul>
+
+<p>Should a different set of units be desired, it can be provided as constructor argument, e.g.,</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">custom_units</span> <span class="o">=</span> <span class="p">{</span><span class="s">'length_unit'</span><span class="p">:</span><span class="s">'kilometer'</span><span class="p">,</span>
+                <span class="s">'time_unit'</span><span class="p">:</span> <span class="s">'hour'</span><span class="p">,</span>
+                <span class="s">'energy_unit'</span><span class="p">:</span> <span class="s">'kilocal/mol'</span><span class="p">}</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">readdy</span><span class="p">.</span><span class="n">ReactionDiffusionSystem</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span> <span class="o">*</span> <span class="n">readdy</span><span class="p">.</span><span class="n">units</span><span class="p">.</span><span class="n">meters</span><span class="p">,</span>
+                                        <span class="n">unit_system</span><span class="o">=</span><span class="n">custom_units</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">system</span><span class="p">.</span><span class="n">box_size</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span> <span class="mf">0.01</span>  <span class="mf">0.01</span>  <span class="mf">0.01</span><span class="p">]</span> <span class="n">kilometer</span>
+<span class="k">print</span><span class="p">(</span><span class="n">system</span><span class="p">.</span><span class="n">kbt</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mf">0.5824569789674953</span> <span class="n">kilocalorie</span> <span class="o">/</span> <span class="n">mole</span>
+</code></pre></div></div>
+<p>When setting the <code class="highlighter-rouge">unit_system</code> constructor argument to <code class="highlighter-rouge">None</code>, one sets up a unitless system. In such a case the thermal energy will be defaulted to <code class="highlighter-rouge">kbt=1</code> and one cannot set a temperature anymore but has to set <code class="highlighter-rouge">kbt</code> directly.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span> <span class="o">=</span> <span class="n">readdy</span><span class="p">.</span><span class="n">ReactionDiffusionSystem</span><span class="p">(</span><span class="n">box_size</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">unit_system</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">system</span><span class="p">.</span><span class="n">kbt</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mf">1.0</span>
+<span class="n">system</span><span class="p">.</span><span class="n">kbt</span> <span class="o">=</span> <span class="mf">42.</span>
+<span class="k">print</span><span class="p">(</span><span class="n">system</span><span class="p">.</span><span class="n">kbt</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mf">42.0</span>
+<span class="k">print</span><span class="p">(</span><span class="n">system</span><span class="p">.</span><span class="n">temperature</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">ValueError</span><span class="p">:</span> <span class="n">No</span> <span class="n">temperature</span> <span class="n">unit</span> <span class="n">was</span> <span class="nb">set</span><span class="p">.</span> <span class="n">In</span> <span class="n">a</span> <span class="n">unitless</span> <span class="n">system</span><span class="p">,</span> <span class="n">refer</span> <span class="n">to</span> <span class="n">kbt</span> <span class="n">instead</span><span class="p">.</span>
+</code></pre></div></div>
+
+<p>Internally, ReaDDy uses <a href="https://pint.readthedocs.io/">pint</a> for handling units, so in principle all unit arithmetics that are supported by pint can also be applied when setting up a ReaDDy simulation.</p>
+
+<h2 id="the-box-size">The box size</h2>
+<p>The system’s only required argument is the simulation box size. The box itself is centered around the origin, so 
+given a <code class="highlighter-rouge">ReactionDiffusionSystem(box_size=(lx,ly,lz))</code>, it can be described 
+by $ [-\frac{L_x}{2}, \frac{L_x}{2} )\times [-\frac{L_y}{2}, \frac{L_y}{2} ) \times [-\frac{L_z}{2}, \frac{L_z}{2} ) \subset \mathbb{R}^3$.</p>
+
+<p class="centered"><img src="assets/simulation_box.svg" alt="" /></p>
+
+<h2 id="periodic-boundary-conditions">Periodic boundary conditions</h2>
+<p>The boundaries of the box can be either (partially) non-periodic or fully periodic. The degree of periodicity is set by either the <code class="highlighter-rouge">periodic_boundary_conditions</code> named constructor argument or property. A box that is periodic in y and z directions but not in x direction amounts to setting</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">readdy</span><span class="p">.</span><span class="n">ReactionDiffusionSystem</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">periodic_boundary_conditions</span><span class="o">=</span><span class="p">[</span><span class="bp">False</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span> <span class="bp">True</span><span class="p">])</span>
+<span class="c1"># or
+</span><span class="n">system</span> <span class="o">=</span> <span class="n">readdy</span><span class="p">.</span><span class="n">ReactionDiffusionSystem</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">system</span><span class="p">.</span><span class="n">periodic_boundary_conditions</span> <span class="o">=</span> <span class="p">[</span><span class="bp">False</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span> <span class="bp">True</span><span class="p">]</span>
+</code></pre></div></div>
+<p>If the box is not periodic in one or more directions, the particles have to be provided with a potential that keeps them inside the simulation box, see the section about <a href="/potentials.html">potentials</a> for details.</p>
+
+<h2 id="temperature">Temperature</h2>
+<p>If not specified otherwise, the temperature will default to <span class="kdmath">$293\,\text{K}$</span>. A different temperature can be either provided by the <code class="highlighter-rouge">temperature</code> named argument in the constructor or the <code class="highlighter-rouge">temperature</code> property. This behavior changes if one works in a unitless setup, see below.</p>
+
+<h2 id="particle-species">Particle species</h2>
+<p>In order to add particle instances to the simulation, one first has to define the available species. This can be done by the <code class="highlighter-rouge">add_species</code> method of the system object.
+The method takes as argument the species’ name and a diffusion constant <span class="kdmath">$D$</span> in units of <span class="kdmath">$\text{length}^2\text{time}^{-1}$</span>. The diffusion constant effects the magnitude of the random displacement in the governing dynamics, which are described by an overdamped Langevin equation</p>
+
+<div class="kdmath">$$
+\frac{d\mathbf{x}(t)}{dt} = -D\frac{\nabla V(\mathbf{x}(t))}{k_BT} + \xi(t),
+$$</div>
+
+<p>where <span class="kdmath">$k_B$</span> is the Boltzmann constant, <span class="kdmath">$T$</span> the temperature, <span class="kdmath">$V$</span> the potential,  <span class="kdmath">$\mathbf{x}(t)\in\mathbb{R}^3$</span> a vector corresponding to the instantaneous position of a particle at time <span class="kdmath">$t$</span>, and <span class="kdmath">$\xi(t)$</span> is a random velocity with</p>
+
+<div class="kdmath">$$
+\langle \xi(t) \rangle = 0, \quad \langle \xi(t)\xi(t') \rangle = 2D\delta(t-t').
+$$</div>
+
+<p>This means that <span class="kdmath">$\xi$</span> is a time-uncorrelated random variable that contains values according to a normal distribution in each of its components.</p>
+
+<p>If one would want to register two species “A” and “B” with respective diffusion constants <span class="kdmath">$1\,\text{nm}^2\,\text{s}^{-1}$</span> and <span class="kdmath">$2\,\text{km}^2\,\text{hour}^{-1}$</span>, the configuration, given the default unit set, would read</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">add_species</span><span class="p">(</span><span class="s">"A"</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">add_species</span><span class="p">(</span><span class="s">"B"</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">readdy</span><span class="p">.</span><span class="n">units</span><span class="p">.</span><span class="n">km</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">readdy</span><span class="p">.</span><span class="n">units</span><span class="p">.</span><span class="n">hour</span><span class="p">)</span>
+</code></pre></div></div>
+<p>where the latter diffusion constant is internally expressed in terms of the default units.</p>
+
+<p>In case of particle types that take part in complexes (topologies), the <code class="highlighter-rouge">add_topology_species</code> method needs to be invoked, see the section about <a href="#topologies">topologies</a> for details.</p>
+
+<section id="reactions">
+<h1>Reactions
+</h1>
+<p>Reactions remove particles from, and add particles to the system. They typically have a microscopic/intrinsic rate $\lambda$.
+This rate has units of inverse time and can be understood as the probability per unit time of the reaction occurring. Given an integration
+step $\tau$ the probability of a reaction event is evaluated as $p = 1 - e^{-\lambda \tau}$.</p>
+
+<p>Additionally <code class="highlighter-rouge">Fusion</code> and <code class="highlighter-rouge">Enzymatic</code> reactions can only occur when particles are closer than a certain distance $R$.</p>
+
+<p>All reactions are added to the reaction registry, which is part of the <code class="highlighter-rouge">ReactionDiffusionSystem</code></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span> <span class="o">=</span> <span class="n">readdy</span><span class="p">.</span><span class="n">ReactionDiffusionSystem</span><span class="p">()</span>
+<span class="n">system</span><span class="p">.</span><span class="n">reactions</span><span class="p">.</span><span class="n">add</span><span class="p">(...)</span>
+</code></pre></div></div>
+
+<p>Each of the below listed reaction types can be registered in two ways:</p>
+<ul>
+  <li>Either with the generic <code class="highlighter-rouge">reactions.add(...)</code> method which accepts a descriptor string,</li>
+  <li>or by calling <code class="highlighter-rouge">reactions.add_xxx(...)</code>, where <code class="highlighter-rouge">xxx</code> is to be replaced with one of <code class="highlighter-rouge">conversion</code>, <code class="highlighter-rouge">decay</code>, <code class="highlighter-rouge">fusion</code>, <code class="highlighter-rouge">fission</code>, or <code class="highlighter-rouge">enzymatic</code>.</li>
+</ul>
+
+<h2 id="conversion">Conversion</h2>
+
+<p>In a conversion reaction, a particle of type $A$ will convert into type $B$ with the rate constant $\lambda$</p>
+
+<div class="kdmath">$$
+A \overset{\lambda}{\rightarrow} B
+$$</div>
+
+<p>Adding a conversion reaction to the <code class="highlighter-rouge">system</code> amounts to</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">reactions</span><span class="p">.</span><span class="n">add_conversion</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">"conv"</span><span class="p">,</span> <span class="n">type_from</span><span class="o">=</span><span class="s">"A"</span><span class="p">,</span> <span class="n">type_to</span><span class="o">=</span><span class="s">"B"</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</code></pre></div></div>
+<p>which is equivalent to</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">reactions</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">"conv: A -&gt; B"</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="decay">Decay</h2>
+
+<p>In a decay reaction, a particle of type $A$ will disappear with the rate constant $\lambda$</p>
+
+<div class="kdmath">$$
+A \overset{\lambda}{\rightarrow} \emptyset
+$$</div>
+
+<p>Example of adding a decay reaction to the <code class="highlighter-rouge">system</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">reactions</span><span class="p">.</span><span class="n">add_decay</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">"decay of A"</span><span class="p">,</span> <span class="n">particle_type</span><span class="o">=</span><span class="s">"A"</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</code></pre></div></div>
+<p>which is equivalent to</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">reactions</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">"decay of A: A -&gt;"</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="fusion">Fusion</h2>
+
+<p>In a fusion reaction, a particle of type $A$ will associate with type $B$ to form a particle of type $C$.
+This will occur with the rate constant $\lambda$, if the particles $A$ and $B$ are closer than the reaction radius
+$R$ (<code class="highlighter-rouge">educt_distance</code>).</p>
+
+<div class="kdmath">$$
+A \overset{R}{+} B \overset{\lambda}{\rightarrow} C
+$$</div>
+
+<p>Example of adding a fusion reaction to the <code class="highlighter-rouge">system</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">reactions</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">"fus: A +(2) B-&gt; C"</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</code></pre></div></div>
+<p>which is equivalent to</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">reactions</span><span class="p">.</span><span class="n">add_fusion</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">"fus"</span><span class="p">,</span> <span class="n">type_from1</span><span class="o">=</span><span class="s">"A"</span><span class="p">,</span> <span class="n">type_from2</span><span class="o">=</span><span class="s">"B"</span><span class="p">,</span> <span class="n">type_to</span><span class="o">=</span><span class="s">"C"</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">educt_distance</span><span class="o">=</span><span class="mf">2.</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="fission">Fission</h2>
+
+<p>In a fission reaction, a particle of type $C$ will dissociate into two particles of type $B$ and $A$.
+This will occur with the rate constant $\lambda$. The two products will be placed at a distance smaller than
+the reaction radius $R$ (<code class="highlighter-rouge">product_distance</code>).</p>
+
+<div class="kdmath">$$
+C \overset{\lambda}{\rightarrow} A \overset{R}{+} B
+$$</div>
+
+<p>Add a fission reaction to the <code class="highlighter-rouge">system</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">reactions</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">"fis: C -&gt; A +(2) B"</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</code></pre></div></div>
+<p>which is equivalent to</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">reactions</span><span class="p">.</span><span class="n">add_fission</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">"fis"</span><span class="p">,</span> <span class="n">type_from</span><span class="o">=</span><span class="s">"C"</span><span class="p">,</span> <span class="n">type_to1</span><span class="o">=</span><span class="s">"A"</span><span class="p">,</span> <span class="n">type_to2</span><span class="o">=</span><span class="s">"B"</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">product_distance</span><span class="o">=</span><span class="mf">2.</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="enzymatic">Enzymatic</h2>
+
+<p>In an enzymatic reaction, a particle of type $A$ convert into type $B$ in the presence of a particle of type $C$.
+This will occur with the rate constant $\lambda$, if the particles $A$ and $C$ are closer than the reaction radius
+$R$ (<code class="highlighter-rouge">educt_distance</code>).</p>
+
+<div class="kdmath">$$
+A \overset{R}{+} C \overset{\lambda}{\rightarrow} B + C
+$$</div>
+
+<p>Add an enzymatic reaction to the <code class="highlighter-rouge">system</code></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">reactions</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">"enz: A +(2) C -&gt; B + C"</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</code></pre></div></div>
+<p>which is equivalent to</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">reactions</span><span class="p">.</span><span class="n">add_enzymatic</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">"enz"</span><span class="p">,</span> <span class="n">type_catalyst</span><span class="o">=</span><span class="s">"C"</span><span class="p">,</span> <span class="n">type_from</span><span class="o">=</span><span class="s">"A"</span><span class="p">,</span> <span class="n">type_to</span><span class="o">=</span><span class="s">"B"</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">educt_distance</span><span class="o">=</span><span class="mf">2.</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+</section>
+
+<section id="potentials">
+<h1>Potentials
+</h1>
+<p>Potentials create an energy landscape in which particles diffuse in, subject to the corresponding forces.
+They can be used to build traps, obstacles or compartments for particles.
+One could also utilize them for clustering and crowding effects that are typically observed in biological fluid-like media.</p>
+
+<p>Potentials in ReaDDy are divided into first-order potentials/<strong>external potentials</strong>, i.e., those that depend only on the position of one particle, and
+second-order potentials/<strong>pair potentials</strong>, i.e., those that depend on the relative position of two particles.
+The <a href="/topologies.html">topology</a> functionality also provides higher order potentials like angles and dihedrals.</p>
+
+<p>All potentials are part of the <code class="highlighter-rouge">ReactionDiffusionSystem</code> and can be registered for certain particle types like</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span> <span class="o">=</span> <span class="n">readdy</span><span class="p">.</span><span class="n">ReactionDiffusionSystem</span><span class="p">()</span>
+<span class="n">system</span><span class="p">.</span><span class="n">potentials</span><span class="p">.</span><span class="n">add</span><span class="p">(...)</span>
+</code></pre></div></div>
+
+</section>
+
+<section id="external_potentials">
+<h1>External potentials
+</h1>
+<p>External potentials or first-order potentials are potentials that solely depend on the absolute position of each particle, i.e., the relative positioning of particles towards one another has no influence.
+They are registered with respect to a certain particle type. The potential will
+then exert a force on each particle of that type individually.</p>
+
+<p>Currently available external potentials are:</p>
+<ul id="markdown-toc">
+  <li><a href="#box-potential" id="markdown-toc-box-potential">Box potential</a></li>
+  <li><a href="#spherical-potential" id="markdown-toc-spherical-potential">Spherical potential</a>    <ul>
+      <li><a href="#spherical-exclusion" id="markdown-toc-spherical-exclusion">Spherical exclusion</a></li>
+      <li><a href="#spherical-inclusion" id="markdown-toc-spherical-inclusion">Spherical inclusion</a></li>
+      <li><a href="#spherical-barrier" id="markdown-toc-spherical-barrier">Spherical barrier</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="box-potential">Box potential</h2>
+
+<p class="centered"><img src="assets/potentials/box_potential.png" alt="" /></p>
+
+<p>A box potential is a potential acting with a harmonic force on particles of the given type once they leave the area spanned by the cuboid that has <code class="highlighter-rouge">origin</code> as its front lower left and <code class="highlighter-rouge">origin+extent</code> as its back upper right vertex, respectively. Therefore, the cuboid is spanned by three intervals $C=\prod_{i=1}^dC_i$ with $C_i := [\text{origin}_i, \text{origin}_i+\text{extent}_i]$. Its energy term is given by</p>
+
+<div class="kdmath">$$
+V(\mathbf{x}) = \sum_{i=1}^d \begin{cases} 0&amp;\text{, if } x_i \in C_i\\
+ \frac{1}{2}k \,d(x_i, C_i)^2  &amp;\text{, otherwise,} \end{cases}
+$$</div>
+
+<p>where $d(x_i, C_i)$ denotes the shortest distance between the set $C_i$ and the point $x_i$.</p>
+
+<p>Adding a box potential to the <code class="highlighter-rouge">system</code> amounts to:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">box_size</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">system</span><span class="p">.</span><span class="n">potentials</span><span class="p">.</span><span class="n">add_box</span><span class="p">(</span>
+    <span class="n">particle_type</span><span class="o">=</span><span class="s">"A"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">10.</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>Note that the <strong>simulation box</strong> and the <strong>box potential</strong> are completely independent.
+In the above example the simulation box is chosen larger than the full extent of the box potential. This is because
+particles should never leave the simulation box if it is non-periodic. The box potential however is a soft potential,
+i.e., particles may penetrate the boundaries of it for a short time and then be pushed back inside. To make sure that
+particles do not penetrate the simulation box, it has a slightly larger extent.</p>
+
+<p>In particular there is a check upon simulation start that if the simulation box is not completely periodic, there must be a box potential for each particle type to keep it contained in the non-periodic directions, i.e., if there is no box potential such that</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>box_lower_left[dim] &lt; potential_lower_left[dim] 
+  and box_upper_right[dim] &gt; potential_upper_right[dim]
+</code></pre></div></div>
+<p>where <code class="highlighter-rouge">dim</code> is a non-periodic direction, an error is raised.</p>
+
+<h2 id="spherical-potential">Spherical potential</h2>
+
+<p class="centered"><img src="assets/potentials/sphere_potential.png" alt="" /></p>
+
+<p>In ReaDDy one can find three different types of spherical potentials:</p>
+<ul>
+  <li>exclusion potentials to keep particles out of a spherical region,</li>
+  <li>inclusion potentials to keep particles inside a spherical region,</li>
+  <li>barriers that can function as a spatial separator or, if initialized with negative height, as a sticky spherical surface.</li>
+</ul>
+
+<p>All these potentials are harmonic, i.e., particles can potentially penetrate.</p>
+
+<h3 id="spherical-exclusion">Spherical exclusion</h3>
+
+<p>Adds a spherical potential that keeps particles of a certain type excluded from the inside of the specified sphere. Its energy term is given by</p>
+
+<div class="kdmath">$$
+V(\mathbf{x}) = \begin{cases}
+\frac{1}{2} k (\|\mathbf{x} - \mathbf{c}\|_2-r)^2 &amp;\text{, if } \|\mathbf{x} - \mathbf{c}\|_2 &lt; r,\\
+0 &amp;\text{, otherwise,} 
+\end{cases}
+$$</div>
+
+<p>where $\mathbf{c}\in\mathbb{R}^3$ denotes the center of the sphere and $r\in\mathbb{R}_{&gt;0}$ the radius of the sphere.</p>
+
+<p class="centered"><img src="assets/potentials/sphere_out.png" alt="" /></p>
+
+<p>Adding such a potential to a reaction diffusion system amounts to</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">box_size</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">system</span><span class="p">.</span><span class="n">potentials</span><span class="p">.</span><span class="n">add_sphere_out</span><span class="p">(</span>
+    <span class="n">particle_type</span><span class="o">=</span><span class="s">"A"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">10.</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>yielding a spherical region of radius <code class="highlighter-rouge">1</code> in the center of the simulation box which keeps particles of type <code class="highlighter-rouge">A</code> from entering that region with a harmonic repulsion potential. Due to the harmonic nature of the potential and dependent on the force constant, particles are allowed to penetrate the sphere for a short period of time.</p>
+
+<h3 id="spherical-inclusion">Spherical inclusion</h3>
+
+<p>Adds a spherical potential that keeps particles of a certain type restrained to the inside of the specified sphere. Its energy term is given by</p>
+
+<div class="kdmath">$$
+V(\mathbf{x}) = \begin{cases}
+\frac{1}{2} k (\|\mathbf{x} - \mathbf{c}\|_2-r)^2 &amp;\text{, if } \|\mathbf{x} - \mathbf{c}\|_2 \geq r,\\
+0 &amp;\text{, otherwise,} 
+\end{cases}
+$$</div>
+
+<p>where $\mathbf{c}\in\mathbb{R}^3$ denotes the center of the sphere and $r\in\mathbb{R}_{&gt;0}$ the radius of the sphere.</p>
+
+<p class="centered"><img src="assets/potentials/sphere_in.png" alt="" /></p>
+
+<p>Adding such a potential to a system amounts to</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">box_size</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">system</span><span class="p">.</span><span class="n">potentials</span><span class="p">.</span><span class="n">add_sphere_in</span><span class="p">(</span>
+    <span class="n">particle_type</span><span class="o">=</span><span class="s">"A"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">10.</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>which will cause all particles of type <code class="highlighter-rouge">A</code> to be contained in a sphere of radius <code class="highlighter-rouge">1</code> centered in the origin with a harmonic repulsion potential. Due to the harmonic nature of the potential and dependent on the force constant, particles are allowed to penetrate the sphere for a short period of time.</p>
+
+<h3 id="spherical-barrier">Spherical barrier</h3>
+
+<p>A potential that forms a concentric barrier at a certain radius around a given origin. It is given a height (in terms of energy) and a width. Note that the height can also be negative, then this potential acts as a  ‘sticky’ sphere. The potential consists of harmonic snippets, such that the energy landscape is continuous and differentiable, the force is only continuous and not differentiable. Its energy term is given by</p>
+
+<div class="kdmath">$$
+V(\mathbf{x}) = \begin{cases}
+0 &amp; \text{, if } \| \mathbf{x} - \mathbf{c}\|_2 &lt; r - w,\\
+\frac{2h}{w^2}(\| \mathbf{x} - \mathbf{c}\|_2 - r + w)^2 &amp;\text{, if } r-w \leq \| \mathbf{x} - \mathbf{c}\|_2 &lt; r - \frac{w}{2},\\
+h - \frac{2h}{w^2}(\| \mathbf{x} - \mathbf{c}\|_2 - r)^2 &amp;\text{, if }r - \frac{w}{2} \leq \| \mathbf{x} - \mathbf{c}\|_2 &lt; r + \frac{w}{2},\\
+\frac{2h}{w^2}(\| \mathbf{x} - \mathbf{c}\|_2 - r - w)^2 &amp;\text{, if } r + \frac{w}{2} \leq \| \mathbf{x} - \mathbf{c}\|_2 &lt; r + w,\\
+0 &amp;\text{, otherwise,}
+\end{cases}
+$$</div>
+
+<p>where $\mathbf{c}\in\mathbb{R}^3$ is the center of the sphere, $r\in\mathbb{R}$ the sphere’s radius, $w\in\mathbb{R}$ the width of the barrier, and $h\in\mathbb{R}$ the height of the barrier.</p>
+
+<p class="centered"><img src="assets/potentials/spherical_barrier_potential.png" alt="" /></p>
+
+<p>Adding such a potential to a system amounts to</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">box_size</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="c1"># as a barrier
+</span><span class="n">system</span><span class="p">.</span><span class="n">potentials</span><span class="p">.</span><span class="n">add_spherical_barrier</span><span class="p">(</span>
+    <span class="n">particle_type</span><span class="o">=</span><span class="s">"A"</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.</span>
+<span class="p">)</span>
+<span class="c1"># sticky
+</span><span class="n">system</span><span class="p">.</span><span class="n">potentials</span><span class="p">.</span><span class="n">add_spherical_barrier</span><span class="p">(</span>
+    <span class="n">particle_type</span><span class="o">=</span><span class="s">"A"</span><span class="p">,</span> <span class="n">height</span><span class="o">=-</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>which will cause particles to be trapped inside or outside of the spherical barrier in the first case or will make them stick onto the surface of the sphere in the second case.</p>
+
+</section>
+
+<section id="pair_potentials">
+<h1>Pair potentials
+</h1>
+<p>Pair potentials or second-order potentials are potentials that depend on the relative positioning of a pair of particles to one another. They are registered with respect to two not necessarily distinct particle types and then exert a force on each particle of these types individually.</p>
+
+<p>Currently available pair potentials are:</p>
+<ul id="markdown-toc">
+  <li><a href="#harmonic-repulsion" id="markdown-toc-harmonic-repulsion">Harmonic repulsion</a></li>
+  <li><a href="#weak-interaction-piecewise-harmonic" id="markdown-toc-weak-interaction-piecewise-harmonic">Weak interaction piecewise harmonic</a></li>
+  <li><a href="#lennard-jones" id="markdown-toc-lennard-jones">Lennard-Jones</a></li>
+  <li><a href="#screened-electrostatics" id="markdown-toc-screened-electrostatics">Screened electrostatics</a></li>
+</ul>
+
+<h2 id="harmonic-repulsion">Harmonic repulsion</h2>
+
+<p>A harmonic repulsion potential causes each two particles of a certain type to repulse each other once they enter a certain radius. It can be used to emulate a radius of a particle type while still allowing for a relatively large time step. The potential term is given by</p>
+
+<div class="kdmath">$$
+V(\mathbf{x}_1, \mathbf{x}_2) = \begin{cases}
+\frac{1}{2}k(\|\mathbf{x_1} - \mathbf{x_2}\|_2 - r)^2 &amp;\text{, if } \|\mathbf{x_1} - \mathbf{x_2}\|_2 &lt; r,\\
+0 &amp;\text{, otherwise,}
+\end{cases}
+$$</div>
+
+<p>where $r$ is the distance at which particles begin to interact with respect to this potential.</p>
+
+<p class="centered"><img src="assets/potentials/harmonic_repulsion.png" alt="" /></p>
+
+<p>Adding such a potential to a system amounts to, e.g.,</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">potentials</span><span class="p">.</span><span class="n">add_harmonic_repulsion</span><span class="p">(</span>
+    <span class="s">"A"</span><span class="p">,</span> <span class="s">"A"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">10.</span><span class="p">,</span> <span class="n">interaction_distance</span><span class="o">=</span><span class="mf">5.</span>
+<span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">potentials</span><span class="p">.</span><span class="n">add_harmonic_repulsion</span><span class="p">(</span>
+    <span class="s">"B"</span><span class="p">,</span> <span class="s">"B"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">10.</span><span class="p">,</span> <span class="n">interaction_distance</span><span class="o">=</span><span class="mf">6.</span>
+<span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">potentials</span><span class="p">.</span><span class="n">add_harmonic_repulsion</span><span class="p">(</span>
+    <span class="s">"A"</span><span class="p">,</span> <span class="s">"B"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">10.</span><span class="p">,</span> <span class="n">interaction_distance</span><span class="o">=</span><span class="mf">2.5</span><span class="o">+</span><span class="mf">3.</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>which would cause all particles of type <code class="highlighter-rouge">A</code> or <code class="highlighter-rouge">B</code> to repulse from all other particles of type <code class="highlighter-rouge">A</code> or <code class="highlighter-rouge">B</code>. This set of potentials can be understood as inducing a “soft” radius of $r_A = 2.5$ and $r_B=3$ for particle types <code class="highlighter-rouge">A</code> and <code class="highlighter-rouge">B</code>, respectively. Soft meaning that the particles’ spheres can be penetrated for a short period of time by another particle before it is pushed out again.</p>
+
+<h2 id="weak-interaction-piecewise-harmonic">Weak interaction piecewise harmonic</h2>
+
+<p>A weak interaction piecewise harmonic potential causes particles to crowd together once they are within a certain distance of one another. It is defined by three harmonic terms and described by a force constant $k$ which is responsible for the strength of the repulsive part of the potential, a ‘desired distance’ $d$, i.e., a distance at which the potential energy is lowest inside the interaction radius, a ‘depth’ $h$, denoting the depth of the potential well and therefore the stickiness of the potential, and a ‘cutoff’ $r_c$, denoting the distance at which particles begin to interact. The potential term reads</p>
+
+<div class="kdmath">$$
+V(\|\mathbf{x}_1- \mathbf{x}_2\|_2) = V(r) = \begin{cases}
+\frac{1}{2} k (r - d)^2 - h &amp;\text{, if } r &lt; d,\\
+\frac{h}{2} \left(\frac{r_c - d}{2} \right)^{-2} (r - d)^2 - h &amp;\text{, if } d\leq r &lt; d + \frac{r_c - d}{2},\\
+-\frac{h}{2}\left(\frac{r_c - d}{2}\right)^{-2}(r - r_c)^2 &amp;\text{, if }d + \frac{r_c - d}{2}\leq r &lt; r_c,\\
+0 &amp;\text{, otherwise.}
+\end{cases}
+$$</div>
+
+<p>It typically has the following shape:</p>
+
+<p class="centered"><img src="assets/potentials/harmonic_interaction.png" alt="" /></p>
+
+<p>Adding such a potential to a system can be achieved by calling</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">potentials</span><span class="p">.</span><span class="n">add_weak_interaction_piecewise_harmonic</span><span class="p">(</span>
+    <span class="s">"A"</span><span class="p">,</span> <span class="s">"B"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">10.</span><span class="p">,</span> <span class="n">desired_distance</span><span class="o">=</span><span class="mf">5.</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mf">2.</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mf">7.</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>yielding in this example a potential that lets all particle type pairings interact with one another given they are of type <code class="highlighter-rouge">A</code> and <code class="highlighter-rouge">B</code> and closer than the cutoff $r_c=7$. Once they are within range they would either by drawn into the potential well from the outside (third case in the potential term), kept in the potential well (second case in the potential term), or pushed back into the potential well if they come too close to one another (first case in the potential term).</p>
+
+<h2 id="lennard-jones">Lennard-Jones</h2>
+
+<p>Similarly to a <a href="#weak-interaction-piecewise-harmonic">weak interaction</a> potential, the Lennard-Jones potential models the interaction between a pair of particles. However it is not a soft potential and therefore requires a relatively small time step in order to function correctly. The potential term reads</p>
+
+<div class="kdmath">$$
+V_\text{LJ}(\|\mathbf{x_1}-\mathbf{x_2}\|_2) = V_\text{LJ}(r) = k(\varepsilon, n, m)\left[ \left(\frac{\sigma}{r}\right)^m - \left(\frac{\sigma}{r}\right)^n \right],
+$$</div>
+
+<p>where $k(\varepsilon, n, m)\in\mathbb{R}$ is the force constant, $\sigma\in\mathbb{R}$ the distance at which the inter-particle potential is zero, $\varepsilon\in\mathbb{R}$ the depth of the potential well, i.e., $V_\text{LJ}(r_\text{min})=-\varepsilon$, and $m,n\in\mathbb{N}, m&gt;n$ exponents which determine the stiffness and range of the potential. For the classical Lennard-Jones potential the exponents are given by $m=12$ and $n=6$.
+The potential itself approaches but never reaches zero beyond the interaction well. Therefore, a cutoff is introduced, usually at $r_c=2.5\sigma$ (for the 12-6 LJ potential), which is the point at which the potential as roughly $1/60$th of its minimal value $-\varepsilon$. This however leads to a jump discontinuity at $r_c$ in the energy landscape, which can be avoided by shifting the potential by the value at the discontinuity:</p>
+
+<div class="kdmath">$$
+V_{\text{LJ}_\text{trunc}}(r) = \begin{cases} V_\text{LJ}(r)  - V_\text{LJ}(r_c) &amp;\text{, if } r \leq r_c,\\ 0&amp;\text{, otherwise.} \end{cases}
+$$</div>
+
+<p>The force constant $k$ is chosen such that the depth at the well is is $V(r_\mathrm{min}) = -\varepsilon$, i.e.,</p>
+
+<div class="kdmath">$$
+k = -\frac{\varepsilon}{\left( \frac{\sigma}{r_\mathrm{min}} \right)^m - \left( \frac{\sigma}{r_\mathrm{min}} \right)^n}.
+$$</div>
+
+<p class="centered"><img src="assets/potentials/lennard_jones_12_6.png" alt="" /></p>
+
+<p>Different choices of exponents that can be found in the literature are, e.g., $9-3$, $9-6$, or  $8-6$.</p>
+
+<p class="centered"><img src="assets/potentials/lennard_jones.png" alt="" /></p>
+
+<p>Adding such a potential to a system can be achieved by calling</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">potentials</span><span class="p">.</span><span class="n">add_lennard_jones</span><span class="p">(</span>
+    <span class="s">"A"</span><span class="p">,</span> <span class="s">"B"</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>yielding a truncated 12-6 Lennard-Jones potential between particles of type A and B with a zero inter-particle potential at $\sigma=2.5$, a well depth of $\varepsilon=1.0$, and a cutoff radius of $r_c=2.5 = 2.5\cdot\sigma$. If the shift in the energy landscape to avoid the jump discontinuity is not desired, it can be switched off by setting <code class="highlighter-rouge">shift=False</code>.</p>
+
+<h2 id="screened-electrostatics">Screened electrostatics</h2>
+
+<p>The “screened electrostatics” (also: Yukawa or Debye-Hückel) potential is a potential that represents electrostatic interaction (both repulsive or attractive), which is screened with a certain screening depth. This kind of potential becomes important when dealing with particles representing proteins that have a net-charge. However, it is usually more expensive to evaluate than, e.g., <a href="#harmonic-repulsion">harmonic repulsion</a>, as it requires a larger cutoff and smaller time step. If the electrostatic term is attractive, a core repulsion term is added. The potential term reads</p>
+
+<div class="kdmath">$$
+V(\|\mathbf{x_1}-\mathbf{x_2}\|_2) = V(r) = \begin{cases}
+C\frac{\exp(-\kappa r)}{r} + D\left( \frac{\sigma}{r} \right)^n &amp;\text{, if } r \leq r_c,\\
+0 &amp;\text{, otherwise,}
+\end{cases}
+$$</div>
+
+<p>where $C\in\mathbb{R}$ is the electrostatic repulsion strength in units of energy times distance, $\kappa\in\mathbb{R}$ is the inverse screening depth in units of 1/length, $D\in\mathbb{R}$ is the repulsion strength in units of energy, $\sigma\in\mathbb{R}$ is the core repulsion radius or zero-interaction radius in units of length, $n\in\mathbb{N}$ is the core repulsion exponent (dimensionless), and $r_c\in\mathbb{R}$ the cutoff radius in units of length. It typically has the following shape:</p>
+
+<p class="centered"><img src="assets/potentials/screened_electrostatic.png" alt="" /></p>
+
+<p>One can observe that the first term in the potential’s definition diverges towards $-\infty$ for $r\searrow 0$ which is an effect that gets countered by the second term, diverging towards $+\infty$ for $r\searrow 0$. The depth of the potential well increases with an increasing exponent $n$.</p>
+
+<p>Adding such a potential to a system amounts to</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">potentials</span><span class="p">.</span><span class="n">add_screened_electrostatics</span><span class="p">(</span>
+    <span class="s">"A"</span><span class="p">,</span> <span class="s">"B"</span><span class="p">,</span> <span class="n">electrostatic_strength</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">inverse_screening_depth</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+    <span class="n">repulsion_strength</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">repulsion_distance</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">exponent</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mf">6.</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>which would introduce an electrostatic interaction between particles of type A and B that resembles the above plot.</p>
+
+</section>
+
+<section id="topologies">
+<h1>Topologies
+</h1>
+<p>Topologies are a way to include molecular structure in a reaction-diffusion simulation. More specifically, a topology is a group of particles with fixed potential terms like bonds and angles between certain particles. 
+Topologies in ReaDDy consist of two ingredients:</p>
+<ul>
+  <li>A connectivity graph, where the vertices of the graph correspond to the particles in the topology,</li>
+  <li>a lookup table for potential terms between certain combinations of particle types.</li>
+</ul>
+
+<p>How to set up the actual connectivity graph can be found in the section about <a href="/simulation.html">setting up and running the simulation</a>, as it requires particles being added to the simulation.</p>
+
+<p>Since particles that are part of a topology are internally treated differently than “normal” particles, their species have to be configured by a call to</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s">"T"</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Furthermore, for operations that function on the topology level, topologies have a “topology type” which can be seen as the generalization of a “particle type”. To add such a type, one can invoke</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">add_type</span><span class="p">(</span><span class="s">"My topology type"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>For a topology to be recognized as “valid”, both of the following conditions need to be fulfilled:</p>
+<ol>
+  <li>The connectivity graph needs to be connected, i.e., there must not be independent components.</li>
+  <li>Each edge in the connectivity graph needs to have a corresponding bond configured based on the respective particle types.
+If one of these conditions is not fulfilled, an exception is raised and the simulation will not start.</li>
+</ol>
+
+</section>
+
+<section id="topology_potentials">
+<h1>Potentials
+</h1>
+<p>Topologies are defined by a set of particles that are connected with a graph and a lookup table that defines what connectivities between what particle types yield which potentials.
+This section deals with the latter, i.e., with the lookup table. The lookup table is independent of the topology type, so all potentials that are defined here will be applied to pairs/triples/quadruples of particles which are connected in the respective topologies connectivity graph.</p>
+
+<p class="centered"><img src="assets/topologies/topology_graph.png" alt="" /></p>
+
+<p>In this picture the dashed lines denote the connectivity graph between the particles, the blue lines bond potentials, the green lines angle potentials, and the orange lines dihedral potentials. One can see that bonds are defined on pairs of particles, angles on triples, dihedrals on quadruples. In this particular case one has</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Bonds</th>
+      <th>Angles</th>
+      <th>Dihedrals</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$A\leftrightarrow A$</td>
+      <td>$C\leftrightarrow B\leftrightarrow A$</td>
+      <td>$A\leftrightarrow A\leftrightarrow B \leftrightarrow A$</td>
+    </tr>
+    <tr>
+      <td>$A\leftrightarrow B$</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>$A\leftrightarrow C$</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In an actual instance of a topology one would also have to define a bond between particles of type $C\leftrightarrow C$ or remove that edge from the graph, otherwise it would not be considered valid.</p>
+
+<p>ReaDDy supports three types of potentials within topologies:</p>
+
+<ul id="markdown-toc">
+  <li><a href="#harmonic-bonds" id="markdown-toc-harmonic-bonds">Harmonic bonds</a></li>
+  <li><a href="#harmonic-angles" id="markdown-toc-harmonic-angles">Harmonic angles</a></li>
+  <li><a href="#cosine-dihedrals" id="markdown-toc-cosine-dihedrals">Cosine dihedrals</a></li>
+</ul>
+
+<h2 id="harmonic-bonds">Harmonic bonds</h2>
+
+<p class="centered"><img src="assets/topologies/top_bond.png" alt="" /></p>
+
+<p>Harmonic bonds model, e.g., covalent bonds in a molecular structure. The potential term yields forces that push pairs of particles away from one another if they become closer than a certain distance and attracts them if they are further apart than that distance. It reads</p>
+
+<div class="kdmath">$$
+V(\|\mathbf{x}_1-\mathbf{x}_2\|_2) = V(r) = k(r-r_0)^2,
+$$</div>
+
+<p>where $r_0$ is the preferred distance and $k$ the force constant.</p>
+
+<p>Adding such a potential term to a system amounts to, e.g.,</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s">"T1"</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">2.</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s">"T2"</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">4.</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">configure_harmonic_bond</span><span class="p">(</span>
+    <span class="s">"T1"</span><span class="p">,</span> <span class="s">"T2"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">10.</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">2.</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>which would have the effect of introducing for each topology a harmonic bond with force constant 10 and preferred distance 2 between each adjacent pair of particles with types “T1” and “T2”, respectively.</p>
+
+<h2 id="harmonic-angles">Harmonic angles</h2>
+
+<p>Harmonic angles are potential terms that yield a preferred configuration for a triple of particles in terms of the spanned angle $\theta$.</p>
+
+<p class="centered"><img src="assets/topologies/top_angle.png" alt="" /></p>
+
+<p>Should the spanned angle be different from the preferred angle $\theta_0$, a harmonic force acts on each of the particles toward the preferred angle. The potential energy term reads</p>
+
+<div class="kdmath">$$
+V(\theta_{i,j,k}) = k(\theta_{i,j,k} - \theta_0)^2,
+$$</div>
+
+<p>where $\theta_{i,j,k}$ corresponds to the angle spanned by three particle’s positions $\mathbf{x}_i, \mathbf{x}_j, \mathbf{x}_k$ and $k$ is the force constant.</p>
+
+<p>Configuring such a potential for a system amounts to, e.g.,</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s">"T1"</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">2.</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s">"T2"</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">4.</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s">"T3"</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">4.</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">configure_harmonic_angle</span><span class="p">(</span>
+    <span class="s">"T1"</span><span class="p">,</span> <span class="s">"T2"</span><span class="p">,</span> <span class="s">"T3"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">equilibrium_angle</span><span class="o">=</span><span class="mf">3.141</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>yielding harmonic angle potential terms for each triple of particles with types <code class="highlighter-rouge">(T1, T2, T3)</code> (or equivalently types <code class="highlighter-rouge">(T3, T2, T1)</code>) that are contained in a topology and have edges between the particles corresponding to types <code class="highlighter-rouge">(T1, T2)</code> and <code class="highlighter-rouge">(T2, T3)</code>, respectively.</p>
+
+<h2 id="cosine-dihedrals">Cosine dihedrals</h2>
+
+<p class="centered"><img src="assets/topologies/top_dihedral.png" alt="" /></p>
+
+<p>The sketch above depicts the definition of the proper dihedral angle $\phi$ spanned by four particles with corrdinates $\mathbf{x}_i$, $\mathbf{x}_j$, $\mathbf{x}_k$, and $\mathbf{x}_l$, respectively. The potential energy is given by</p>
+
+<div class="kdmath">$$
+V(\phi) = k(1+\cos (n\phi - \phi_0)),
+$$</div>
+
+<p>where $\phi_0\in [ -\pi,\pi ]$ represents the offset angle, $k$ the force constant in units of <code class="highlighter-rouge">energy/angle**2</code>, and $n\in\mathbb{N}_{&gt;0}$ the multiplicity, indicating the number of minima encountered when rotating the bond through $360^\circ$.
+The $i$-th preferred particle configuration, i.e. the $i$-th minimum of $V$ are $\phi_i = \frac{1}{n}\left( \frac{\pi}{2} - \phi_0 + i\pi \right)$</p>
+
+<p>Configuring such a potential for a system amounts to, e.g.,</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s">"T1"</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">2.</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s">"T2"</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">4.</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s">"T3"</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">4.</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s">"T4"</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">4.</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">configure_cosine_dihedral</span><span class="p">(</span>
+    <span class="s">"T1"</span><span class="p">,</span> <span class="s">"T2"</span><span class="p">,</span> <span class="s">"T3"</span><span class="p">,</span> <span class="s">"T4"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">multiplicity</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">phi0</span><span class="o">=</span><span class="mf">0.</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>yielding cosine dihedral potentials for each path of length 4 with vertices corresponding to particles of types <code class="highlighter-rouge">(T1, T2, T3, T4)</code> in the connectivity graph of a topology instance. The sequence in which the types are given can be reversed, i.e.,</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">configure_cosine_dihedral</span><span class="p">(</span>
+    <span class="s">"T4"</span><span class="p">,</span> <span class="s">"T3"</span><span class="p">,</span> <span class="s">"T2"</span><span class="p">,</span> <span class="s">"T1"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">multiplicity</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">phi0</span><span class="o">=</span><span class="mf">0.</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>results in the same potential terms.</p>
+
+<p>Angles are internally always expressed in radians.</p>
+
+</section>
+
+<section id="topology_reactions">
+<h1>Topology reactions
+</h1>
+<p>Topology reactions provide means to change the structure of a topology during the course of a simulation. Changing the structure can involve:</p>
+<ul>
+  <li>Changing particle types of particles inside topologies and therefore changing the force field,</li>
+  <li>breaking and forming bonds inside a topology resulting in different connectivity or the separation of a topology in separated instances,</li>
+  <li>attaching particles to topologies,</li>
+  <li>connecting two topologies by introducing an edge between their graphs.</li>
+</ul>
+
+<p>These changes are divided into two types: Structural reactions and spatial reactions, where, as the name suggests, structural reactions change the internal structure of a topology and are independent of the actual spatial configuration of the system and spatial reactions represent local changes of the graph triggered by spatial events, i.e., attaching particles or forming bonds between two topology instances. The following sections are ordered accordingly:</p>
+
+<ul id="markdown-toc">
+  <li><a href="#structural-reactions" id="markdown-toc-structural-reactions">Structural reactions</a>    <ul>
+      <li><a href="#the-reaction-function" id="markdown-toc-the-reaction-function">The reaction function</a></li>
+      <li><a href="#the-rate-function" id="markdown-toc-the-rate-function">The rate function</a></li>
+      <li><a href="#adding-a-structural-reaction" id="markdown-toc-adding-a-structural-reaction">Adding a structural reaction</a></li>
+    </ul>
+  </li>
+  <li><a href="#spatial-reactions" id="markdown-toc-spatial-reactions">Spatial reactions</a></li>
+  <li><a href="#predefined-reactions" id="markdown-toc-predefined-reactions">Predefined reactions</a>    <ul>
+      <li><a href="#topology-dissociation" id="markdown-toc-topology-dissociation">Topology dissociation</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="structural-reactions">Structural reactions</h2>
+<p>Structural topology reactions are defined on the topology type. They basically consist out of two functions:</p>
+<ul>
+  <li>the reaction function, taking a topology object as input and returning a <code class="highlighter-rouge">reaction recipe</code> describing what the structural changes are to be applied to the topology</li>
+  <li>the rate function, which takes a topology object as input and returns a corresponding fixed rate.</li>
+</ul>
+
+<p>The rate function is evaluated initially and then only when the topology has changed due to other reactions. The reaction function is only evaluated when a topology reaction is performed. It should be noted that these function evaluations can have negative performance impacts when occurring frequently.</p>
+
+<p class="centered"><img src="assets/topologies/topology_fission.png" alt="" /></p>
+
+<p>The above figure shows an example of a structural topology reaction. In the upper row there are particles $i,j,k,l$ from left to right with a graph that connects the pairs $(i,j)$, $(j,k)$, and $(k,l)$. Due to this adjacency, there are bonds $b_{01}$, $b_{12}$, and $b_{23}$ as well as angles $a_{012}$ and $a_{123}$. 
+The lower row represents the configuration after a topology reaction that removed the edge $(k,l)$. In its absence the bond $b_{12}$ and the angle $a_{123}$ are removed and the topology originally consisting out of four particles decays into two topologies - one with three particles and one trivial topology containing just one particle.</p>
+
+<h3 id="the-reaction-function">The reaction function</h3>
+<p>In order to configure such a reaction for a reaction diffusion system, one first needs to set up a function that given a topology returns an instance of <code class="highlighter-rouge">StructuralReactionRecipe</code>, essentially describing the desired changes in structure:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">no_op_reaction_function</span><span class="p">(</span><span class="n">topology</span><span class="p">):</span>
+    <span class="n">recipe</span> <span class="o">=</span> <span class="n">readdy</span><span class="p">.</span><span class="n">StructuralReactionRecipe</span><span class="p">(</span><span class="n">topology</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">recipe</span>
+</code></pre></div></div>
+<p>One can base the behavior of the reaction on the current state of the topology instance. It offers information about the contained particles configuration:</p>
+<ul>
+  <li><code class="highlighter-rouge">topology.get_graph()</code> or <code class="highlighter-rouge">topology.graph</code> yields the connectivity graph of the topology:
+    <ul>
+      <li><code class="highlighter-rouge">graph.get_vertices()</code> or <code class="highlighter-rouge">graph.vertices</code> yields a list of vertices that has a 1-1 correspondence to what is yielded by <code class="highlighter-rouge">topology.particles</code>. Each vertex itself can be iterated, yielding its adjacent vertices:
+        <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># for every vertex
+</span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">.</span><span class="n">vertices</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"vertex {}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">particle_index</span><span class="p">))</span>
+    <span class="c1"># obtain number of its neighbors' neighbors
+</span>    <span class="n">n_neighbors_neighbors</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">neighbor_neighbor</span> <span class="ow">in</span> <span class="n">neighbor</span><span class="p">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="n">n_neighbors_neighbors</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div>        </div>
+      </li>
+      <li><code class="highlighter-rouge">graph.get_edges()</code> or <code class="highlighter-rouge">graph.edges</code> yields a list of edges contained in the graph, where each edge is represented by a tuple of vertices:
+        <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">.</span><span class="n">get_edges</span><span class="p">():</span>
+    <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"edge {} -- {}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">v1</span><span class="p">.</span><span class="n">particle_index</span><span class="p">,</span> <span class="n">v2</span><span class="p">.</span><span class="n">particle_index</span><span class="p">))</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">topology.position_of_vertex(v)</code> yields the position of the particle corresponding to the provided vertex,</li>
+  <li><code class="highlighter-rouge">topology.particle_type_of_vertex(v)</code> yields the type of the particle corresponding to the provided vertex,</li>
+  <li><code class="highlighter-rouge">topology.particle_id_of_vertex(v)</code> yields the unique id of the particle corresponding to the provided vertex.</li>
+</ul>
+
+<p>With these information, there are several operations that can be added to a recipe:</p>
+<ul>
+  <li><code class="highlighter-rouge">recipe.change_particle_type(vertex_index, type)</code>: Changes the particle type of the to <code class="highlighter-rouge">vertex_index</code> associated particle to the given type, where the vertex index corresponds to the particle’s index. Can also be called with vertex instance directly.</li>
+  <li><code class="highlighter-rouge">recipe.add_edge(v_index1, v_index2)</code>: Introduces an edge in the graph between vertices corresponding to indices <code class="highlighter-rouge">v_index1</code> and <code class="highlighter-rouge">v_index2</code>. Can also be called with vertex instances directly.</li>
+  <li><code class="highlighter-rouge">recipe.remove_edge(v_index1, v_index2)</code>: Attempts to remove an edge between vertices corresponding to the indices. Depending on the configuration of the topology reaction, this can lead to a failed state or multiple sub-topologies. Can also be called with vertex instance directly.</li>
+  <li><code class="highlighter-rouge">recipe.remove_edge(edge)</code>: Same as with indices just that it takes an edge instance as contained in <code class="highlighter-rouge">graph.get_edges()</code>.</li>
+  <li><code class="highlighter-rouge">recipe.separate_vertex(index)</code>: Removes all edges from the topology’s graph that contain the vertex corresponding to the provided index (or vertex instance). If no new edge is formed between the given vertex this call, depending on the configuration of the reaction, can lead to a failed state or to formation of a topology consisting out of only one particle. In the latter case, this call can be followed by a call to <code class="highlighter-rouge">recipe.change_particle_type</code>, where the target type is no topology type. Then, no one-particle topology will be formed but the particle will simply be emitted and treated as normal particle.</li>
+  <li><code class="highlighter-rouge">recipe.change_topology_type(type)</code>: Changes the type of the topology to the given type, potentially changing its structural and spatial topology reactions.</li>
+  <li><code class="highlighter-rouge">recipe.append_particle(list_of_neighbor_vertices, particle_type, position)</code>: Adds a new particle to the topology. It will have the specified <code class="highlighter-rouge">particle_type</code> and <code class="highlighter-rouge">position</code> and will be connected to the vertices specified in <code class="highlighter-rouge">list_of_neighbor_vertices</code>.</li>
+</ul>
+
+<h3 id="the-rate-function">The rate function</h3>
+<p>Same as ordinary reactions, also structural topology reactions have a rate with which they occur. This rate is microscopic, has units of inverse time and can be understood as the probability per unit time of the reaction taking place. Same as for normal reactions, the probability is evaluated as $p=1-e^{-\lambda\tau}$, where $\lambda\geq0$ is the rate and $\tau$ the integration time step.</p>
+
+<p>In order to define a rate for a certain structural reaction, one needs to provide a rate function:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">my_rate_function</span><span class="p">(</span><span class="n">topology</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">topology</span><span class="p">.</span><span class="n">get_graph</span><span class="p">().</span><span class="n">get_vertices</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+      <span class="k">return</span> <span class="p">.</span><span class="mi">5</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">return</span> <span class="mf">20.</span>
+</code></pre></div></div>
+<p>The function takes a topology instance as argument and returns a floating point value representing the rate in terms of the magnitude w.r.t. the default units. In this example it returns half the number of vertices if the number of vertices is larger than three, otherwise a constant value of 20.</p>
+
+<p>For performance reasons it is only evaluated if the topology changes structurally, therefore the rate should optimally not depend on anything that can change a lot in the simulation time between evaluating the rate function and performing the reaction, e.g., the particles’ spatial configuration.</p>
+
+<h3 id="adding-a-structural-reaction">Adding a structural reaction</h3>
+<p>Given these two functions, the reaction and the rate function, all that is left to do is to 
+add them to a certain topology type in the system:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">add_structural_reaction</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">"my_structural_reaction"</span><span class="p">,</span>
+    <span class="n">topology_type</span><span class="o">=</span><span class="s">"TType"</span><span class="p">,</span> 
+    <span class="n">reaction_function</span><span class="o">=</span><span class="n">no_op_reaction_function</span><span class="p">,</span> 
+    <span class="n">rate_function</span><span class="o">=</span><span class="n">my_rate_function</span><span class="p">,</span> 
+    <span class="n">raise_if_invalid</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">expect_connected</span><span class="o">=</span><span class="bp">False</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>where <code class="highlighter-rouge">name</code> is a user-provided unique identifier for this reaction, which is used in observing reaction counts. 
+The above snippet adds the structural reaction <code class="highlighter-rouge">my_structural_reaction</code> to all topologies of type <code class="highlighter-rouge">TType</code> with the provided reaction function and rate function.
+The option <code class="highlighter-rouge">raise_if_invalid</code> raises, if set to <code class="highlighter-rouge">True</code>, an error if the outcome of the reaction function is invalid, otherwise it will just roll back to the state of before the reaction and print a warning into the log.
+The other option <code class="highlighter-rouge">expect_connected</code> can trigger depending on the value of <code class="highlighter-rouge">raise_if_invalid</code> a raise if set to <code class="highlighter-rouge">True</code> and the topology’s connectivity graph decayed into two or more independent components.</p>
+
+<h2 id="spatial-reactions">Spatial reactions</h2>
+<p>Spatial reactions are locally triggered by proximity of particles, therefore they are not only defined on topology types but also on particle types. In principle there are two kinds of spatial reactions: The kind that causes forming a bond between two particles and the kind that just changes a particle/topology type, corresponding to particle fusion and enzymatic reactions, respectively. Analogously spatial topology reactions also possess</p>
+<ul>
+  <li>a rate determining how likely the reaction occurs per time step as well as</li>
+  <li>a radius determining the volume which is scanned for potential reaction partners.</li>
+</ul>
+
+<p>To simplify the definition of these reactions a descriptor language is used, deciding about the nature of the reaction. It consists out of a label and a topology-particle-type reaction equation:</p>
+
+<div class="kdmath">$$
+\begin{aligned}
+  \mathrm{label\_enzymatic: }&amp; T_1(P_1)+T_2(P_2)\rightarrow T_3(P_3) + T_4(P_4)\\
+  \mathrm{label\_fusion: } &amp; T_1(P_1)+T_2(P_2)\rightarrow T_3(P_3\mathrm{--}P_4)
+\end{aligned}
+$$</div>
+
+<p>where $T_i$ denote topology types, $P_i$ denote particle types.</p>
+<ul>
+  <li>The first reaction is of “enzymatic” type, changing the types of particles corresponding to $P_1$ to $P_3$ and $P_2$ to $P_4$ if they are contained in topologies of type $T_1$ and $T_2$ which are also changed to $T_3$ and $T_4$, respectively.</li>
+  <li>The second reaction is of “fusion” type, merging two topologies of types $T_1$ and $T_2$ by forming a bond between a particle pair with types $P_1$ and $P_2$ in their respective topologies. The result is a topology of type $T_3$ and the particles between which the bond was formed are of types $P_3$ and $P_4$.</li>
+</ul>
+
+<p>Some of these reactions can also be performed with a topology and a free particle. In particular, the following types of reactions are possible:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">TT-Fusion: T1(p1)+T2(p2) -&gt; T3(p3--p4)</code>: a fusion of a topology of type <code class="highlighter-rouge">T1</code> with a topology of type <code class="highlighter-rouge">T2</code> by forming a bond between a pair of particles with types <code class="highlighter-rouge">p1</code> and <code class="highlighter-rouge">p2</code>, where the product is a topology of type <code class="highlighter-rouge">T3</code> and the newly connected particles changed their types to <code class="highlighter-rouge">p3</code> and <code class="highlighter-rouge">p4</code>, respectively.</li>
+  <li><code class="highlighter-rouge">TT-Fusion-self: T1(p1)+T1(p2) -&gt; T3(p3--p4) [self=true]</code>: a fusion of two topologies of type <code class="highlighter-rouge">T1</code> similarly to the first type with the difference that now also particles within the same topology can be reaction partners.</li>
+  <li><code class="highlighter-rouge">TP-Fusion: T1(p1)+(p2) -&gt; T2(p3--p4)</code>: attaching a free particle of type <code class="highlighter-rouge">p2</code> to a topology of type <code class="highlighter-rouge">T1</code> if it is close to a particle of type <code class="highlighter-rouge">p1</code> in that topology, yielding a topology of type <code class="highlighter-rouge">T2</code> in which the newly connected particles are now of type <code class="highlighter-rouge">p3</code> and <code class="highlighter-rouge">p4</code>, respectively.</li>
+  <li><code class="highlighter-rouge">TT-Enzymatic: T1(p1)+T2(p2) -&gt; T3(p3)+T4(p4)</code>: not changing the structure of the graph of the reaction partners but changing particle types possibly locally influencing the force field and changing topology types possibly leading to different topology reactions.</li>
+  <li><code class="highlighter-rouge">TP-Enzymatic: T1(p1)+(p2) -&gt; T2(p3)+(p4)</code>: same as the <code class="highlighter-rouge">TT-Enzymatic</code> reaction just that here it is performed with one topology and one free particle.</li>
+</ul>
+
+<p>Adding such a reaction to a system amounts to, e.g.,</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">add_spatial_reaction</span><span class="p">(</span>
+  <span class="s">'TT-Fusion: T1(p1)+T2(p2) -&gt; T3(p3--p4)'</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>where the rate is in units of <code class="highlighter-rouge">1/time</code> and the radius is a length. The descriptor is always the first argument and can be of any of the above discussed types.</p>
+
+<p>It should be noted that while usually “normal” <a href="/reactions.html">particle-particle reactions</a> are not possible with topology-typed particles, one can define enzymatic reactions where the catalyst is a topology type as this leaves the topology untouched and therefore can be evaluated in the normal reaction procedure.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">add_species</span><span class="p">(</span><span class="s">"A"</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">add_species</span><span class="p">(</span><span class="s">"B"</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s">"P"</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="p">.</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">add_type</span><span class="p">(</span><span class="s">"T"</span><span class="p">)</span>
+
+<span class="c1"># OK, this attaches the particle A to the topology
+</span><span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">add_spatial_reaction</span><span class="p">(</span><span class="s">'label1: T1(P)+(A)-&gt;T1(P--P)'</span><span class="p">)</span>
+<span class="c1"># Fails, A is not a topology species type
+</span><span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">add_spatial_reaction</span><span class="p">(</span><span class="s">'label1: T1(P)+(A)-&gt;T1(P--A)'</span><span class="p">)</span>
+<span class="c1"># Fails, P is not a normal particle type
+</span><span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">add_spatial_reaction</span><span class="p">(</span><span class="s">'label1: T1(P)+(P)-&gt;T1(P--P)'</span><span class="p">)</span>
+<span class="c1"># OK, this is a normal fusion reaction
+</span><span class="n">system</span><span class="p">.</span><span class="n">reactions</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">'A +(2.) A -&gt; A'</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="p">.</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Fails, P is not a normal particle type but a topology particle type
+</span><span class="n">system</span><span class="p">.</span><span class="n">reactions</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">'A +(2.) P -&gt; A'</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="p">.</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># OK, this is the special case where P is the catalyst
+</span><span class="n">system</span><span class="p">.</span><span class="n">reactions</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">'A +(2.) P -&gt; B + P'</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="p">.</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="predefined-reactions">Predefined reactions</h2>
+
+<p>For convenience there are predefined topology reactions that can be added to a certain topology type.</p>
+
+<h3 id="topology-dissociation">Topology dissociation</h3>
+
+<p>This reaction causes a topology to break bonds with a rate of <code class="highlighter-rouge">n_edges*bond_breaking_rate</code>, causing it to dissociate. In this process it may decompose into multiple independent components of the same topology type. Consequently, each of these independent components again has a topology dissociation reaction.</p>
+
+<p>Adding such a reaction to a system amounts to</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">add_type</span><span class="p">(</span><span class="s">"T"</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">add_topology_dissociation</span><span class="p">(</span><span class="s">"T"</span><span class="p">,</span> <span class="n">bond_breaking_rate</span><span class="o">=</span><span class="mf">10.</span><span class="p">)</span>
+</code></pre></div></div>
+
+</section>
+
+
+
+        </article>
+        <div class="foot">
+            © Copyright 2020 <a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/">AI4Science (former CMB) Group</a>
+        </div>
+    </div>
+</div>
+<script src="https://readdy.github.io/libraries/perfect-scrollbar/js/perfect-scrollbar.min.js"></script>
+<script src="https://readdy.github.io/assets/js/scrollbar.js"></script>
+</body>
+</html>

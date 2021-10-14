@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Topologies</title>
+
+    <link rel="stylesheet" href="/assets/css/readdy_documentation.css">
+    <link rel="canonical" href="https://readdy.github.io/demonstration/topologies">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto+Mono|Lora|Lato|Source+Sans+Pro|Roboto+Slab|Merriweather" rel="stylesheet">
+    <link rel="stylesheet" href="https://readdy.github.io/libraries/perfect-scrollbar/css/perfect-scrollbar.min.css"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false},
+                ]
+            });
+        });
+    </script>
+
+    <link rel="icon" type="image/png" href="/assets/icon_black_32px.png">
+
+</head>
+
+
+<body>
+<div class="side-wrapper" id="unique-side-container">
+<div class="side">
+    <div class="side-logo logo-readdy"><a href="https://readdy.github.io/index.html"></a></div>
+    <div style="margin-right: 1.5rem; text-align: center;">
+        <a href="https://readdy.github.io/index.html">ReaDDy - A particle-based<br>reaction-diffusion simulator</a>
+    </div>
+
+    <div class="side-searchbar-wrapper">
+        <form action="https://readdy.github.io/search.html" method="get">
+            <input type="text" id="search-box" name="query" placeholder="Search ...">
+        </form>
+    </div>
+    <nav class="side-nav">
+        <a class="side-nav-item" href="https://readdy.github.io/index.html">Home</a>
+        <a class="side-nav-item" href="https://readdy.github.io/installation.html">Install readdy</a>
+        <div class="nav-supergroup-delimiter">
+            <b>API</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/system.html">System configuration</a>
+        
+        <a class="side-nav-item" href="https://readdy.github.io/simulation.html">Simulation</a>
+        
+        <a class="side-nav-item" href="https://readdy.github.io/results.html">Post-processing</a>
+
+        <div class="nav-supergroup-delimiter">
+            <b>Examples</b>
+        </div>
+        <a class="side-nav-item active" href="https://readdy.github.io/demonstration.html">Demonstration</a>
+        
+            
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/demonstration/api">
+                    Simple example
+
+                </a>
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/demonstration/topologies">
+                    Topologies
+
+                </a>
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/demonstration/growing_polymer">
+                    Growing polymer
+
+                </a>
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/demonstration/living_polymers">
+                    Living polymers
+
+                </a>
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/demonstration/constant_concentration">
+                    Constant concentration
+
+                </a>
+            
+        
+
+        <a class="side-nav-item" href="https://readdy.github.io/validation.html">Validation</a>
+        
+
+        <a class="side-nav-item" href="https://readdy.github.io/benchmark.html">Benchmark</a>
+        
+
+
+        <div class="nav-supergroup-delimiter">
+            <b>Advanced topics</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/cookbook.html">Cookbook</a>
+        <a class="side-nav-item" href="https://readdy.github.io/development.html">Development</a>
+        
+
+        
+
+        <div class="nav-supergroup-delimiter">
+            <b>Legal notices</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/imprint.html">Imprint</a>
+        <a class="side-nav-item" href="https://readdy.github.io/software_license.html">Software license</a>
+
+        
+
+    </nav>
+
+    <div class="github-wrapper">
+        <a href="https://github.com/readdy/readdy" style="width: 16rem; height:100%; position:absolute; top:0; left:0;">
+            <div class="github-text">ReaDDy on GitHub</div>
+            <div class="side-logo logo-github"></div>
+        </a>
+    </div>
+    <div class="side-logo logo-cmb"><a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/"></a></div>
+</div>
+</div>
+
+<div class="main-container" id="unique-main-container">
+    <div class="main notebook">
+        <article>
+            <div class="docpage-heading"><h1>Topologies</h1></div>
+
+            <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">readdy</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">readdy</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;v2.0.3-27&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Step 1: Define the system</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">system</span> <span class="o">=</span> <span class="n">readdy</span><span class="o">.</span><span class="n">ReactionDiffusionSystem</span><span class="p">(</span><span class="n">box_size</span><span class="o">=</span><span class="p">[</span><span class="mi">150</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">150</span><span class="p">])</span>
+<span class="n">system</span><span class="o">.</span><span class="n">periodic_boundary_conditions</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span>
+
+<span class="n">system</span><span class="o">.</span><span class="n">add_species</span><span class="p">(</span><span class="s2">&quot;Ligand&quot;</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">3.</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">add_species</span><span class="p">(</span><span class="s2">&quot;Decay&quot;</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s2">&quot;unstable T&quot;</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Add a decay reaction for "Decay" praticles and harmonic repulsion between "unstable T" and "Decay"</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">system</span><span class="o">.</span><span class="n">reactions</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;decay: Decay -&gt;&quot;</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">potentials</span><span class="o">.</span><span class="n">add_box</span><span class="p">(</span><span class="s2">&quot;Ligand&quot;</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">70</span><span class="p">,</span> <span class="o">-</span><span class="mi">70</span><span class="p">,</span> <span class="o">-</span><span class="mi">70</span><span class="p">],</span> <span class="p">[</span><span class="mi">130</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">130</span><span class="p">])</span>
+<span class="n">system</span><span class="o">.</span><span class="n">potentials</span><span class="o">.</span><span class="n">add_box</span><span class="p">(</span><span class="s2">&quot;Decay&quot;</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">70</span><span class="p">,</span> <span class="o">-</span><span class="mi">70</span><span class="p">,</span> <span class="o">-</span><span class="mi">70</span><span class="p">],</span> <span class="p">[</span><span class="mi">130</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">130</span><span class="p">])</span>
+<span class="n">system</span><span class="o">.</span><span class="n">potentials</span><span class="o">.</span><span class="n">add_box</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">70</span><span class="p">,</span> <span class="o">-</span><span class="mi">70</span><span class="p">,</span> <span class="o">-</span><span class="mi">70</span><span class="p">],</span> <span class="p">[</span><span class="mi">130</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">130</span><span class="p">])</span>
+<span class="n">system</span><span class="o">.</span><span class="n">potentials</span><span class="o">.</span><span class="n">add_box</span><span class="p">(</span><span class="s2">&quot;unstable T&quot;</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">70</span><span class="p">,</span> <span class="o">-</span><span class="mi">70</span><span class="p">,</span> <span class="o">-</span><span class="mi">70</span><span class="p">],</span> <span class="p">[</span><span class="mi">130</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">130</span><span class="p">])</span>
+<span class="n">system</span><span class="o">.</span><span class="n">potentials</span><span class="o">.</span><span class="n">add_harmonic_repulsion</span><span class="p">(</span><span class="s2">&quot;Decay&quot;</span><span class="p">,</span> <span class="s2">&quot;unstable T&quot;</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">20.</span><span class="p">,</span> 
+                                         <span class="n">interaction_distance</span><span class="o">=</span><span class="mf">2.</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Add</p>
+<ul>
+<li>harmonic bonds and angles between pairs/triples of "T" and "unstable T"</li>
+<li>three topology types: stable (with no topology reactions), intermediate, and unstable</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">configure_harmonic_bond</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">20.</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">2.</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">configure_harmonic_bond</span><span class="p">(</span><span class="s2">&quot;unstable T&quot;</span><span class="p">,</span> <span class="s2">&quot;unstable T&quot;</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">20.</span><span class="p">,</span> 
+                                          <span class="n">length</span><span class="o">=</span><span class="mf">2.</span><span class="p">)</span>
+
+<span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">add_type</span><span class="p">(</span><span class="s2">&quot;stable&quot;</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">add_type</span><span class="p">(</span><span class="s2">&quot;intermediate&quot;</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">add_type</span><span class="p">(</span><span class="s2">&quot;unstable&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Change the topology type from stable to intermediate</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">add_spatial_reaction</span><span class="p">(</span>
+    <span class="s2">&quot;encounter: stable(T) + (Ligand) -&gt; intermediate(T) + (Ligand)&quot;</span><span class="p">,</span> 
+    <span class="n">rate</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">2.0</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Change the topology type from intermediate to unstable, change particle types from T to unstable T</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">intermediate_rate_function</span><span class="p">(</span><span class="n">topology</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">1e3</span>
+<span class="k">def</span> <span class="nf">intermediate_reaction_function</span><span class="p">(</span><span class="n">topology</span><span class="p">):</span>
+    <span class="n">recipe</span> <span class="o">=</span> <span class="n">readdy</span><span class="o">.</span><span class="n">StructuralReactionRecipe</span><span class="p">(</span><span class="n">topology</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">topology</span><span class="o">.</span><span class="n">get_graph</span><span class="p">()</span><span class="o">.</span><span class="n">get_vertices</span><span class="p">())):</span>
+        <span class="n">recipe</span><span class="o">.</span><span class="n">change_particle_type</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="s2">&quot;unstable T&quot;</span><span class="p">)</span>
+    <span class="n">recipe</span><span class="o">.</span><span class="n">change_topology_type</span><span class="p">(</span><span class="s2">&quot;unstable&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">recipe</span>
+<span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">add_structural_reaction</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;to_intermediate&#39;</span><span class="p">,</span> <span class="n">topology_type</span><span class="o">=</span><span class="s2">&quot;intermediate&quot;</span><span class="p">,</span> 
+                                          <span class="n">reaction_function</span><span class="o">=</span><span class="n">intermediate_reaction_function</span><span class="p">,</span> 
+                                          <span class="n">rate_function</span><span class="o">=</span><span class="n">intermediate_rate_function</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Randomly select a vertex and separate it from the graph, change it's particle type to Decay</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">unstable_rate_function</span><span class="p">(</span><span class="n">topology</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">.1</span>
+<span class="k">def</span> <span class="nf">unstable_reaction_function</span><span class="p">(</span><span class="n">topology</span><span class="p">):</span>
+    <span class="n">recipe</span> <span class="o">=</span> <span class="n">readdy</span><span class="o">.</span><span class="n">StructuralReactionRecipe</span><span class="p">(</span><span class="n">topology</span><span class="p">)</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">topology</span><span class="o">.</span><span class="n">particles</span><span class="p">))</span>
+    <span class="n">recipe</span><span class="o">.</span><span class="n">separate_vertex</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">recipe</span><span class="o">.</span><span class="n">change_particle_type</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;Decay&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">recipe</span>
+<span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">add_structural_reaction</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;to_unstable&quot;</span><span class="p">,</span> <span class="n">topology_type</span><span class="o">=</span><span class="s2">&quot;unstable&quot;</span><span class="p">,</span>
+                                          <span class="n">reaction_function</span><span class="o">=</span><span class="n">unstable_reaction_function</span><span class="p">,</span> 
+                                          <span class="n">rate_function</span><span class="o">=</span><span class="n">unstable_rate_function</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Step 2: Create the simulation object out of the system</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulation</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">simulation</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;CPU&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>add topology</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">n_topology_particles</span> <span class="o">=</span> <span class="mi">70</span>
+<span class="n">positions</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">3</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_topology_particles</span><span class="o">-</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="n">positions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">positions</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="n">delta</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+    <span class="n">positions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">positions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">2.</span><span class="o">*</span><span class="n">offset</span><span class="p">)</span>
+<span class="n">topology</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">add_topology</span><span class="p">(</span><span class="n">topology_type</span><span class="o">=</span><span class="s2">&quot;stable&quot;</span><span class="p">,</span> <span class="n">particle_types</span><span class="o">=</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> 
+                                   <span class="n">positions</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">positions</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>set up connectivity of topology</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="n">topology</span><span class="o">.</span><span class="n">get_graph</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">get_vertices</span><span class="p">())</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>add ligands</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulation</span><span class="o">.</span><span class="n">add_particles</span><span class="p">(</span><span class="s2">&quot;Ligand&quot;</span><span class="p">,</span><span class="o">-</span><span class="mi">6</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulation</span><span class="o">.</span><span class="n">output_file</span> <span class="o">=</span> <span class="s2">&quot;topology_simulation.h5&quot;</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">record_trajectory</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulation</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">n_steps</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">timestep</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>  0%|          | 0/1000 [00:00&lt;?, ?it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Configured kernel context with:
+--------------------------------
+ - kBT = 2.43614
+ - periodic b.c. = (false, false, false)
+ - box size = (150.0, 150.0, 150.0)
+ - particle types:
+     * Topology particle type &#34;unstable T&#34; with D=1.0
+     * Topology particle type &#34;T&#34; with D=1.0
+     *  particle type &#34;Ligand&#34; with D=3.0
+     *  particle type &#34;Decay&#34; with D=1.0
+ - potentials of order 1:
+     * for type &#34;unstable T&#34;
+         * Box potential with origin=(-70, -70, -70), extent=(130, 130, 130), and Force constant k=10.0
+     * for type &#34;T&#34;
+         * Box potential with origin=(-70, -70, -70), extent=(130, 130, 130), and Force constant k=10.0
+     * for type &#34;Ligand&#34;
+         * Box potential with origin=(-70, -70, -70), extent=(130, 130, 130), and Force constant k=10.0
+     * for type &#34;Decay&#34;
+         * Box potential with origin=(-70, -70, -70), extent=(130, 130, 130), and Force constant k=10.0
+ - potentials of order 2:
+     * for types &#34;Decay&#34; and &#34;unstable T&#34;
+         * Harmonic repulsion with Force constant k=20.0
+ - unimolecular reactions:
+     * Decay Decay -&gt; ø with a rate of 0.1
+ - topology potential configuration:
+     - bonds (2):
+         - Bonds for particle types unstable T and unstable T:
+             * Harmonic bond with force constant 20.0 and length 2.0
+         - Bonds for particle types T and T:
+             * Harmonic bond with force constant 20.0 and length 2.0
+ - topology types:
+     * topology type &#34;stable&#34; with 0 structural reactions
+     * topology type &#34;intermediate&#34; with 1 structural reactions
+     * topology type &#34;unstable&#34; with 1 structural reactions
+ - spatial topology reactions:
+     * Topology-particle enzymatic reaction &#34;encounter: stable(T) + (Ligand) -&gt; intermediate(T) + (Ligand)&#34;
+ - structural topology reactions:
+     - for topology type &#34;intermediate&#34; with 1 structural reactions:
+         * reaction with create child topologies = true
+     - for topology type &#34;unstable&#34; with 1 structural reactions:
+         * reaction with create child topologies = true
+
+Configured simulation loop with:
+--------------------------------
+ - timeStep = 0.01
+ - evaluateObservables = true
+ - progressOutputStride = 100
+ - context written to file = true
+ - Performing actions:
+   * Initialize neighbor list? true
+   * Update neighbor list? true
+   * Clear neighbor list? true
+   * Integrate diffusion? true
+   * Calculate forces? true
+   * Handle reactions? true
+   * Handle topology reactions? true
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>100%|██████████| 1000/1000 [00:35&lt;00:00, 27.98it/s]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">traj</span> <span class="o">=</span> <span class="n">readdy</span><span class="o">.</span><span class="n">Trajectory</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">traj</span><span class="o">.</span><span class="n">convert_to_xyz</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>
+<span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;9cG2J1Nihnk&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[18]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/9cG2J1Nihnk"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        </div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+ 
+
+
+        </article>
+        <div class="foot">
+            © Copyright 2020 <a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/">AI4Science (former CMB) Group</a>
+        </div>
+    </div>
+</div>
+<script src="https://readdy.github.io/libraries/perfect-scrollbar/js/perfect-scrollbar.min.js"></script>
+<script src="https://readdy.github.io/assets/js/scrollbar.js"></script>
+</body>
+</html>

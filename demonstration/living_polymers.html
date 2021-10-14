@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Living polymers</title>
+
+    <link rel="stylesheet" href="/assets/css/readdy_documentation.css">
+    <link rel="canonical" href="https://readdy.github.io/demonstration/living_polymers">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto+Mono|Lora|Lato|Source+Sans+Pro|Roboto+Slab|Merriweather" rel="stylesheet">
+    <link rel="stylesheet" href="https://readdy.github.io/libraries/perfect-scrollbar/css/perfect-scrollbar.min.css"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false},
+                ]
+            });
+        });
+    </script>
+
+    <link rel="icon" type="image/png" href="/assets/icon_black_32px.png">
+
+</head>
+
+
+<body>
+<div class="side-wrapper" id="unique-side-container">
+<div class="side">
+    <div class="side-logo logo-readdy"><a href="https://readdy.github.io/index.html"></a></div>
+    <div style="margin-right: 1.5rem; text-align: center;">
+        <a href="https://readdy.github.io/index.html">ReaDDy - A particle-based<br>reaction-diffusion simulator</a>
+    </div>
+
+    <div class="side-searchbar-wrapper">
+        <form action="https://readdy.github.io/search.html" method="get">
+            <input type="text" id="search-box" name="query" placeholder="Search ...">
+        </form>
+    </div>
+    <nav class="side-nav">
+        <a class="side-nav-item" href="https://readdy.github.io/index.html">Home</a>
+        <a class="side-nav-item" href="https://readdy.github.io/installation.html">Install readdy</a>
+        <div class="nav-supergroup-delimiter">
+            <b>API</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/system.html">System configuration</a>
+        
+        <a class="side-nav-item" href="https://readdy.github.io/simulation.html">Simulation</a>
+        
+        <a class="side-nav-item" href="https://readdy.github.io/results.html">Post-processing</a>
+
+        <div class="nav-supergroup-delimiter">
+            <b>Examples</b>
+        </div>
+        <a class="side-nav-item active" href="https://readdy.github.io/demonstration.html">Demonstration</a>
+        
+            
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/demonstration/api">
+                    Simple example
+
+                </a>
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/demonstration/topologies">
+                    Topologies
+
+                </a>
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/demonstration/growing_polymer">
+                    Growing polymer
+
+                </a>
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/demonstration/living_polymers">
+                    Living polymers
+
+                </a>
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/demonstration/constant_concentration">
+                    Constant concentration
+
+                </a>
+            
+        
+
+        <a class="side-nav-item" href="https://readdy.github.io/validation.html">Validation</a>
+        
+
+        <a class="side-nav-item" href="https://readdy.github.io/benchmark.html">Benchmark</a>
+        
+
+
+        <div class="nav-supergroup-delimiter">
+            <b>Advanced topics</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/cookbook.html">Cookbook</a>
+        <a class="side-nav-item" href="https://readdy.github.io/development.html">Development</a>
+        
+
+        
+
+        <div class="nav-supergroup-delimiter">
+            <b>Legal notices</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/imprint.html">Imprint</a>
+        <a class="side-nav-item" href="https://readdy.github.io/software_license.html">Software license</a>
+
+        
+
+    </nav>
+
+    <div class="github-wrapper">
+        <a href="https://github.com/readdy/readdy" style="width: 16rem; height:100%; position:absolute; top:0; left:0;">
+            <div class="github-text">ReaDDy on GitHub</div>
+            <div class="side-logo logo-github"></div>
+        </a>
+    </div>
+    <div class="side-logo logo-cmb"><a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/"></a></div>
+</div>
+</div>
+
+<div class="main-container" id="unique-main-container">
+    <div class="main notebook">
+        <article>
+            <div class="docpage-heading"><h1>Living polymers</h1></div>
+
+            <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">readdy</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">readdy</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;v2.0.3-27&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">system</span> <span class="o">=</span> <span class="n">readdy</span><span class="o">.</span><span class="n">ReactionDiffusionSystem</span><span class="p">(</span><span class="n">box_size</span><span class="o">=</span><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">add_type</span><span class="p">(</span><span class="s2">&quot;Polymer&quot;</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s2">&quot;Head&quot;</span><span class="p">,</span> <span class="mf">.002</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s2">&quot;Tail&quot;</span><span class="p">,</span> <span class="mf">.002</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">configure_harmonic_bond</span><span class="p">(</span><span class="s2">&quot;Head&quot;</span><span class="p">,</span> <span class="s2">&quot;Tail&quot;</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">configure_harmonic_bond</span><span class="p">(</span><span class="s2">&quot;Tail&quot;</span><span class="p">,</span> <span class="s2">&quot;Tail&quot;</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">configure_harmonic_bond</span><span class="p">(</span><span class="s2">&quot;Head&quot;</span><span class="p">,</span> <span class="s2">&quot;Head&quot;</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">configure_harmonic_angle</span><span class="p">(</span><span class="s2">&quot;Head&quot;</span><span class="p">,</span> <span class="s2">&quot;Tail&quot;</span><span class="p">,</span> <span class="s2">&quot;Tail&quot;</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">equilibrium_angle</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">configure_harmonic_angle</span><span class="p">(</span><span class="s2">&quot;Tail&quot;</span><span class="p">,</span> <span class="s2">&quot;Tail&quot;</span><span class="p">,</span> <span class="s2">&quot;Tail&quot;</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">equilibrium_angle</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># dissociation</span>
+<span class="k">def</span> <span class="nf">dissociation_rate_function</span><span class="p">(</span><span class="n">topology</span><span class="p">):</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="n">topology</span><span class="o">.</span><span class="n">get_graph</span><span class="p">()</span><span class="o">.</span><span class="n">get_edges</span><span class="p">()</span>
+    <span class="k">return</span> <span class="mf">.000005</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">edges</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="mf">0.</span>
+<span class="k">def</span> <span class="nf">dissociation_reaction_function</span><span class="p">(</span><span class="n">topology</span><span class="p">):</span>
+    <span class="n">recipe</span> <span class="o">=</span> <span class="n">readdy</span><span class="o">.</span><span class="n">StructuralReactionRecipe</span><span class="p">(</span><span class="n">topology</span><span class="p">)</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="n">topology</span><span class="o">.</span><span class="n">get_graph</span><span class="p">()</span><span class="o">.</span><span class="n">get_edges</span><span class="p">()</span>
+    <span class="n">vertices</span> <span class="o">=</span> <span class="n">topology</span><span class="o">.</span><span class="n">get_graph</span><span class="p">()</span><span class="o">.</span><span class="n">get_vertices</span><span class="p">()</span>
+    
+    <span class="c1"># at least a structure like</span>
+    <span class="c1"># v1 -- v2 -- v3 -- v4</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="c1"># find the end particles</span>
+        <span class="n">counts</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+            <span class="n">pix1</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">particle_index</span>
+            <span class="n">pix2</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">particle_index</span>
+            <span class="n">counts</span><span class="p">[</span><span class="n">pix1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">counts</span><span class="p">[</span><span class="n">pix2</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+        <span class="c1"># the end particles are the ones that have exactly one edge leading from/to them</span>
+        <span class="n">endpoints</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">pix</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">counts</span><span class="p">[</span><span class="n">pix</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">endpoints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pix</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">endpoints</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;the number of end points should always be 2 </span><span class="se">\</span>
+<span class="s2">                but was </span><span class="si">{}</span><span class="s2"> (counts: </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">endpoints</span><span class="p">),</span> <span class="n">counts</span><span class="p">)</span>
+
+        <span class="c1"># draw an edge excluding the edges leading to the both ends</span>
+        <span class="n">edge_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">removed_edge</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># for each edge in the graph</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+            <span class="n">pix1</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">particle_index</span>
+            <span class="n">pix2</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">particle_index</span>
+            <span class="c1"># check if it belongs to one of the end vertices</span>
+            <span class="k">if</span> <span class="n">pix1</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">endpoints</span> <span class="ow">and</span> <span class="n">pix2</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">endpoints</span><span class="p">:</span>
+                <span class="c1"># if not, reduce edge_index until 0</span>
+                <span class="k">if</span> <span class="n">edge_index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="c1"># remove this edge</span>
+                    <span class="n">recipe</span><span class="o">.</span><span class="n">remove_edge</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="n">removed_edge</span> <span class="o">=</span> <span class="n">e</span>
+                    <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">edge_index</span> <span class="o">-=</span> <span class="mi">1</span>
+
+        <span class="k">assert</span> <span class="n">removed_edge</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="n">pix1</span> <span class="o">=</span> <span class="n">removed_edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">particle_index</span>
+        <span class="n">pix2</span> <span class="o">=</span> <span class="n">removed_edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">particle_index</span>
+
+        <span class="k">assert</span> <span class="n">pix1</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">endpoints</span>
+        <span class="k">assert</span> <span class="n">pix2</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">endpoints</span>
+
+        <span class="c1"># since the edge was removed we now have two topologies and need to set the correct particle types</span>
+        <span class="n">recipe</span><span class="o">.</span><span class="n">change_particle_type</span><span class="p">([</span><span class="n">vix</span> <span class="k">for</span> <span class="n">vix</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vertices</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">particle_index</span> <span class="o">==</span> <span class="n">pix1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;Head&quot;</span><span class="p">)</span>
+        <span class="n">recipe</span><span class="o">.</span><span class="n">change_particle_type</span><span class="p">([</span><span class="n">vix</span> <span class="k">for</span> <span class="n">vix</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vertices</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">particle_index</span> <span class="o">==</span> <span class="n">pix2</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;Head&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;this should not have happened&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">recipe</span>
+<span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">add_structural_reaction</span><span class="p">(</span><span class="s2">&quot;dissociation&quot;</span><span class="p">,</span> <span class="s2">&quot;Polymer&quot;</span><span class="p">,</span> 
+                                          <span class="n">dissociation_reaction_function</span><span class="p">,</span> <span class="n">dissociation_rate_function</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">system</span><span class="o">.</span><span class="n">topologies</span><span class="o">.</span><span class="n">add_spatial_reaction</span><span class="p">(</span><span class="s2">&quot;Association: Polymer(Head) + Polymer(Head) -&gt; Polymer(Tail--Tail)&quot;</span><span class="p">,</span> 
+                                       <span class="n">rate</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulation</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">simulation</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;CPU&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># randomly place some polymers of length 4</span>
+<span class="n">n_polymers</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="k">for</span> <span class="n">head</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_polymers</span><span class="p">):</span>
+    <span class="n">head_position</span> <span class="o">=</span> <span class="mf">80.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="o">-</span> <span class="mf">40.</span>
+    <span class="n">offset1</span> <span class="o">=</span> <span class="mf">2.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span><span class="o">-</span><span class="mf">1.</span>
+    <span class="n">offset1</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">offset1</span><span class="p">)</span>
+    <span class="n">tail1</span> <span class="o">=</span> <span class="n">head_position</span> <span class="o">+</span> <span class="n">offset1</span>
+    <span class="n">offset2</span> <span class="o">=</span> <span class="mf">2.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span><span class="o">-</span><span class="mf">1.</span>
+    <span class="n">offset2</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">offset2</span><span class="p">)</span>
+    <span class="n">tail2</span> <span class="o">=</span> <span class="n">head_position</span> <span class="o">+</span> <span class="n">offset1</span> <span class="o">+</span> <span class="n">offset2</span>
+    <span class="n">offset3</span> <span class="o">=</span> <span class="mf">2.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="o">-</span> <span class="mf">1.</span>
+    <span class="n">offset3</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">offset3</span><span class="p">)</span>
+    <span class="n">head_position2</span> <span class="o">=</span> <span class="n">head_position</span> <span class="o">+</span> <span class="n">offset1</span> <span class="o">+</span> <span class="n">offset2</span> <span class="o">+</span> <span class="n">offset3</span>
+
+    <span class="n">top</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">add_topology</span><span class="p">(</span><span class="s2">&quot;Polymer&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Head&quot;</span><span class="p">,</span> <span class="s2">&quot;Tail&quot;</span><span class="p">,</span> <span class="s2">&quot;Tail&quot;</span><span class="p">,</span> <span class="s2">&quot;Head&quot;</span><span class="p">],</span>
+                                  <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">head_position</span><span class="p">,</span> <span class="n">tail1</span><span class="p">,</span> <span class="n">tail2</span><span class="p">,</span> <span class="n">head_position2</span><span class="p">])</span><span class="o">.</span><span class="n">squeeze</span><span class="p">())</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">get_graph</span><span class="p">()</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">get_graph</span><span class="p">()</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">get_graph</span><span class="p">()</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulation</span><span class="o">.</span><span class="n">output_file</span> <span class="o">=</span> <span class="s1">&#39;living_polymers.h5&#39;</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">observe</span><span class="o">.</span><span class="n">topologies</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">record_trajectory</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">progress_output_stride</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">show_progress</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">timestep</span> <span class="o">=</span> <span class="mf">1.</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">output_file</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">50000</span><span class="p">,</span> <span class="n">timestep</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>  0%|          | 0/5000 [00:00&lt;?, ?it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Configured kernel context with:
+--------------------------------
+ - kBT = 2.43614
+ - periodic b.c. = (true, true, true)
+ - box size = (100.0, 100.0, 100.0)
+ - particle types:
+     * Topology particle type &#34;Tail&#34; with D=0.00200000
+     * Topology particle type &#34;Head&#34; with D=0.00200000
+ - topology potential configuration:
+     - bonds (3):
+         - Bonds for particle types Head and Head:
+             * Harmonic bond with force constant 50.0 and length 1.0
+         - Bonds for particle types Head and Tail:
+             * Harmonic bond with force constant 50.0 and length 1.0
+         - Bonds for particle types Tail and Tail:
+             * Harmonic bond with force constant 50.0 and length 1.0
+     - angles (2):
+             * Harmonic angle with force constant 10.0 and equilibrium angle 3.14159
+             * Harmonic angle with force constant 10.0 and equilibrium angle 3.14159
+ - topology types:
+     * topology type &#34;Polymer&#34; with 1 structural reactions
+ - spatial topology reactions:
+     * Topology-topology fusion reaction &#34;Association: Polymer(Head) + Polymer(Head) -&gt; Polymer(Tail--Tail)&#34;
+ - structural topology reactions:
+     - for topology type &#34;Polymer&#34; with 1 structural reactions:
+         * reaction with create child topologies = true
+
+Configured simulation loop with:
+--------------------------------
+ - timeStep = 1.0
+ - evaluateObservables = true
+ - progressOutputStride = 100
+ - context written to file = true
+ - Performing actions:
+   * Initialize neighbor list? true
+   * Update neighbor list? true
+   * Clear neighbor list? true
+   * Integrate diffusion? true
+   * Calculate forces? true
+   * Handle reactions? true
+   * Handle topology reactions? true
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>100%|██████████| 5000/5000 [03:15&lt;00:00, 25.63it/s]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># read back topologies</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">readdy</span><span class="o">.</span><span class="n">Trajectory</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+<span class="n">time</span><span class="p">,</span> <span class="n">topology_records</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">read_observable_topologies</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># gather average length of topologies for respective time step</span>
+<span class="n">avg_length</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># for each time step</span>
+<span class="k">for</span> <span class="n">topologies</span> <span class="ow">in</span> <span class="n">topology_records</span><span class="p">:</span>
+    <span class="c1"># gather average polymer length</span>
+    <span class="n">avg_length</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">top</span> <span class="ow">in</span> <span class="n">topologies</span><span class="p">:</span>
+        <span class="n">avg_length</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">edges</span><span class="p">)</span>
+    <span class="n">avg_length</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/=</span> <span class="nb">len</span><span class="p">(</span><span class="n">topologies</span><span class="p">)</span>
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">avg_length</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;average length&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;# beads&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>
+<span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;1fZqbZRQnEQ&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[14]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/1fZqbZRQnEQ"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        </div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+ 
+
+
+        </article>
+        <div class="foot">
+            © Copyright 2020 <a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/">AI4Science (former CMB) Group</a>
+        </div>
+    </div>
+</div>
+<script src="https://readdy.github.io/libraries/perfect-scrollbar/js/perfect-scrollbar.min.js"></script>
+<script src="https://readdy.github.io/assets/js/scrollbar.js"></script>
+</body>
+</html>

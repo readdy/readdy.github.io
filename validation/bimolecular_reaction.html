@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Bimolecular reaction - well mixed</title>
+
+    <link rel="stylesheet" href="/assets/css/readdy_documentation.css">
+    <link rel="canonical" href="https://readdy.github.io/validation/bimolecular_reaction">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto+Mono|Lora|Lato|Source+Sans+Pro|Roboto+Slab|Merriweather" rel="stylesheet">
+    <link rel="stylesheet" href="https://readdy.github.io/libraries/perfect-scrollbar/css/perfect-scrollbar.min.css"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false},
+                ]
+            });
+        });
+    </script>
+
+    <link rel="icon" type="image/png" href="/assets/icon_black_32px.png">
+
+</head>
+
+
+<body>
+<div class="side-wrapper" id="unique-side-container">
+<div class="side">
+    <div class="side-logo logo-readdy"><a href="https://readdy.github.io/index.html"></a></div>
+    <div style="margin-right: 1.5rem; text-align: center;">
+        <a href="https://readdy.github.io/index.html">ReaDDy - A particle-based<br>reaction-diffusion simulator</a>
+    </div>
+
+    <div class="side-searchbar-wrapper">
+        <form action="https://readdy.github.io/search.html" method="get">
+            <input type="text" id="search-box" name="query" placeholder="Search ...">
+        </form>
+    </div>
+    <nav class="side-nav">
+        <a class="side-nav-item" href="https://readdy.github.io/index.html">Home</a>
+        <a class="side-nav-item" href="https://readdy.github.io/installation.html">Install readdy</a>
+        <div class="nav-supergroup-delimiter">
+            <b>API</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/system.html">System configuration</a>
+        
+        <a class="side-nav-item" href="https://readdy.github.io/simulation.html">Simulation</a>
+        
+        <a class="side-nav-item" href="https://readdy.github.io/results.html">Post-processing</a>
+
+        <div class="nav-supergroup-delimiter">
+            <b>Examples</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/demonstration.html">Demonstration</a>
+        
+
+        <a class="side-nav-item active" href="https://readdy.github.io/validation.html">Validation</a>
+        
+        
+        
+        <a class="side-nav-sub-item" href="https://readdy.github.io/validation/bimolecular_reaction">
+            Bimolecular reaction - well mixed
+
+        </a>
+        
+        <a class="side-nav-sub-item" href="https://readdy.github.io/validation/mean_squared_displacement">
+            Diffusion - Mean squared displacement
+
+        </a>
+        
+        <a class="side-nav-sub-item" href="https://readdy.github.io/validation/boltzmann_distribution_harmonic_repulsion">
+            Harmonic repulsion - Boltzmann distribution
+
+        </a>
+        
+        <a class="side-nav-sub-item" href="https://readdy.github.io/validation/lennard_jones_fluid">
+            Lennard-Jones fluid - thermodynamic state variables
+
+        </a>
+        
+        
+
+        <a class="side-nav-item" href="https://readdy.github.io/benchmark.html">Benchmark</a>
+        
+
+
+        <div class="nav-supergroup-delimiter">
+            <b>Advanced topics</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/cookbook.html">Cookbook</a>
+        <a class="side-nav-item" href="https://readdy.github.io/development.html">Development</a>
+        
+
+        
+
+        <div class="nav-supergroup-delimiter">
+            <b>Legal notices</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/imprint.html">Imprint</a>
+        <a class="side-nav-item" href="https://readdy.github.io/software_license.html">Software license</a>
+
+        
+
+    </nav>
+
+    <div class="github-wrapper">
+        <a href="https://github.com/readdy/readdy" style="width: 16rem; height:100%; position:absolute; top:0; left:0;">
+            <div class="github-text">ReaDDy on GitHub</div>
+            <div class="side-logo logo-github"></div>
+        </a>
+    </div>
+    <div class="side-logo logo-cmb"><a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/"></a></div>
+</div>
+</div>
+
+<div class="main-container" id="unique-main-container">
+    <div class="main notebook">
+        <article>
+            <div class="docpage-heading"><h1>Bimolecular reaction - well mixed</h1></div>
+
+            <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">readdy</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">readdy</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;v2.0.3-27&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Setup ReaDDy system</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">system</span> <span class="o">=</span> <span class="n">readdy</span><span class="o">.</span><span class="n">ReactionDiffusionSystem</span><span class="p">([</span><span class="mf">20.</span><span class="p">,</span><span class="mf">20.</span><span class="p">,</span><span class="mf">20.</span><span class="p">],</span> <span class="n">temperature</span><span class="o">=</span><span class="mf">300.</span><span class="o">*</span><span class="n">readdy</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">kelvin</span><span class="p">)</span>
+
+<span class="n">system</span><span class="o">.</span><span class="n">add_species</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">add_species</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">add_species</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+
+<span class="n">lambda_on</span> <span class="o">=</span> <span class="mf">1.</span>
+<span class="n">system</span><span class="o">.</span><span class="n">reactions</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;myfusion: A +(1) B -&gt; C&quot;</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="n">lambda_on</span><span class="o">/</span><span class="n">readdy</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">nanosecond</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Simulate the system</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulation</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">simulation</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;CPU&quot;</span><span class="p">)</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">output_file</span> <span class="o">=</span> <span class="s2">&quot;out.h5&quot;</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">reaction_handler</span> <span class="o">=</span> <span class="s2">&quot;Gillespie&quot;</span>
+
+<span class="n">n_particles</span> <span class="o">=</span> <span class="mi">2000</span>
+<span class="n">initial_positions_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_particles</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="o">*</span> <span class="mf">20.</span> <span class="o">-</span> <span class="mf">10.</span>
+<span class="n">initial_positions_b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_particles</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="o">*</span> <span class="mf">20.</span> <span class="o">-</span> <span class="mf">10.</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">add_particles</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">initial_positions_a</span><span class="p">)</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">add_particles</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">initial_positions_b</span><span class="p">)</span>
+
+<span class="n">simulation</span><span class="o">.</span><span class="n">observe</span><span class="o">.</span><span class="n">number_of_particles</span><span class="p">(</span><span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">types</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">output_file</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+
+<span class="n">simulation</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">n_steps</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">timestep</span><span class="o">=</span><span class="mf">1e-3</span><span class="o">*</span><span class="n">readdy</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">nanosecond</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>  0%|          | 2/500 [00:00&lt;00:39, 12.64it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Configured kernel context with:
+--------------------------------
+ - kBT = 2.49434
+ - periodic b.c. = (true, true, true)
+ - box size = (20.0, 20.0, 20.0)
+ - particle types:
+     *  particle type &#34;C&#34; with D=1.0
+     *  particle type &#34;A&#34; with D=1.0
+     *  particle type &#34;B&#34; with D=1.0
+ - bimolecular reactions:
+     * Fusion A + B -&gt; C with a rate of 1.0, an educt distance of 1.0, and weights 0.5 and 0.5
+
+Configured simulation loop with:
+--------------------------------
+ - timeStep = 0.00100000
+ - evaluateObservables = true
+ - progressOutputStride = 100
+ - context written to file = true
+ - Performing actions:
+   * Initialize neighbor list? true
+   * Update neighbor list? true
+   * Clear neighbor list? true
+   * Integrate diffusion? true
+   * Calculate forces? true
+   * Handle reactions? true
+   * Handle topology reactions? true
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>100%|██████████| 500/500 [00:17&lt;00:00, 28.56it/s]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">traj</span> <span class="o">=</span> <span class="n">readdy</span><span class="o">.</span><span class="n">Trajectory</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+<span class="n">time</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">read_observable_number_of_particles</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Analytical solution</strong></p>
+<p>In ReaDDy, one defines the intrinsic rate constant. In a well-mixed setting, one can use the following
+equation (see [1]) to obtain the corresponding macroscopic rate (ODE rate equation/ law of mass action)</p>
+$$
+k_\mathrm{on} = 4\pi (D_A + D_B) R \left[1 - \frac{\tanh(\kappa R)}{\kappa R}\right]
+$$<p>where</p>
+$$
+\kappa = \sqrt{\frac{\lambda_\mathrm{on}}{D_A + D_B}}
+$$<p>Parameters:</p>
+<ul>
+<li>intrinsic rate constant $\lambda_\mathrm{on} = 1\,\mathrm{ns}^{-1}$</li>
+<li>diffusion coefficient $D_A=D_B=1\, \mathrm{nm}^2 \mathrm{ns}^{-1}$</li>
+<li>reaction radius $R = 1\,\mathrm{nm}$</li>
+</ul>
+<p>Law of mass action ODE for the concentration of A particles $[A](t) = a(t)$</p>
+$$
+\frac{\mathrm{d}a}{\mathrm{d}t} = -k_\mathrm{on}\,a^2 \quad\text{, with } a(0) = a_0
+$$<p>which yields</p>
+$$
+a(t) = \frac{1}{a_0^{-1} + k_\mathrm{on}t}
+$$<p>[1]: R. Erban and J. Chapman, “Stochastic modelling of reaction-diffusion processes: algorithms for bimolecular reactions.,” Phys. Biol., vol. 6, no. 4, p. 46001, Jan. 2009.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">kappa</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">lambda_on</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">)</span>
+<span class="n">k_on</span> <span class="o">=</span> <span class="mf">4.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mf">2.</span> <span class="o">*</span> <span class="mf">1.</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">kappa</span> <span class="o">*</span> <span class="mf">1.</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">kappa</span> <span class="o">*</span> <span class="mf">1.</span><span class="p">)</span> <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">a</span><span class="p">(</span><span class="n">t</span><span class="p">):</span> 
+    <span class="k">return</span> <span class="mf">1.</span> <span class="o">/</span> <span class="p">((</span><span class="n">system</span><span class="o">.</span><span class="n">box_volume</span><span class="o">.</span><span class="n">magnitude</span> <span class="o">/</span> <span class="n">n_particles</span><span class="p">)</span> <span class="o">+</span> <span class="n">k_on</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+
+<span class="n">t_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mi">5000</span> <span class="o">*</span> <span class="mf">1e-3</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">[::</span><span class="mi">200</span><span class="p">]</span><span class="o">*</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">counts</span><span class="p">[::</span><span class="mi">200</span><span class="p">]</span> <span class="o">/</span> <span class="n">system</span><span class="o">.</span><span class="n">box_volume</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;ReaDDy&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_range</span><span class="p">,</span> <span class="n">a</span><span class="p">(</span><span class="n">t_range</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;analytical $a(t)$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;time in nanoseconds&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;concentration in nm$^{-3}$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note that in the diffusion-limited regime, the law of mass action solution generally does not reflect what can be observed from the Doi model.</p>
+
+</div>
+</div>
+</div>
+ 
+
+
+        </article>
+        <div class="foot">
+            © Copyright 2020 <a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/">AI4Science (former CMB) Group</a>
+        </div>
+    </div>
+</div>
+<script src="https://readdy.github.io/libraries/perfect-scrollbar/js/perfect-scrollbar.min.js"></script>
+<script src="https://readdy.github.io/assets/js/scrollbar.js"></script>
+</body>
+</html>

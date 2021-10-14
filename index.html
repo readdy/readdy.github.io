@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>ReaDDy</title>
+
+    <link rel="stylesheet" href="/assets/css/readdy_documentation.css">
+    <link rel="canonical" href="https://readdy.github.io/">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto+Mono|Lora|Lato|Source+Sans+Pro|Roboto+Slab|Merriweather" rel="stylesheet">
+    <link rel="stylesheet" href="https://readdy.github.io/libraries/perfect-scrollbar/css/perfect-scrollbar.min.css"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false},
+                ]
+            });
+        });
+    </script>
+
+    <link rel="icon" type="image/png" href="/assets/icon_black_32px.png">
+
+</head>
+
+
+<body>
+<div class="side-wrapper" id="unique-side-container">
+<div class="side">
+    <div class="side-logo logo-readdy"><a href="https://readdy.github.io/index.html"></a></div>
+    <div style="margin-right: 1.5rem; text-align: center;">
+        <a href="https://readdy.github.io/index.html">ReaDDy - A particle-based<br>reaction-diffusion simulator</a>
+    </div>
+
+    <div class="side-searchbar-wrapper">
+        <form action="https://readdy.github.io/search.html" method="get">
+            <input type="text" id="search-box" name="query" placeholder="Search ...">
+        </form>
+    </div>
+    <nav class="side-nav">
+        <a class="side-nav-item active" href="https://readdy.github.io/index.html">Home</a>
+        <a class="side-nav-item" href="https://readdy.github.io/installation.html">Install readdy</a>
+        <div class="nav-supergroup-delimiter">
+            <b>API</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/system.html">System configuration</a>
+        
+        <a class="side-nav-item" href="https://readdy.github.io/simulation.html">Simulation</a>
+        
+        <a class="side-nav-item" href="https://readdy.github.io/results.html">Post-processing</a>
+
+        <div class="nav-supergroup-delimiter">
+            <b>Examples</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/demonstration.html">Demonstration</a>
+        
+
+        <a class="side-nav-item" href="https://readdy.github.io/validation.html">Validation</a>
+        
+
+        <a class="side-nav-item" href="https://readdy.github.io/benchmark.html">Benchmark</a>
+        
+
+
+        <div class="nav-supergroup-delimiter">
+            <b>Advanced topics</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/cookbook.html">Cookbook</a>
+        <a class="side-nav-item" href="https://readdy.github.io/development.html">Development</a>
+        
+
+        
+
+        <div class="nav-supergroup-delimiter">
+            <b>Legal notices</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/imprint.html">Imprint</a>
+        <a class="side-nav-item" href="https://readdy.github.io/software_license.html">Software license</a>
+
+        
+
+    </nav>
+
+    <div class="github-wrapper">
+        <a href="https://github.com/readdy/readdy" style="width: 16rem; height:100%; position:absolute; top:0; left:0;">
+            <div class="github-text">ReaDDy on GitHub</div>
+            <div class="side-logo logo-github"></div>
+        </a>
+    </div>
+    <div class="side-logo logo-cmb"><a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/"></a></div>
+</div>
+</div>
+
+<div class="main-container" id="unique-main-container">
+    <div class="main">
+        <article>
+            <div class="centered"><h1 style="border-bottom: none">ReaDDy <br><u>Rea</u>ction <u>D</u>iffusion <u>Dy</u>namics</h1></div>
+
+    <p>Welcome to the website of ReaDDy - a particle-based reaction-diffusion simulator, written in C++ with python bindings. 
+ReaDDy is an open-source project, developed and maintained by <a href="https://github.com/clonker">Moritz Hoffmann</a>, 
+<a href="https://github.com/chrisfroe">Christoph Fröhner</a> and <a href="https://github.com/franknoe">Frank Noé</a> 
+of the AI4Science (former CMB) group at the Freie Universität Berlin. This project continues
+the <a href="https://github.com/readdy/readdy_java">java software</a> of the same name, by
+<a href="https://sites.google.com/a/schoeneberglab.org/johannes-schoeneberg/">Johannes Schöneberg</a>
+and Frank Noé.</p>
+
+<ul>
+  <li>ReaDDy v2.0.2 is released for Linux and Mac! See the <a href="/installation.html">installation guide</a>.</li>
+  <li>Note our <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006830">paper</a> on ReaDDy 2</li>
+</ul>
+
+<section id="what_is">
+<h1>What is ReaDDy?</h1>
+<div class="centered">
+    <video width="560" controls="">
+        <!--source src="/assets/videos/logo.webm" type='video/webm; codecs="vp9,vorbis"'-->
+        <source src="/assets/videos/logo.mp4" type="video/mp4" />
+        <source src="/assets/videos/logo.ogv" type="video/ogg; codecs=&quot;theora,vorbis&quot;" />
+    </video>
+</div>
+
+<p>The logo simulation mimicks a predator prey system, i.e., a population growth process that frequently occurs in biology. Sometimes, this growth process is subjected to spatial constraints. There are three different particle types, referring to that biological model:</p>
+
+<ul>
+  <li>Type 1, the red “logo particles“, serve as the spatial barriers. They have been given an attraction potential between them and start in a position that resembles the ReaDDy logo.</li>
+  <li>Type 2, the purple “prey“. If there are no predators around, they will replicate.</li>
+  <li>Type 3, the grey “predator” particles. They die out if there is no prey but replicate in their presence by consuming them.</li>
+</ul>
+
+<p>It is visible during the time course of the simulation, that the spatial distribution of the particles, their crowding inducing occurrence in masses as well as spatial constraints like barriers influence the growth of the populations dramatically. What is true for this simplified example is ubiquitous not only in molecular and cellular biology but in multiple other fields.</p>
+
+<p>ReaDDy has been designed to fit the modeling requirements of such processes: Particle (or agent) based reaction diffusion systems in which particle-particle interactions play an important role and where the systems are subjected to crowding or spatial constraints.</p>
+
+</section>
+
+<section id="get_started">
+<h1>Get started</h1>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">readdy</span>
+
+<span class="c1"># ----- Step 1: Set up reaction diffusion system
+</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">readdy</span><span class="p">.</span><span class="n">ReactionDiffusionSystem</span><span class="p">(</span><span class="n">box_size</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="n">system</span><span class="p">.</span><span class="n">add_species</span><span class="p">(</span><span class="s">"A"</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">reactions</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">"mydecay: A -&gt;"</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">reactions</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">"myfission: A -&gt; A +(1) A"</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">3.</span><span class="p">)</span>
+
+<span class="c1"># ----- Step 2: Create simulation instance out of configured system
+</span>
+<span class="n">simulation</span> <span class="o">=</span> <span class="n">system</span><span class="p">.</span><span class="n">simulation</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s">"CPU"</span><span class="p">)</span>
+
+<span class="n">simulation</span><span class="p">.</span><span class="n">observe</span><span class="p">.</span><span class="n">number_of_particles</span><span class="p">(</span><span class="n">stride</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">simulation</span><span class="p">.</span><span class="n">output_file</span> <span class="o">=</span> <span class="s">"out.h5"</span>
+<span class="n">simulation</span><span class="p">.</span><span class="n">add_particle</span><span class="p">(</span><span class="s">"A"</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">])</span>
+
+<span class="c1"># ------ Step 3: run the simulation
+</span>
+<span class="n">simulation</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The above snippet performs a ReaDDy simulation, which consists of three steps:</p>
+<ol>
+  <li><a href="/system.html">Configure the system</a></li>
+  <li><a href="/simulation.html">Setup and run the simulation</a></li>
+  <li><a href="/results.html">Analyze results</a></li>
+</ol>
+
+<p>See <a href="/demonstration/api">this ipython notebook</a> for an example of the basic features</p>
+
+</section>
+
+<section id="citation">
+<h1>Citation</h1>
+<p>When using ReaDDy in your work, please cite the following paper</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@article{hoffmann2019readdy,
+  title={ReaDDy 2: Fast and flexible software framework for interacting-particle reaction dynamics},
+  author={Hoffmann, Moritz and Fr{\"o}hner, Christoph and No{\'e}, Frank},
+  journal={PLoS computational biology},
+  volume={15},
+  number={2},
+  pages={e1006830},
+  year={2019},
+  publisher={Public Library of Science}
+}
+</code></pre></div></div>
+
+<p>Also note these further publications related to ReaDDy:</p>
+<ul>
+  <li>Schöneberg, Johannes, et al. <em>Lipid-mediated PX-BAR domain recruitment couples local membrane constriction to endocytic vesicle fission.</em> Nature communications 8 (2017): 15873.</li>
+  <li>Schöneberg, Johannes, and Frank Noé. <em>ReaDDy-a software for particle-based reaction-diffusion dynamics in crowded cellular environments.</em> PloS one 8.9 (2013): e74261.</li>
+  <li>Dibak, Manuel, et al. <em>Diffusion-influenced reaction rates in the presence of pair interactions.</em> The Journal of chemical physics 151.16 (2019): 164105.</li>
+  <li>Fröhner, Christoph, and Frank Noé. <em>Reversible interacting-particle reaction dynamics.</em> The Journal of Physical Chemistry B 122.49 (2018): 11240-11250.</li>
+  <li>Ullrich, Alexander, et al. <em>Dynamical organization of syntaxin-1A at the presynaptic active zone.</em> PLoS computational biology 11.9 (2015): e1004407.</li>
+  <li>Gunkel, Monika, et al. <em>Higher-order architecture of rhodopsin in intact photoreceptors and its implication for phototransduction kinetics.</em> Structure 23.4 (2015): 628-638.</li>
+  <li>Biedermann, Johann, et al. <em>ReaDDyMM: Fast interacting particle reaction-diffusion simulations using graphical processing units.</em> Biophysical journal 108.3 (2015): 457-461.</li>
+  <li>Schöneberg, Johannes, et al. <em>Explicit spatiotemporal simulation of receptor-G protein coupling in rod cell disk membranes.</em> Biophysical journal 107.5 (2014): 1042-1053.</li>
+  <li>Schöneberg, Johannes, Alexander Ullrich, and Frank Noé. <em>Simulation tools for particle-based reaction-diffusion dynamics in continuous space.</em> BMC biophysics 7.1 (2014): 11.</li>
+</ul>
+
+</section>
+
+
+
+        </article>
+        <div class="foot">
+            © Copyright 2020 <a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/">AI4Science (former CMB) Group</a>
+        </div>
+    </div>
+</div>
+<script src="https://readdy.github.io/libraries/perfect-scrollbar/js/perfect-scrollbar.min.js"></script>
+<script src="https://readdy.github.io/assets/js/scrollbar.js"></script>
+</body>
+</html>

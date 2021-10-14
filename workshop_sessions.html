@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Practical sessions</title>
+
+    <link rel="stylesheet" href="/assets/css/readdy_documentation.css">
+    <link rel="canonical" href="https://readdy.github.io/workshop_sessions.html">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto+Mono|Lora|Lato|Source+Sans+Pro|Roboto+Slab|Merriweather" rel="stylesheet">
+    <link rel="stylesheet" href="https://readdy.github.io/libraries/perfect-scrollbar/css/perfect-scrollbar.min.css"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false},
+                ]
+            });
+        });
+    </script>
+
+    <link rel="icon" type="image/png" href="/assets/icon_black_32px.png">
+
+</head>
+
+
+<body>
+<div class="side-wrapper" id="unique-side-container">
+<div class="side">
+    <div class="side-logo logo-readdy"><a href="https://readdy.github.io/index.html"></a></div>
+    <div style="margin-right: 1.5rem; text-align: center;">
+        <a href="https://readdy.github.io/index.html">ReaDDy - A particle-based<br>reaction-diffusion simulator</a>
+    </div>
+
+    <div class="side-searchbar-wrapper">
+        <form action="https://readdy.github.io/search.html" method="get">
+            <input type="text" id="search-box" name="query" placeholder="Search ...">
+        </form>
+    </div>
+    <nav class="side-nav">
+        <a class="side-nav-item" href="https://readdy.github.io/index.html">Home</a>
+        <a class="side-nav-item" href="https://readdy.github.io/installation.html">Install readdy</a>
+        <div class="nav-supergroup-delimiter">
+            <b>API</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/system.html">System configuration</a>
+        
+        <a class="side-nav-item" href="https://readdy.github.io/simulation.html">Simulation</a>
+        
+        <a class="side-nav-item" href="https://readdy.github.io/results.html">Post-processing</a>
+
+        <div class="nav-supergroup-delimiter">
+            <b>Examples</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/demonstration.html">Demonstration</a>
+        
+
+        <a class="side-nav-item" href="https://readdy.github.io/validation.html">Validation</a>
+        
+
+        <a class="side-nav-item" href="https://readdy.github.io/benchmark.html">Benchmark</a>
+        
+
+
+        <div class="nav-supergroup-delimiter">
+            <b>Advanced topics</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/cookbook.html">Cookbook</a>
+        <a class="side-nav-item" href="https://readdy.github.io/development.html">Development</a>
+        
+
+        
+
+        <div class="nav-supergroup-delimiter">
+            <b>Legal notices</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/imprint.html">Imprint</a>
+        <a class="side-nav-item" href="https://readdy.github.io/software_license.html">Software license</a>
+
+        
+
+    </nav>
+
+    <div class="github-wrapper">
+        <a href="https://github.com/readdy/readdy" style="width: 16rem; height:100%; position:absolute; top:0; left:0;">
+            <div class="github-text">ReaDDy on GitHub</div>
+            <div class="side-logo logo-github"></div>
+        </a>
+    </div>
+    <div class="side-logo logo-cmb"><a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/"></a></div>
+</div>
+</div>
+
+<div class="main-container" id="unique-main-container">
+    <div class="main">
+        <article>
+            <h1 style="font-size: 2.7rem; padding-left: 0.5rem;">Practical sessions</h1>
+<p>Here we’ll gather the material and tasks for the daily sessions.</p>
+
+<p>Solutions to tasks we have already done, will be uploaded <a href="https://github.com/chrisfroe/readdy-workshop-2019-session-notebooks">here</a></p>
+
+<section id="monday">
+<h1>Monday - ReaDDy intro
+</h1>
+<h3 id="task-0-installation">Task 0) installation</h3>
+
+<p>Get miniconda and install it</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
+</code></pre></div></div>
+
+<p>Check your <code class="highlighter-rouge">quota -s</code>. If your <code class="highlighter-rouge">home</code> directory is limited in space, you might want to install it under <code class="highlighter-rouge">storage</code>, i.e. when prompted for install location, choose either <code class="highlighter-rouge">/home/mi/user/miniconda3</code> or <code class="highlighter-rouge">/storage/mi/user/miniconda3</code> (replace <code class="highlighter-rouge">user</code> with your username). Your <code class="highlighter-rouge">~/.bashrc</code> should contain the line</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">.</span> /storage/mi/user/miniconda3/etc/profile.d/conda.sh
+</code></pre></div></div>
+
+<p>to enable the <code class="highlighter-rouge">conda</code> command. If you try out <code class="highlighter-rouge">which conda</code>, you should see its function definition, and you’re good to go.</p>
+
+<p>Create a conda environment <code class="highlighter-rouge">workshop</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda create <span class="nt">-n</span> workshop
+</code></pre></div></div>
+
+<p>and activate it.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda activate workshop
+</code></pre></div></div>
+
+<p>Add <code class="highlighter-rouge">conda-forge</code> as default channel</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda config <span class="nt">--add</span> channels conda-forge <span class="nt">--env</span>
+</code></pre></div></div>
+
+<p>and install the latest <code class="highlighter-rouge">readdy</code> in it</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(</span>workshop<span class="o">)</span> <span class="nv">$ </span>conda <span class="nb">install</span> <span class="nt">-c</span> readdy/label/dev readdy
+</code></pre></div></div>
+
+<p>Check if it worked, start a python interpreter and do</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">readdy</span>
+<span class="k">print</span><span class="p">(</span><span class="n">readdy</span><span class="p">.</span><span class="n">__version__</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>If this does not return an error, you are ready to readdy (almost).
+Make sure you also have <code class="highlighter-rouge">vmd</code> installed. It should be installed on the universities machines.</p>
+
+<h3 id="task-1-python-ipython-notebook-numpy-matplotlib-crash-course">Task 1) Python, ipython notebook, numpy, matplotlib crash course</h3>
+
+<p>Follow along the <a href="https://github.com/chrisfroe/readdy-workshop-2019-session-notebooks/blob/master/1_monday/ipython-intro.ipynb">ipython-intro</a>. You should be able to reproduce the presented usage in your own ipython notebook.
+The notebook covers the following:</p>
+
+<ul>
+  <li>usage of an ipython notebook</li>
+  <li>filesystem operations with <code class="highlighter-rouge">os</code></li>
+  <li>save and load data objects with <code class="highlighter-rouge">pickle</code></li>
+  <li>numerical operations with <code class="highlighter-rouge">numpy</code></li>
+  <li>plotting with <code class="highlighter-rouge">matplotlib.pyplot</code></li>
+</ul>
+
+<h3 id="task-2-readdy-intro-i-particles-diffusion-and-potentials">Task 2) ReaDDy intro I: Particles, diffusion and potentials</h3>
+
+<p>Follow along the <a href="https://github.com/chrisfroe/readdy-workshop-2019-session-notebooks/blob/master/1_monday/readdy-intro-1-particles-diffusion-potentials.ipynb">readdy-intro</a>. You should be able to reproduce the presented usage in your own ipython notebook.
+The notebook covers the following:</p>
+
+<ul>
+  <li>principle workflow of readdy: <code class="highlighter-rouge">system</code> and <code class="highlighter-rouge">simulation</code></li>
+  <li>adding particle species to <code class="highlighter-rouge">system</code></li>
+  <li>adding potentials to <code class="highlighter-rouge">system</code></li>
+  <li>spatial layout of <a href="https://readdy.github.io/system.html">simulation box</a> and <a href="">box potentials</a></li>
+  <li>adding particle instances at given positions to <code class="highlighter-rouge">simulation</code></li>
+  <li>convert trajectory output to VMD viewable format</li>
+</ul>
+
+<h3 id="task-3-readdy-intro-ii-reactions-observables-and-checkpoints">Task 3) ReaDDy intro II: Reactions, observables and checkpoints</h3>
+
+<p>Follow along the <a href="https://github.com/chrisfroe/readdy-workshop-2019-session-notebooks/blob/master/1_monday/readdy-intro-2-reactions-observables-checkpoints.ipynb">readdy-observables</a>
+The notebook covers the following:</p>
+
+<ul>
+  <li>adding reaction to <code class="highlighter-rouge">system</code></li>
+  <li>adding observable to <code class="highlighter-rouge">simulation</code></li>
+  <li>reading back the observable from trajectory file</li>
+  <li>using checkpoints to continue a simulation</li>
+</ul>
+
+<h3 id="task-4-crowded-mixture-msd">Task 4) Crowded mixture, MSD</h3>
+
+<p>The time dependent mean squared displacement (MSD) is defined as</p>
+
+<div class="kdmath">$$
+\langle(\mathbf{x}_t-\mathbf{x}_0)^2\rangle_N
+$$</div>
+
+<p>where $\mathbf{x}_t$ is the position of a particle at time $t$, and  $\mathbf{x}_0$ is its initial position. The difference of these is then squared, yielding a squared travelled distance. This quantity is then averaged over all particles.</p>
+
+<p>The <strong>task</strong> is to set up a crowded mixture of particles and <strong>measure the MSD</strong>. There is one species A with diffusion coefficient 0.1. The simulation box shall be $20\times20\times20$ and non-periodic, i.e. define a box potential that keeps particles inside, e.g. with an extent $19\times19\times19$ and appropriate origin.</p>
+
+<p>Define a harmonic repulsion between A particles with force constant 100 and interaction distance 2.</p>
+
+<p>Add 1000 A particles to the simulation, uniformly distributed within the box potential.</p>
+
+<p>Observe the <a href="https://readdy.github.io/simulation.html#particle-positions">positions of particles</a> with a stride of 1.</p>
+
+<p>Run the simulation with a time step size of 0.01 for 20000 steps.</p>
+
+<p>In the post-processing you have to calculate the MSD from the observed positions. Implement the following steps:</p>
+
+<ol>
+  <li>Convert positions list into numpy array  $T\times N\times3$</li>
+  <li>From every particles position subtract the initial position</li>
+  <li>Square this</li>
+  <li>Average over particles <code class="highlighter-rouge">np.mean(...)</code></li>
+</ol>
+
+<p>Since the positions observable returns a list of list, it might come in handy to convert this to a numpy array of shape $T\times N\times3$ (step 1). You may use the following brute force method to do this</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">positions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">pos</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">positions</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">n</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">pos</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">positions</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">n</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">pos</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">positions</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">n</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>You shall implement steps 2.-4. by yourself.</p>
+
+<p><strong>4a)</strong> Finally plot the MSD as a function of time in a log-log plot, let’s call this the <em>crowded</em> result. (Hint: You may find that there is an initial jump in the squared displacements. Equilibrating the particle positions before starting the measurement may help you there. Make use of checkpointing to use an already equilibrated state)</p>
+
+<p><strong>4b)</strong> Repeat the whole procedure, but do not register the harmonic repulsion between particles, this shall be the <em>free</em> result. Compare the MSD to the previous result, possibly in the same plot.</p>
+
+<p><strong>4c)</strong> Additionally plot the analytical solution for freely diffusing particles</p>
+
+<div class="kdmath">$$
+\langle(\mathbf{x}_t-\mathbf{x}_0)^2\rangle_N = 6 D t
+$$</div>
+
+<p>From your resulting plot identify “finite size saturation”, “subdiffusion”, “reduced normal diffusion”, “ballistic/normal diffusion”</p>
+
+<h3 id="task-5-crowded-mixture-rdf">Task 5) Crowded mixture, RDF</h3>
+
+<p>The radial distribution function (RDF) $g(r)$ describes how likely it is to find two particles at distance $r$. Compare the  RDF of harmonically repelling particles and the RDF of non-repelling particles.</p>
+
+<p>Therefore set up the same system as in Task 4) but this time the system shall be periodic and there is no box potential.</p>
+
+<p>You may want to equilibrate the initial particle positions, use checkpointing.</p>
+
+<p>Instead of observing the particle positions, observe the <a href="https://readdy.github.io/simulation.html#radial-distribution-function">radial distribution function</a></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">observe</span><span class="p">.</span><span class="n">rdf</span><span class="p">(</span><span class="n">stride</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">bin_borders</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="mf">10.</span><span class="p">,</span><span class="mf">0.2</span><span class="p">),</span>
+                       <span class="n">types_count_from</span><span class="o">=</span><span class="s">"A"</span><span class="p">,</span> <span class="n">types_count_to</span><span class="o">=</span><span class="s">"A"</span><span class="p">,</span>
+                       <span class="n">particle_to_density</span><span class="o">=</span><span class="n">n_particles</span><span class="o">/</span><span class="n">system</span><span class="p">.</span><span class="n">box_volume</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>In the post-processing, you shall use</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">_</span><span class="p">,</span> <span class="n">bin_centers</span><span class="p">,</span> <span class="n">distribution</span> <span class="o">=</span> <span class="n">traj</span><span class="p">.</span><span class="n">read_observable_rdf</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>to obtain the observable. The <code class="highlighter-rouge">distribution</code> contains multiple $g(r)$, one for each time it was recorded. Average them over time.</p>
+
+<p><strong>5a)</strong> Plot the RDF as a function of the distance (i.e. mean<code class="highlighter-rouge">distribution</code> as function of <code class="highlighter-rouge">bin_centers</code>)</p>
+
+<p><strong>5b)</strong> Perform the same procedure but for non-interacting particles, compare with the previous result, preferably in the same plot. What are your observations?</p>
+
+
+</section>
+
+<section id="tuesday">
+<h1>Tuesday
+</h1>
+<p>This session will cover a well studied reaction diffusion system, the Lotka Volterra system, that describes a predator prey dynamics. We will investigate how parameters in these system affect spatiotemporal correlations.</p>
+
+<h3 id="task-1-diffusion-influenced-reaction">Task 1) Diffusion influenced reaction</h3>
+
+<p>Consider the reaction</p>
+
+<div class="kdmath">$$
+A + A\to B\quad\text{with rate: }\lambda=0.1
+$$</div>
+
+<p>The reaction distance should be $R=1$.</p>
+
+<p>Set up a periodic box with dimensions $20\times20\times20$</p>
+
+<p>Add 1000 A particles with $D=1$. The diffusion constant of B should be $D=1$. 
+They should be uniformly distributed in the box, use</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">n_particles</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">init_pos</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_particles</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span> <span class="o">*</span> <span class="n">extent</span> <span class="o">+</span> <span class="n">origin</span>
+<span class="n">simulation</span><span class="p">.</span><span class="n">add_particles</span><span class="p">(</span><span class="s">"A"</span><span class="p">,</span> <span class="n">init_pos</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Observe the <a href="https://readdy.github.io/simulation.html#number-of-particles">number of particles</a> with a stride of 1. Additionally you can print the current number of particles using the callback functionality</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">observe</span><span class="p">.</span><span class="n">number_of_particles</span><span class="p">(</span>
+  <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="s">"A"</span><span class="p">,</span><span class="s">"B"</span><span class="p">],</span>
+  <span class="n">callback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="s">"A {}, B {}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>Simulate the system for 10000 steps with time step size 0.01.</p>
+
+<p><strong>1a)</strong> Obtain the number of particles and plot them as a function of time.</p>
+
+<p>The analytic solution of the concentration of particles subject to the reaction above is obtained by solving the ODE</p>
+
+<div class="kdmath">$$
+\frac{\mathrm{d}a}{\mathrm{d}t} = -k a^2\quad a(0)=a_0
+$$</div>
+
+<p>which yields</p>
+
+<div class="kdmath">$$
+a(t) = \frac{1}{a_0^{-1}+kt}
+$$</div>
+
+<p><strong>1b)</strong> Fit the function $a(t)$ to your counts data, to obtain the parameter $k$. For $a_0$ use <code class="highlighter-rouge">n_particles</code>. Make use of <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html">scipy.optimize.curve_fit</a>. Can the function $a(t)$ describe the data well?</p>
+
+<p><strong>1c)</strong> Repeat the procedures a) and b) but change the diffusion coefficient to $D=0.01$ and change the microscopic reaction rate to $\lambda=1$. What happened to your fit?</p>
+
+<h3 id="task-2-well-mixed-predatory-prey">Task 2) well mixed predatory-prey</h3>
+
+<p>Simulate a Lotka-Volterra/predator-prey system for the given parameters and <strong>determine the period of oscillation</strong>.</p>
+
+<p>There are two particle species <code class="highlighter-rouge">A</code> (prey) and <code class="highlighter-rouge">B</code> (predator) with the same diffusion coefficient $D=0.7$. Both particle species shall be confined to a quadratic 2D plane with an edge length of roughly 50, and non periodic boundaries, i.e. the 2D plane must be fully contained in the simulation box. Choose a very small thickness for the plane, e.g. 0.02, and a force constant of 50.</p>
+
+<p>Particles of the <strong>same</strong> species interact via harmonic repulsion, with a force constant of 50, and an interaction distance of 2.</p>
+
+<p>There are three reactions for the Lotka Volterra system: <code class="highlighter-rouge">birth</code>, <code class="highlighter-rouge">eat</code>, and <code class="highlighter-rouge">decay</code>.</p>
+
+<div class="kdmath">$$
+\mathrm{birth}: \mathrm{A}\to \mathrm{A} +\mathrm{A}\quad\mathrm{with }~ \lambda=4\times 10^{-2}, R=2
+$$</div>
+
+<div class="kdmath">$$
+\mathrm{eat}: \mathrm{A}+\mathrm{B}\to \mathrm{B} +\mathrm{B}\quad\mathrm{with }~ \lambda=10^{-2}, R=2
+$$</div>
+
+<div class="kdmath">$$
+\mathrm{decay}: \mathrm{B}\to \emptyset\quad\mathrm{with }~ \lambda=3\times 10^{-2}
+$$</div>
+
+<p>Initialize a system by randomly positioning 250 particles of each species on the 2D plane. Run the simulation for 100,000 integration steps with a step size of 0.01. Observe the number of particles and the trajectory, with a stride of 100.</p>
+
+<p>From the observable, plot the number of particles for the two species as a function of time in the same plot. Make sure to label the lines accordingly. Additionally plot the phase space trajectory, i.e. plot the number of predator particles against the number of prey particles.</p>
+
+<p><strong>Question</strong>: What is the period of oscillation?</p>
+
+<h3 id="task-3-diffusion-influenced-predator-prey">Task 3) diffusion influenced predator-prey</h3>
+
+<p>We simulate the same system as in Task 2) but now introduce a scaling parameter $\ell$. This scaling parameter is used to control the ratio of reaction rates $\lambda$ and the rate of diffusion $D$.</p>
+
+<p>For a given parameter $\ell$</p>
+
+<ul>
+  <li>change all reaction rate constants $\tilde\lambda=\lambda\times\sqrt{\ell}$.</li>
+  <li>change all diffusion coefficients $\tilde D= D/\sqrt{\ell}$.</li>
+</ul>
+
+<p>where the tilde <code class="highlighter-rouge">~</code> denotes the actually used value in the simulation and the value without tilde is the one from Task 1).</p>
+
+<p>This means that the ratio</p>
+
+<div class="kdmath">$$
+\frac{\tilde\lambda}{\tilde D} = \ell\,\frac{\lambda}{D}=\ell\times\mathrm{const}
+$$</div>
+
+<p>is controlled by $\ell$.</p>
+
+<p>Perform the same simulation as in Task 1) but for different scaling parameters $\ell$, each time saving the resulting plots (time series and phase plot) to a file, use <code class="highlighter-rouge">plt.savefig(...)</code>. Run each simulation for $n$ number of integration steps, where</p>
+
+<div class="kdmath">$$
+n(\ell) = 10^4 + \frac{10^5}{\sqrt{\ell}}
+$$</div>
+
+<p>Vary the scaling parameter from 1 to 400.</p>
+
+<p><strong>Question</strong>: For which $\ell$ do you see a qualitative change of behavior in the system, both from looking at the plots and the VMD visualization? Which cases are reaction-limited and which cases are diffusion-limited?</p>
+
+<h3 id="task-4">Task 4)</h3>
+
+<p>Starting from the parameters of a diffusion influenced system from Task 3), set up a simulation, where prey particles form a traveling wavefront, closely followed by predators. Therefore you might want to change the simulation box and box potential parameters to get a 2D rectangular plane.</p>
+
+<p><a href="https://www.youtube.com/watch?v=Kc2rN16f6xI"><img src="assets/wave.jpg" alt="" /></a></p>
+
+<p>Feel free to adjust all parameters. You can experiment with other spatial patterns as well, have a look at <a href="http://dx.doi.org/10.1063/1.4729141">this paper</a>.</p>
+
+
+</section>
+
+<section id="wednesday">
+<h1>Wednesday
+</h1>
+<p class="centered"><img src="assets/polymer.png" alt="" /></p>
+
+<p>This session will cover macromolecules and their dynamics. In particular we want to model short RNA chains, represented by linear chains of beads.</p>
+
+<p>Assume $N$ beads of particles at positions <span class="kdmath">$\mathbf{x}_i$</span>, 
+the $i$th bead is connected with the $i+1$th bead by a spring which has a fixed length $l$. 
+Thus the whole chain of particles is linearly connected. 
+The vector <span class="kdmath">$\mathbf{r}_i=\mathbf{x}_{i+1}-\mathbf{x}_i$</span> is the segment that connnects adjacent beads.</p>
+
+<p class="centered"><img src="assets/segments.svg" alt="" /></p>
+
+<p>One can measure how strongly the $i$th and the $j$th segment correlate by considering the scalar product <span class="kdmath">$\mathbf{r}_i\cdot\mathbf{r}_j$</span>.</p>
+
+<p class="centered"><img src="assets/segments_correlation.svg" alt="" /></p>
+
+<p>Since this value alone is quite meaningless, one can consider its average over a whole ensemble of segments. This average can be taken over all segments, i.e. $\forall i,j$ in the linear chain, and also over many times if the linear chain evolves over time. For realistic polymers one typically observes that the $i$th segment strongly correlates with the $j=i+1$th segment. However for $j\gg i$ the correlation vanishes. Phenomenologically this is understood by an exponential decay of the correlation</p>
+
+<div class="kdmath">$$
+\langle \mathbf{r}_i\cdot\mathbf{r}_j \rangle=l^2\exp\left(-|j-i|\,l/l_p\right)
+$$</div>
+
+<p>where we have defined the <strong>persistence length</strong> $l_p$. The value of $l_p$ is determined by the interaction of the beads. For example <em>structured</em> RNA molecules typically show a persistence length of 72nm. Today we will instead model <em>unstructed</em> RNA molecules, which show a persistence length of roughly 2nm.</p>
+
+<p>We will consider two models for the polymer, namely</p>
+
+<ul>
+  <li>the <em>freely jointed chain</em> (FJC), and</li>
+  <li>the <em>freely rotating chain</em> (FRC).</li>
+</ul>
+
+<p>In the FJC, the beads are connected by segments of fixed length $l=0.48$. Other than that there is no interaction.</p>
+
+<p>In the FRC, the beads are also connected by segments of fixed length $l=0.48$. Additionally the angle between neighbouring segments is fixed to $\theta=35^\circ$.</p>
+
+<h3 id="task-1-equilibrate-polymers">Task 1) Equilibrate polymers</h3>
+
+<p>In the first task you will</p>
+
+<ul>
+  <li><strong>a)</strong> equilibrate a freely jointed chain (FJC) of $N=50$ beads. Equilibration is ensured by measuring the <a href="https://en.wikipedia.org/wiki/Radius_of_gyration#Molecular_applications">radius of gyration</a> of a polymer over time.</li>
+  <li><strong>b)</strong> Once the polymer is equilibrated, you will measure the persistence length $l_p$.</li>
+  <li><strong>c)</strong> Repeat a) and b) for the freely rotating chain (FRC)</li>
+</ul>
+
+<p>We will only need one particle species <code class="highlighter-rouge">monomer</code> with diffusion constant $D=0.1$. Note that this will not be a <em>normal</em> species but will be a <strong>topology species</strong>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s">"monomer"</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The <strong>simulation box</strong> shall have <code class="highlighter-rouge">box_size= [102.,102.,102.]</code>, and be <strong>non-periodic</strong>. This means that there has to be a <strong>box potential</strong> registered for the type <code class="highlighter-rouge">monomer</code> with force constant 50, <code class="highlighter-rouge">origin=np.array([-50,-50,-50])</code> and <code class="highlighter-rouge">extent=np.array([100,100,100])</code>.</p>
+
+<p>In order to build a polymer we use <a href="https://readdy.github.io/system.html#topologies">topologies</a>. At first we need to register a type of toplogy</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">add_type</span><span class="p">(</span><span class="s">"polymer"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The monomers in a polymer must be held together by <a href="https://readdy.github.io/system.html#harmonic-bonds">harmonic bonds</a>, defined by pairs of particle types</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">configure_harmonic_bond</span><span class="p">(</span>
+    <span class="s">"monomer"</span><span class="p">,</span> <span class="s">"monomer"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">50.</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">0.48</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>Only in the case of a FRC</strong> we also specify an <a href="https://readdy.github.io/system.html#harmonic-angles">angular potential</a>, that is defined for a triplet of particle types</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">configure_harmonic_angle</span><span class="p">(</span>
+    <span class="s">"monomer"</span><span class="p">,</span> <span class="s">"monomer"</span><span class="p">,</span> <span class="s">"monomer"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">20.</span><span class="p">,</span> 
+    <span class="n">equilibrium_angle</span><span class="o">=</span><span class="p">(</span><span class="mf">180.</span><span class="o">-</span><span class="mf">35.</span><span class="p">)</span><span class="o">/</span><span class="mf">180.</span><span class="o">*</span><span class="n">np</span><span class="p">.</span><span class="n">pi</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>where an <code class="highlighter-rouge">equilibrium_angle</code> is given in radians (Note that the equilibrium angle here is not the same as the $\theta$ as defined above, thus the conversion by 180 degrees).</p>
+
+<p>The next step is creating the <strong>simulation</strong>. Then we specify the observables, the trajectory and the particle positions</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">record_trajectory</span><span class="p">(</span><span class="n">stride</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<span class="n">simulation</span><span class="p">.</span><span class="n">observe</span><span class="p">.</span><span class="n">particle_positions</span><span class="p">(</span><span class="n">stride</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>We also want to make use of checkpointing to continue simulation for an already equilibrated polymer. If there are no checkpoints, we want to create new positions for the polymer. The new positions represent a random walk in three dimensions with fixed step length <code class="highlighter-rouge">bond_length</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">exists</span><span class="p">(</span><span class="n">checkpoint_dir</span><span class="p">):</span>
+    <span class="c1"># load checkpoint
+</span>    <span class="n">simulation</span><span class="p">.</span><span class="n">load_particles_from_latest_checkpoint</span><span class="p">(</span><span class="n">checkpoint_dir</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># new positions
+</span>    <span class="n">init_pos</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">chain_length</span><span class="p">):</span>
+        <span class="n">displacement</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+        <span class="n">displacement</span> <span class="o">/=</span> <span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">displacement</span> <span class="o">*</span> <span class="n">displacement</span><span class="p">))</span>
+        <span class="n">displacement</span> <span class="o">*=</span> <span class="n">bond_length</span>
+        <span class="n">init_pos</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">init_pos</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">displacement</span><span class="p">)</span>
+    <span class="n">init_pos</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">init_pos</span><span class="p">)</span>
+
+    <span class="c1"># subtract center of mass
+</span>    <span class="n">init_pos</span> <span class="o">-=</span> <span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="n">init_pos</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># add all particles for the topology at once
+</span>    <span class="n">top</span> <span class="o">=</span> <span class="n">simulation</span><span class="p">.</span><span class="n">add_topology</span><span class="p">(</span><span class="s">"polymer"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">init_pos</span><span class="p">)</span> <span class="o">*</span> <span class="p">[</span><span class="s">"monomer"</span><span class="p">],</span> <span class="n">init_pos</span><span class="p">)</span>
+
+    <span class="c1"># set up the linear connectivity
+</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">chain_length</span><span class="p">):</span>
+        <span class="n">top</span><span class="p">.</span><span class="n">get_graph</span><span class="p">().</span><span class="n">add_edge</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+<span class="c1"># this also creates the directory
+</span><span class="n">simulation</span><span class="p">.</span><span class="n">make_checkpoints</span><span class="p">(</span><span class="n">n_steps</span> <span class="o">//</span> <span class="mi">100</span><span class="p">,</span> 
+  <span class="n">output_directory</span><span class="o">=</span><span class="n">checkpoint_dir</span><span class="p">,</span> <span class="n">max_n_saves</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>Tip</strong>: Keep two separate checkpoint directories output files and for the FJC and the FRC model. This means you may want to have the following defined in the beginning of your notebook</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">chain_type</span> <span class="o">=</span> <span class="s">"fjc"</span> <span class="c1"># fjc or frc
+</span><span class="n">out_dir</span> <span class="o">=</span> <span class="s">"/some/place/on/your/drive"</span>
+<span class="n">out_file</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s">"polymer_</span><span class="si">{</span><span class="n">chain_type</span><span class="si">}</span><span class="s">.h5"</span><span class="p">)</span>
+<span class="n">checkpoint_dir</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s">"ckpts_</span><span class="si">{</span><span class="n">chain_type</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Now that we have defined the simulation object we can run the simulation</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">exists</span><span class="p">(</span><span class="n">simulation</span><span class="p">.</span><span class="n">output_file</span><span class="p">):</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="n">simulation</span><span class="p">.</span><span class="n">output_file</span><span class="p">)</span>
+<span class="n">simulation</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">n_steps</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>and also observe the output</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">traj</span> <span class="o">=</span> <span class="n">readdy</span><span class="p">.</span><span class="n">Trajectory</span><span class="p">(</span><span class="n">out_file</span><span class="p">)</span>
+<span class="n">traj</span><span class="p">.</span><span class="n">convert_to_xyz</span><span class="p">(</span>
+  <span class="n">particle_radii</span><span class="o">=</span><span class="p">{</span><span class="s">"monomer"</span><span class="p">:</span> <span class="n">bond_length</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">},</span>
+  <span class="n">draw_box</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>1a)</strong> The radius of gyration is a measure of how ‘extended’ in space a polymer is. To calculate it, we must have observed the particle positions. As a first step we convert the readdy output to a numpy array</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">times</span><span class="p">,</span> <span class="n">positions</span> <span class="o">=</span> <span class="n">traj</span><span class="p">.</span><span class="n">read_observable_particle_positions</span><span class="p">()</span>
+
+<span class="c1"># convert to numpy array
+</span><span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">positions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">pos</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">positions</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">n</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">pos</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">positions</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">n</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">pos</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">positions</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">n</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Then from the <code class="highlighter-rouge">pos</code> array you may use the following to calculate the radius of gyration (the assertion statements may help you understand how the arrays are shaped)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># calculate radius of gyration
+</span><span class="n">mean_pos</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">difference</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_particles</span><span class="p">):</span>
+    <span class="n">difference</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">mean_pos</span>
+
+<span class="k">assert</span> <span class="n">difference</span><span class="p">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># square and sum over coordinates (axis=2)
+</span><span class="n">squared_radius_g</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">difference</span> <span class="o">*</span> <span class="n">difference</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">squared_radius_g</span><span class="p">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+
+<span class="c1"># average over particles (axis=1)
+</span><span class="n">squared_radius_g</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="n">squared_radius_g</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">radius_g</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">squared_radius_g</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">radius_g</span><span class="p">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">times</span><span class="p">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">T</span><span class="p">,)</span>
+</code></pre></div></div>
+
+<p>Plot the radius of gyration as a function of time, is it equilibrated? If not, simulate for a longer time.</p>
+
+<p><strong>1b)</strong> The mean correlation of segments $\langle \mathbf{r}_i\cdot\mathbf{r}_j \rangle$ shall be calculated from the <code class="highlighter-rouge">pos</code> array. You will average over all pairs of the linear chain and also over all times.</p>
+
+<p>Use the following snippet to calculate the <code class="highlighter-rouge">segments</code> vector</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">assert</span> <span class="n">pos</span><span class="p">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="c1"># calculate segments
+</span><span class="n">segments</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">pos</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+</code></pre></div></div>
+
+<p>The correlation between $i$ and $j$ shall be measured as a function of their separation $s=\mid j-i\mid$, which is a value between 0 and $N-1$, e.g.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">n_beads</span> <span class="o">=</span> <span class="n">pos</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">separations</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_beads</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">corrs</span> <span class="o">=</span> <span class="bp">None</span> <span class="c1"># your task
+</span></code></pre></div></div>
+
+<p>Now for every separation $s$, calculate the average correlation, averaged over all pairs $(i,j)$ that lead to <span class="kdmath">$s=\mid j-i\mid$</span>.</p>
+
+<p><strong>Hints:</strong></p>
+
+<ul>
+  <li>
+    <p>The calculation may involve a double loop over all segments</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_beads</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n_beads</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="c1"># something
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>The scalar product of the $i$th and the $j$th bead for all times is</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">segments</span><span class="p">[:,</span> <span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*</span> <span class="n">segments</span><span class="p">[:,</span> <span class="n">j</span><span class="p">,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>    </div>
+
+    <p>where the summation over <code class="highlighter-rouge">axis=1</code> is over the x,y,z coordinates</p>
+  </li>
+</ul>
+
+<p>Then plot the mean correlation as a function of the separation. What do you observe?</p>
+
+<p>To determine the persistence length $l_p$, fit a function of the form</p>
+
+<div class="kdmath">$$
+f(s)=c_1e^{-sc_2}
+$$</div>
+
+<p>to the data using <code class="highlighter-rouge">scipy.optimize.curve_fit</code>. From the constant $c_2$ you should be able to obtain the persistence length. What is its value?</p>
+
+<p><strong>1c)</strong> Repeat a) and b) for the FRC. Note the value for $l_p$ for both models.</p>
+
+<p>Given the  values in the introduction text, which of the models (FJC, FRC) is better suited to model unstructured RNA?</p>
+
+<h3 id="task-2-identify-given-structures">Task 2) Identify given structures</h3>
+
+<p>Obtain the two data files <a href="https://userpage.fu-berlin.de/chrisfr/readdy_website/assets/a.npy"><code class="highlighter-rouge">a.npy</code></a> and <a href="https://userpage.fu-berlin.de/chrisfr/readdy_website/assets/b.npy"><code class="highlighter-rouge">b.npy</code></a> and save them to a directory of your liking. Each of them contains 100 positions of beads, i.e. <code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code> are two polymer configurations. You can load them as follows</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">"a.npy"</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">"b.npy"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">a</span><span class="p">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">b</span><span class="p">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Your task is to identify which of them is the FJC model and which is the FRC model, from what you’ve learned in task 1.</p>
+
+<h3 id="task-3-first-passage-times-of-finding-target">Task 3) First-passage times of finding target</h3>
+
+<p>You shall now use the configuration <code class="highlighter-rouge">x.npy</code> (where <code class="highlighter-rouge">x</code> is either <code class="highlighter-rouge">a</code> or <code class="highlighter-rouge">b</code>)from task 2 that corresponds to the FRC, to set up another simulation, in which one bead of the polymer is of <code class="highlighter-rouge">target</code> type. Freely diffusing <code class="highlighter-rouge">A</code> particles have to find the <code class="highlighter-rouge">target</code> particle. The application you should have in mind is proteins docking to a certain part of nucleid acids, which is crucial for the function of each biological cell. To determine when an <code class="highlighter-rouge">A</code> particle has found the target we implement the following kind of reaction</p>
+
+<div class="kdmath">$$
+\mathrm{A} + \mathrm{target} \to \mathrm{B} + \mathrm{target}
+$$</div>
+
+<p>The time when the first <code class="highlighter-rouge">B</code> particle is created, then corresponds to the first-passage time of that reaction.</p>
+
+<p><strong>3a)</strong> Perform a simulation that initializes the polymer from <code class="highlighter-rouge">x.npy</code> where the 10th bead is of type <code class="highlighter-rouge">target</code>, and places 50 <code class="highlighter-rouge">A</code> particles normally distributed (with variance $\sigma=0.5$) around the origin.</p>
+
+<p>Therefore use the following system configuration</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span> <span class="o">=</span> <span class="n">readdy</span><span class="p">.</span><span class="n">ReactionDiffusionSystem</span><span class="p">(</span>
+    <span class="n">box_size</span><span class="o">=</span><span class="p">[</span><span class="mf">16.</span><span class="p">,</span> <span class="mf">16.</span><span class="p">,</span> <span class="mf">16.</span><span class="p">],</span>
+    <span class="n">periodic_boundary_conditions</span><span class="o">=</span><span class="p">[</span><span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span>
+    <span class="n">unit_system</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+
+<span class="n">system</span><span class="p">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s">"monomer"</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s">"target"</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">add_species</span><span class="p">(</span><span class="s">"A"</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">add_species</span><span class="p">(</span><span class="s">"B"</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">add_type</span><span class="p">(</span><span class="s">"polymer"</span><span class="p">)</span>
+
+<span class="n">origin</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">7.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.5</span><span class="p">])</span>
+<span class="n">extent</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">15.</span><span class="p">,</span> <span class="mf">15.</span><span class="p">,</span> <span class="mf">15.</span><span class="p">])</span>
+
+<span class="n">system</span><span class="p">.</span><span class="n">potentials</span><span class="p">.</span><span class="n">add_box</span><span class="p">(</span><span class="s">"monomer"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">50.</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="n">origin</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">potentials</span><span class="p">.</span><span class="n">add_box</span><span class="p">(</span><span class="s">"target"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">50.</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="n">origin</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">potentials</span><span class="p">.</span><span class="n">add_box</span><span class="p">(</span><span class="s">"A"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">50.</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="n">origin</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">potentials</span><span class="p">.</span><span class="n">add_box</span><span class="p">(</span><span class="s">"B"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">50.</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="n">origin</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>with the following topology potentials</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">configure_harmonic_bond</span><span class="p">(</span>
+    <span class="s">"monomer"</span><span class="p">,</span> <span class="s">"monomer"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">50.</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="n">bond_length</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">configure_harmonic_bond</span><span class="p">(</span>
+    <span class="s">"monomer"</span><span class="p">,</span> <span class="s">"target"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">50.</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="n">bond_length</span><span class="p">)</span>
+
+
+<span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">configure_harmonic_angle</span><span class="p">(</span>
+    <span class="s">"monomer"</span><span class="p">,</span> <span class="s">"monomer"</span><span class="p">,</span> <span class="s">"monomer"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">20.</span><span class="p">,</span>
+    <span class="n">equilibrium_angle</span><span class="o">=</span><span class="mf">2.530727415391778</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">configure_harmonic_angle</span><span class="p">(</span>
+    <span class="s">"monomer"</span><span class="p">,</span> <span class="s">"monomer"</span><span class="p">,</span> <span class="s">"target"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">20.</span><span class="p">,</span>
+    <span class="n">equilibrium_angle</span><span class="o">=</span><span class="mf">2.530727415391778</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">configure_harmonic_angle</span><span class="p">(</span>
+    <span class="s">"monomer"</span><span class="p">,</span> <span class="s">"target"</span><span class="p">,</span> <span class="s">"monomer"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">20.</span><span class="p">,</span>
+    <span class="n">equilibrium_angle</span><span class="o">=</span><span class="mf">2.530727415391778</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Define a boolean flag <code class="highlighter-rouge">interaction = True</code>.
+If the bool <code class="highlighter-rouge">interaction</code> is <code class="highlighter-rouge">True</code> then there should be a <a href="https://readdy.github.io/system.html#weak-interaction-piecewise-harmonic">weak interaction</a> between <code class="highlighter-rouge">A</code> and <code class="highlighter-rouge">monomer</code> particles with a <code class="highlighter-rouge">force_constant</code> of 50, <code class="highlighter-rouge">desired_distance=bond_length</code>, a <code class="highlighter-rouge">depth</code> of 1.4, and a <code class="highlighter-rouge">cutoff</code> of <code class="highlighter-rouge">2.2*bond_length</code>.
+What does such an interaction result in?</p>
+
+<p>Additionally there will be repulsion potentials between <code class="highlighter-rouge">monomers</code> and between <code class="highlighter-rouge">A</code> particles.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">potentials</span><span class="p">.</span><span class="n">add_harmonic_repulsion</span><span class="p">(</span>
+    <span class="s">"monomer"</span><span class="p">,</span> <span class="s">"monomer"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">50.</span><span class="p">,</span> 
+    <span class="n">interaction_distance</span><span class="o">=</span><span class="mf">1.1</span><span class="o">*</span><span class="n">bond_length</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">potentials</span><span class="p">.</span><span class="n">add_harmonic_repulsion</span><span class="p">(</span>
+    <span class="s">"A"</span><span class="p">,</span> <span class="s">"A"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">50.</span><span class="p">,</span> <span class="n">interaction_distance</span><span class="o">=</span><span class="mf">1.5</span><span class="o">*</span><span class="n">bond_length</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Finally the system needs the reaction</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">reactions</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">"found: A +(0.48) target -&gt; B + target"</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">10000.</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>where we use a very high rate, such that the reaction will happen directly on contact, where 0.48 is the contact distance.</p>
+
+<p>Observe the number of B particles with a stride of 1.</p>
+
+<p>Load the polymer configuration and turn the 10th monomer into a target.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">init_pos</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">"x.npy"</span><span class="p">)</span>
+
+<span class="n">types</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">init_pos</span><span class="p">)</span> <span class="o">*</span> <span class="p">[</span><span class="s">"monomer"</span><span class="p">]</span>
+<span class="n">types</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="s">"target"</span> <span class="c1"># define the target to be the 10-th monomer
+</span>
+<span class="n">top</span> <span class="o">=</span> <span class="n">sim</span><span class="p">.</span><span class="n">add_topology</span><span class="p">(</span><span class="s">"polymer"</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">init_pos</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">init_pos</span><span class="p">)):</span>
+    <span class="n">top</span><span class="p">.</span><span class="n">get_graph</span><span class="p">().</span><span class="n">add_edge</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Place 50 A particles normally distributed, with variance $\sigma=0.5$, around the origin.</p>
+
+<p>Simulate the system with a timestep of 0.001 for 30000 steps. Have a look at the VMD output.</p>
+
+<ul>
+  <li>How do the <code class="highlighter-rouge">A</code> particles interact with the polymer?</li>
+  <li>Calculate the first passage time from the observed number of particles, i.e. the time when the first <code class="highlighter-rouge">B</code> was created.</li>
+</ul>
+
+<p><strong>3b)</strong> Combine the simulation procedure above into a function of the signature</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">find_target</span><span class="p">(</span><span class="n">interaction</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="p">...</span>
+    <span class="c1"># Since we will run many simulations
+</span>    <span class="c1"># you may want to supress the textual output by
+</span>    <span class="c1"># setting the two options show_progress
+</span>    <span class="c1"># and show_summary
+</span>    <span class="n">sim</span><span class="p">.</span><span class="n">show_progress</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">sim</span><span class="p">.</span><span class="n">run</span><span class="p">(...,</span> <span class="n">show_summary</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="p">...</span>
+    <span class="k">return</span> <span class="n">passage_time</span>
+</code></pre></div></div>
+
+<p><strong>Hint:</strong> One such simulation should not take much longer than 10 seconds.</p>
+
+<p>Gather passage times in a list</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ts_int</span> <span class="o">=</span> <span class="p">[]</span>
+</code></pre></div></div>
+
+<p>Repeat the simulation many times (50-100 should suffice) and append the result to the list.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm_notebook</span> <span class="k">as</span> <span class="n">tqdm</span>
+<span class="n">n</span><span class="o">=</span><span class="mi">50</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)):</span>
+    <span class="n">ts_int</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">find_target</span><span class="p">(</span><span class="n">interaction</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>As this might take a while, you will want to observe how long the whole process takes, which is done here using <code class="highlighter-rouge">tqdm</code>.</p>
+
+<p>Do the same for the case of no interaction, i.e. set <code class="highlighter-rouge">interaction=False</code> and gather the results in another list <code class="highlighter-rouge">ts_noint</code>.</p>
+
+<p><em>ProTip:</em> To save computation time, run this second case in a copy of your notebook (i.e. at the same time) and save the resulting list <code class="highlighter-rouge">ts_noint</code> into a pickle file, which you can read in in the original notebook.</p>
+
+<p>For both cases <code class="highlighter-rouge">interaction=True</code> and <code class="highlighter-rouge">interaction=False</code>, calculate the distribution of first passage times, i.e. plot a histogram of the lists you constructed using <code class="highlighter-rouge">plt.hist()</code>. Use <code class="highlighter-rouge">bins=np.logspace(0,2,20)</code> and <code class="highlighter-rouge">density=True</code>.</p>
+
+<p>When assuming a memory less (Poisson) process, the only relevant parameter is the mean rate $\lambda=N/\sum_{i=1}^N\tau_i$. Plot the distribution of first-passage-times  with mean rate $\lambda$, i.e. the Poisson probability <strong>density</strong> (not the cumulative) of 1 event occurring before time t. Compare against your measured distribution of waiting times?</p>
+
+<p>Is the process of finding the target with or without interaction well suited to be modeled as a memory-less process?</p>
+
+<p>Now additionally mark the <strong>mean</strong> first passage time for each case using <code class="highlighter-rouge">plt.vlines()</code>. Is the difference of the two cases well described by the mean first passage time?</p>
+
+</section>
+
+<section id="thursday">
+<h1>Thursday
+</h1>
+
+<p>This session will deal with the self assembly of macromolecular structures due to reactions.</p>
+
+<h3 id="task-1-linear-filament-eg-actin-assembly">Task 1) linear filament (e.g. actin) assembly</h3>
+
+<p class="centered"><img src="https://www.kerafast.com/images/Product/large/1477.jpg" alt="" /></p>
+
+<p>In this task we will look at a linear polymer chain, but instead of placing all beads initially, we will let it self-assemble from monomers in solution. The polymer that we will build will have the following structure</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>head--core--(...)--core--tail
+</code></pre></div></div>
+
+<p>where <code class="highlighter-rouge">(...)</code> means that there can be many core particles, but the structure is always linear.</p>
+
+<p>The simulation box is  <strong>periodic</strong>  with <code class="highlighter-rouge">box_size=[20., 20., 20.]</code>.</p>
+
+<p>We define three <strong>topology particle species</strong> and one normal particle species</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">add_species</span><span class="p">(</span><span class="s">"substrate"</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s">"head"</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s">"core"</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s">"tail"</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>We also define one topology type</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">add_type</span><span class="p">(</span><span class="s">"filament"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>There should be the following potentials for topology particles</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">configure_harmonic_bond</span><span class="p">(</span>
+    <span class="s">"head"</span><span class="p">,</span> <span class="s">"core"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">configure_harmonic_bond</span><span class="p">(</span>
+    <span class="s">"core"</span><span class="p">,</span> <span class="s">"core"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">configure_harmonic_bond</span><span class="p">(</span>
+    <span class="s">"core"</span><span class="p">,</span> <span class="s">"tail"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The polymer should be rather stiff, which is the case for Actin filaments in biological cells. We can compactly write this for all triplets of particle types:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">triplets</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s">"head"</span><span class="p">,</span> <span class="s">"core"</span><span class="p">,</span> <span class="s">"core"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">"core"</span><span class="p">,</span> <span class="s">"core"</span><span class="p">,</span> <span class="s">"core"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">"core"</span><span class="p">,</span> <span class="s">"core"</span><span class="p">,</span> <span class="s">"tail"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">"head"</span><span class="p">,</span> <span class="s">"core"</span><span class="p">,</span> <span class="s">"tail"</span><span class="p">)</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">t3</span><span class="p">)</span> <span class="ow">in</span> <span class="n">triplets</span><span class="p">:</span>
+    <span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">configure_harmonic_angle</span><span class="p">(</span>
+        <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">t3</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">50.</span><span class="p">,</span> 
+        <span class="n">equilibrium_angle</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="n">pi</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>We now introduce a <a href="https://readdy.github.io/system.html#topology_reactions">topology reaction</a>. They allow changes to the graph of a topology in form of a reaction. Here we will use the following definition.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">add_spatial_reaction</span><span class="p">(</span>
+    <span class="s">"attach: filament(head) + (substrate) -&gt; filament(core--head)"</span><span class="p">,</span>
+    <span class="n">rate</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.5</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>Using the <a href="https://readdy.github.io/system.html#spatial-reactions">documentation</a>, familiarize yourself, what this means. Do not hesitate to ask, since topology reactions can become quite a tricky concept!</p>
+
+<p>Next create a simulation object. We want to observe the following</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">record_trajectory</span><span class="p">(</span><span class="n">stride</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">simulation</span><span class="p">.</span><span class="n">observe</span><span class="p">.</span><span class="n">topologies</span><span class="p">(</span><span class="n">stride</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Add one filament topology to the simulation</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">init_top_pos</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span> <span class="mf">1.</span> <span class="p">,</span><span class="mf">0.</span> <span class="p">,</span><span class="mf">0.</span><span class="p">],</span>
+    <span class="p">[</span> <span class="mf">0.</span> <span class="p">,</span><span class="mf">0.</span> <span class="p">,</span><span class="mf">0.</span><span class="p">],</span>
+    <span class="p">[</span><span class="o">-</span><span class="mf">1.</span> <span class="p">,</span><span class="mf">0.</span> <span class="p">,</span><span class="mf">0.</span><span class="p">]</span>
+<span class="p">])</span>
+<span class="n">top</span> <span class="o">=</span> <span class="n">simulation</span><span class="p">.</span><span class="n">add_topology</span><span class="p">(</span>
+  <span class="s">"filament"</span><span class="p">,</span> <span class="p">[</span><span class="s">"head"</span><span class="p">,</span> <span class="s">"core"</span><span class="p">,</span> <span class="s">"tail"</span><span class="p">],</span> <span class="n">init_top_pos</span><span class="p">)</span>
+<span class="n">top</span><span class="p">.</span><span class="n">get_graph</span><span class="p">().</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">top</span><span class="p">.</span><span class="n">get_graph</span><span class="p">().</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Additionally we need substrate particles, that can attach themselves to the filament</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">n_substrate</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">origin</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">10.</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.</span><span class="p">])</span>
+<span class="n">extent</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">20.</span><span class="p">,</span> <span class="mf">20.</span><span class="p">,</span> <span class="mf">20.</span><span class="p">])</span>
+<span class="n">init_pos</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_substrate</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span> <span class="o">*</span> <span class="n">extent</span> <span class="o">+</span> <span class="n">origin</span>
+<span class="n">simulation</span><span class="p">.</span><span class="n">add_particles</span><span class="p">(</span><span class="s">"substrate"</span><span class="p">,</span> <span class="n">positions</span><span class="o">=</span><span class="n">init_pos</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Then, run the simulation</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">exists</span><span class="p">(</span><span class="n">simulation</span><span class="p">.</span><span class="n">output_file</span><span class="p">):</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="n">simulation</span><span class="p">.</span><span class="n">output_file</span><span class="p">)</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mf">5e-3</span>
+<span class="n">simulation</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="mi">400000</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>One important observable will be the length of the filament as a function of time. It can be obtained from the trajectory as follows:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">times</span><span class="p">,</span> <span class="n">topology_records</span> <span class="o">=</span> <span class="n">traj</span><span class="p">.</span><span class="n">read_observable_topologies</span><span class="p">()</span>
+<span class="n">chain_length</span> <span class="o">=</span> <span class="p">[</span> <span class="nb">len</span><span class="p">(</span><span class="n">tops</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">particles</span><span class="p">)</span> <span class="k">for</span> <span class="n">tops</span> <span class="ow">in</span> <span class="n">topology_records</span> <span class="p">]</span>
+</code></pre></div></div>
+
+<p>The last line is a <a href="https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions">list comprehension</a>. <code class="highlighter-rouge">tops</code> is a list of topologies for a given time step. Hence, <code class="highlighter-rouge">tops[0]</code> is the first (and in this case, the only) topology in the system. <code class="highlighter-rouge">tops[0].particles</code> is a list of particles belonging to this topology. Thus, its length yields the length of the filament.</p>
+
+<p><strong>1a)</strong> Have a look at the VMD output. Describe what happens? Additionally plot the length of the filament as a function of time. <strong>Note</strong> that you shall now plot the simulation time and not the time step indices, i.e. do the following</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span>
+</code></pre></div></div>
+
+<p>where <code class="highlighter-rouge">dt</code> is the time step size.</p>
+
+<p><strong>1b)</strong> Using your data of the filament-length, fit a function of the form</p>
+
+<div class="kdmath">$$
+f(t)=a(1-e^{-bt})+3
+$$</div>
+
+<p>to your data. You should use <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html">scipy.optimize.curve_fit</a> to do so</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="n">so</span>
+
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">*</span> <span class="n">t</span><span class="p">))</span> <span class="o">+</span> <span class="mf">3.</span>
+
+<span class="n">popt</span><span class="p">,</span> <span class="n">pcov</span> <span class="o">=</span> <span class="n">so</span><span class="p">.</span><span class="n">curve_fit</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">chain_length</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"popt"</span><span class="p">,</span> <span class="n">popt</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"pcov"</span><span class="p">,</span> <span class="n">pcov</span><span class="p">)</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">func</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">popt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">popt</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">chain_length</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">"data"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">times</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s">"fit $f(t)=a(1-e^{-bt})+3$"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">"Time"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">"Filament length"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><strong>Question:</strong> Given the result of the fitting parameters</p>
+
+<ul>
+  <li>How large is the equilibration rate?</li>
+  <li>What will be the length of the filament for $t\to\infty$?</li>
+</ul>
+
+<p><strong>1c)</strong> We now introduce a disassembly reaction for the <code class="highlighter-rouge">tail</code> particle. This is done by adding the following to your system configuration.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">rate_function</span><span class="p">(</span><span class="n">topology</span><span class="p">):</span>
+    <span class="s">"""
+    if the topology has at least (head, core, tail)
+    the tail shall be removed with a fixed probability per time
+    """</span>
+    <span class="n">vertices</span> <span class="o">=</span> <span class="n">topology</span><span class="p">.</span><span class="n">get_graph</span><span class="p">().</span><span class="n">get_vertices</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vertices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.05</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.</span>
+
+<span class="k">def</span> <span class="nf">reaction_function</span><span class="p">(</span><span class="n">topology</span><span class="p">):</span>
+    <span class="s">"""
+    find the tail and remove it,
+    and make the adjacent core particle the new tail
+    """</span>
+    <span class="n">recipe</span> <span class="o">=</span> <span class="n">readdy</span><span class="p">.</span><span class="n">StructuralReactionRecipe</span><span class="p">(</span><span class="n">topology</span><span class="p">)</span>
+    <span class="n">vertices</span> <span class="o">=</span> <span class="n">topology</span><span class="p">.</span><span class="n">get_graph</span><span class="p">().</span><span class="n">get_vertices</span><span class="p">()</span>
+
+    <span class="n">tail_idx</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">adjacent_core_idx</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vertices</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">topology</span><span class="p">.</span><span class="n">particle_type_of_vertex</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">==</span> <span class="s">"tail"</span><span class="p">:</span>
+            <span class="n">adjacent_core_idx</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">neighbors</span><span class="p">()[</span><span class="mi">0</span><span class="p">].</span><span class="n">get</span><span class="p">().</span><span class="n">particle_index</span>
+            <span class="n">tail_idx</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">particle_index</span>
+
+    <span class="n">recipe</span><span class="p">.</span><span class="n">separate_vertex</span><span class="p">(</span><span class="n">tail_idx</span><span class="p">)</span>
+    <span class="n">recipe</span><span class="p">.</span><span class="n">change_particle_type</span><span class="p">(</span><span class="n">tail_idx</span><span class="p">,</span> <span class="s">"substrate"</span><span class="p">)</span>
+    <span class="n">recipe</span><span class="p">.</span><span class="n">change_particle_type</span><span class="p">(</span><span class="n">adjacent_core_idx</span><span class="p">,</span> <span class="s">"tail"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">recipe</span>
+
+
+<span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">add_structural_reaction</span><span class="p">(</span>
+    <span class="s">"detach"</span><span class="p">,</span>
+    <span class="s">"filament"</span><span class="p">,</span>
+    <span class="n">reaction_function</span><span class="o">=</span><span class="n">reaction_function</span><span class="p">,</span> 
+    <span class="n">rate_function</span><span class="o">=</span><span class="n">rate_function</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Familiarize yourself with this kind of <a href="https://readdy.github.io/system.html#structural-reactions">structural topology reaction</a></p>
+
+<p>Repeat the same analysis as before, and also observe your VMD output.</p>
+
+<ul>
+  <li>How large is the equilibration rate?</li>
+  <li>What will be the length of the filament for $t\to\infty$?</li>
+</ul>
+
+<h3 id="task-2-assembly-of-virus-capsids">Task 2) Assembly of virus capsids</h3>
+
+<p class="centered"><img src="https://cdn.rcsb.org/pdb101/motm/images/200-Quasisymmetry_in_Icosahedral_Viruses-Quasisymmetry.jpg" alt="" /></p>
+
+<p>This task will suggest a model for the assembly of monomers into hexamers, and in the bonus task: the assembly of these hexamers into even larger superstructures.</p>
+
+<p>First we need a model for one monomer, which should look as follows</p>
+
+<p class="centered"><img src="assets/monomer.svg" alt="" /></p>
+
+<p>It is essentially one bigger <code class="highlighter-rouge">core</code> particle with two <code class="highlighter-rouge">sites</code> attached. This is sometimes called a <em>patchy particle</em>, i.e. a particle with reaction patches. In the language of ReaDDy, this group of particles is a topology, let’s give it the name <code class="highlighter-rouge">CA</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">add_type</span><span class="p">(</span><span class="s">"CA"</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s">"core"</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">system</span><span class="p">.</span><span class="n">add_topology_species</span><span class="p">(</span><span class="s">"site"</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The angle between the triplet <code class="highlighter-rouge">site--core--site</code>, shall be fixed to 120°. The <code class="highlighter-rouge">sites</code> shall react with the <code class="highlighter-rouge">sites</code> of other monomers to form a dimer that looks like</p>
+
+<p class="centered"><img src="assets/dimer.svg" alt="" /></p>
+
+<p>For this dimer, the four particles shall be confined to a single 2D plane, which we do using topology potentials. Summarizing all potentials that you need to configure for the particles:</p>
+
+<ul>
+  <li>harmonic bond between <code class="highlighter-rouge">core--site</code> with force constant 100 and length 1</li>
+  <li>harmonic bond between <code class="highlighter-rouge">core--core</code> with force constant 100 and length 2</li>
+  <li>harmonic bond between <code class="highlighter-rouge">site--site</code> with force constant 100 and length 0.1</li>
+  <li>harmonic angle between <code class="highlighter-rouge">site--core--site</code> with force constant 200 and equilibrium angle 120 degrees</li>
+  <li>harmonic angle between <code class="highlighter-rouge">site--core--core</code> with force constant 200 and equilibrium angle 120 degrees</li>
+  <li>harmonic angle between <code class="highlighter-rouge">core--core--core</code> with force constant 200 and equilibrium angle 120 degrees</li>
+  <li>dihedral between <code class="highlighter-rouge">core--core--core--core</code> with force constant 200, mutliplicity of 1 and equilibrium angle of 0</li>
+  <li>dihedral between <code class="highlighter-rouge">site--core--core--core</code> with force constant 200, mutliplicity of 1 and equilibrium angle of 0</li>
+  <li>dihedral between <code class="highlighter-rouge">site--core--core--site</code> with force constant 200, mutliplicity of 1 and equilibrium angle of 0</li>
+  <li>(normal) harmonic repulsion between <code class="highlighter-rouge">core</code> and <code class="highlighter-rouge">core</code> with force constant 80 and interaction distance 2</li>
+</ul>
+
+<p>The <strong>formation of the dimer</strong> will be done using a <a href="https://readdy.github.io/system.html#spatial-reactions">spatial topology reaction</a></p>
+
+<p>of the form</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">add_spatial_reaction</span><span class="p">(</span>
+    <span class="s">"attach: CA(site)+CA(site)-&gt;CA(site--site) [self=true]"</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">10.</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>After such a reaction the connectivity looks like <code class="highlighter-rouge">(...)--core--site--site--core--(...)</code>. In a second step after the reaction we want to get rid of the two <code class="highlighter-rouge">site</code> particles in the middle. This will be done using a <a href="https://readdy.github.io/system.html#structural-reactions">structural topology reaction</a> of the following kind (make sure that you understand what happens in these code snippets. Do ask, if you have problems understanding!). The first ingredient is the rate function for the structural reaction, i.e. given a toplogy this function shall return a very high rate, if there is a <code class="highlighter-rouge">site--site</code> connection, and shall return 0 otherwise</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">clean_sites_rate_function</span><span class="p">(</span><span class="n">topology</span><span class="p">):</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="n">topology</span><span class="p">.</span><span class="n">get_graph</span><span class="p">().</span><span class="n">get_edges</span><span class="p">()</span>
+    <span class="n">vertices</span> <span class="o">=</span> <span class="n">topology</span><span class="p">.</span><span class="n">get_graph</span><span class="p">().</span><span class="n">get_vertices</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vertices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+            <span class="n">v1_ref</span><span class="p">,</span> <span class="n">v2_ref</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">v1</span> <span class="o">=</span> <span class="n">v1_ref</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="n">v2</span> <span class="o">=</span> <span class="n">v2_ref</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="n">v1_type</span> <span class="o">=</span> <span class="n">topology</span><span class="p">.</span><span class="n">particle_type_of_vertex</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span>
+            <span class="n">v2_type</span> <span class="o">=</span> <span class="n">topology</span><span class="p">.</span><span class="n">particle_type_of_vertex</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">v1_type</span> <span class="o">==</span> <span class="s">"site"</span> <span class="ow">and</span> <span class="n">v2_type</span> <span class="o">==</span> <span class="s">"site"</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mf">1e12</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.</span>
+    <span class="k">return</span> <span class="mf">0.</span>
+</code></pre></div></div>
+
+<p>The second ingredient is the reaction function, that performs the removing of the two <code class="highlighter-rouge">site</code> particles, after the rate function has returned a very high rate</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">clean_sites_reaction_function</span><span class="p">(</span><span class="n">topology</span><span class="p">):</span>
+
+    <span class="n">recipe</span> <span class="o">=</span> <span class="n">readdy</span><span class="p">.</span><span class="n">StructuralReactionRecipe</span><span class="p">(</span><span class="n">topology</span><span class="p">)</span>
+    <span class="n">vertices</span> <span class="o">=</span> <span class="n">topology</span><span class="p">.</span><span class="n">get_graph</span><span class="p">().</span><span class="n">get_vertices</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">search_configuration</span><span class="p">():</span>
+        <span class="c1"># dfs for finding configuration core-site-site-core
+</span>        <span class="k">for</span> <span class="n">v1</span> <span class="ow">in</span> <span class="n">vertices</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">topology</span><span class="p">.</span><span class="n">particle_type_of_vertex</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span> <span class="o">==</span> <span class="s">"core"</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">v2_ref</span> <span class="ow">in</span> <span class="n">v1</span><span class="p">.</span><span class="n">neighbors</span><span class="p">():</span>
+                    <span class="n">v2</span> <span class="o">=</span> <span class="n">v2_ref</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">topology</span><span class="p">.</span><span class="n">particle_type_of_vertex</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span> <span class="o">==</span> <span class="s">"site"</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">v3_ref</span> <span class="ow">in</span> <span class="n">v2</span><span class="p">.</span><span class="n">neighbors</span><span class="p">():</span>
+                            <span class="n">v3</span> <span class="o">=</span> <span class="n">v3_ref</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
+                            <span class="k">if</span> <span class="n">v3</span><span class="p">.</span><span class="n">particle_index</span> <span class="o">!=</span> <span class="n">v1</span><span class="p">.</span><span class="n">particle_index</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="n">topology</span><span class="p">.</span><span class="n">particle_type_of_vertex</span><span class="p">(</span><span class="n">v3</span><span class="p">)</span> <span class="o">==</span> <span class="s">"site"</span><span class="p">:</span>
+                                    <span class="k">for</span> <span class="n">v4_ref</span> <span class="ow">in</span> <span class="n">v3</span><span class="p">.</span><span class="n">neighbors</span><span class="p">():</span>
+                                        <span class="n">v4</span> <span class="o">=</span> <span class="n">v4_ref</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
+                                        <span class="k">if</span> <span class="n">v4</span><span class="p">.</span><span class="n">particle_index</span> <span class="o">!=</span> <span class="n">v2</span><span class="p">.</span><span class="n">particle_index</span><span class="p">:</span>
+                                            <span class="k">if</span> <span class="n">topology</span><span class="p">.</span><span class="n">particle_type_of_vertex</span><span class="p">(</span><span class="n">v4</span><span class="p">)</span> <span class="o">==</span> <span class="s">"core"</span><span class="p">:</span>
+                                                <span class="k">return</span> <span class="n">v1</span><span class="p">.</span><span class="n">particle_index</span><span class="p">,</span> <span class="n">v2</span><span class="p">.</span><span class="n">particle_index</span><span class="p">,</span> <span class="n">v3</span><span class="p">.</span><span class="n">particle_index</span><span class="p">,</span> <span class="n">v4</span><span class="p">.</span><span class="n">particle_index</span>
+
+    <span class="n">core1_p_idx</span><span class="p">,</span> <span class="n">site1_p_idx</span><span class="p">,</span> <span class="n">site2_p_idx</span><span class="p">,</span> <span class="n">core2_p_idx</span> <span class="o">=</span> <span class="n">search_configuration</span><span class="p">()</span>
+
+    <span class="c1"># find corresponding vertex indices from particle indices
+</span>    <span class="n">core1_v_idx</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">site1_v_idx</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">site2_v_idx</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">core2_v_idx</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">vertices</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">v</span><span class="p">.</span><span class="n">particle_index</span> <span class="o">==</span> <span class="n">core1_p_idx</span> <span class="ow">and</span> <span class="n">core1_v_idx</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">core1_v_idx</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">elif</span> <span class="n">v</span><span class="p">.</span><span class="n">particle_index</span> <span class="o">==</span> <span class="n">site1_p_idx</span> <span class="ow">and</span> <span class="n">site1_v_idx</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">site1_v_idx</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">elif</span> <span class="n">v</span><span class="p">.</span><span class="n">particle_index</span> <span class="o">==</span> <span class="n">site2_p_idx</span> <span class="ow">and</span> <span class="n">site2_v_idx</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">site2_v_idx</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">elif</span> <span class="n">v</span><span class="p">.</span><span class="n">particle_index</span> <span class="o">==</span> <span class="n">core2_p_idx</span> <span class="ow">and</span> <span class="n">core2_v_idx</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">core2_v_idx</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">core1_v_idx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">core2_v_idx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">site1_v_idx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+            <span class="n">site2_v_idx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="n">recipe</span><span class="p">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">core1_v_idx</span><span class="p">,</span> <span class="n">core2_v_idx</span><span class="p">)</span>
+        <span class="n">recipe</span><span class="p">.</span><span class="n">separate_vertex</span><span class="p">(</span><span class="n">site1_v_idx</span><span class="p">)</span>
+        <span class="n">recipe</span><span class="p">.</span><span class="n">separate_vertex</span><span class="p">(</span><span class="n">site2_v_idx</span><span class="p">)</span>
+        <span class="n">recipe</span><span class="p">.</span><span class="n">change_particle_type</span><span class="p">(</span><span class="n">site1_v_idx</span><span class="p">,</span> <span class="s">"dummy"</span><span class="p">)</span>
+        <span class="n">recipe</span><span class="p">.</span><span class="n">change_particle_type</span><span class="p">(</span><span class="n">site2_v_idx</span><span class="p">,</span> <span class="s">"dummy"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="nb">RuntimeError</span><span class="p">(</span><span class="s">"core-site-site-core wasn't found"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">recipe</span>
+</code></pre></div></div>
+
+<p>Finally add the structural reaction to the system</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">topologies</span><span class="p">.</span><span class="n">add_structural_reaction</span><span class="p">(</span>
+    <span class="s">"clean_sites"</span><span class="p">,</span> <span class="n">topology_type</span><span class="o">=</span><span class="s">"CA"</span><span class="p">,</span> 
+    <span class="n">reaction_function</span><span class="o">=</span><span class="n">clean_sites_reaction_function</span><span class="p">,</span>
+    <span class="n">rate_function</span><span class="o">=</span><span class="n">clean_sites_rate_function</span><span class="p">,</span>
+    <span class="n">raise_if_invalid</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">expect_connected</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>2a)</strong> Simulate the system described above in a <strong>periodic box</strong> of size <code class="highlighter-rouge">[25, 25, 25]</code> for <code class="highlighter-rouge">n_steps=50000</code> steps with a timestep of 0.005. Initially place 150 <code class="highlighter-rouge">CA</code> patchy particles uniformly distributed in the box. While simulating, observe the trajectory and topologies with the <strong>same stride</strong>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sim</span><span class="p">.</span><span class="n">record_trajectory</span><span class="p">(</span><span class="n">n_steps</span><span class="o">//</span><span class="mi">2000</span><span class="p">)</span>
+<span class="n">sim</span><span class="p">.</span><span class="n">observe</span><span class="p">.</span><span class="n">topologies</span><span class="p">(</span><span class="n">n_steps</span><span class="o">//</span><span class="mi">2000</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>What do you observe in the VMD output? Do particles assemble in the way you expected?</p>
+
+<p><strong>Hints</strong>:</p>
+
+<ul>
+  <li>
+    <p>You should place the particles such that the <code class="highlighter-rouge">site</code> particles are already at   their prescribed 120 degree angle and a distance of 1 away from the <code class="highlighter-rouge">core</code>     particle. Adding one such particle can be done in the following way</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">core</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span>
+<span class="n">site1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">])</span>
+<span class="n">site2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="p">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mf">60.</span> <span class="o">/</span> <span class="mf">180.</span><span class="p">),</span> <span class="mf">0.</span><span class="p">,</span> <span class="o">-</span> <span class="mf">1.</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mf">60.</span> <span class="o">/</span> <span class="mf">180.</span><span class="p">)])</span>
+  
+<span class="n">top</span> <span class="o">=</span> <span class="n">sim</span><span class="p">.</span><span class="n">add_topology</span><span class="p">(</span><span class="s">"CA"</span><span class="p">,</span> <span class="p">[</span><span class="s">"site"</span><span class="p">,</span> <span class="s">"core"</span><span class="p">,</span> <span class="s">"site"</span><span class="p">],</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">site1</span><span class="p">,</span> <span class="n">core</span><span class="p">,</span> <span class="n">site2</span><span class="p">]))</span>
+<span class="n">top</span><span class="p">.</span><span class="n">get_graph</span><span class="p">().</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">top</span><span class="p">.</span><span class="n">get_graph</span><span class="p">().</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li>To distribute the particles uniformly you should add a random translation vector to all positions <code class="highlighter-rouge">core</code>, <code class="highlighter-rouge">site1</code> and <code class="highlighter-rouge">site2</code>.</li>
+  <li>If you want to be super cool, you can rotate the patchy particle by a random amount before translating it. Ask google how to generate a random rotation matrix and how to apply it to your vectors <code class="highlighter-rouge">core</code>, <code class="highlighter-rouge">site1</code> and <code class="highlighter-rouge">site2</code></li>
+</ul>
+
+<p><strong>2b)</strong> From your output file and using the topologies and trajectory observable, calculate the <em>time dependent</em> distribution of molecular mass. This means: Given an instance of a topology, the degree of polymerization is the number of connected <code class="highlighter-rouge">core</code> particles in this topology. For one polymer the molecular mass is equal to the degree of polymerization. Obtain such a value for all topologies in a given timestep and make a histogram of that. Now that histogram only counts the occurrence of how many times a topology with a certain molecular mass shows up. To convert that into a distribution of molecular mass itself, you have to multiply the number of occurrence for each degree of polymerization by the degree of polymerization itself. Repeat this for all observed times to obtain as many histograms as there are timesteps.</p>
+
+<p><strong>Hints</strong></p>
+
+<ul>
+  <li>
+    <p>The actual trajectory can be obtained from the trajectory file like so</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">traj_file</span> <span class="o">=</span> <span class="n">readdy</span><span class="p">.</span><span class="n">Trajectory</span><span class="p">(</span><span class="n">out_file</span><span class="p">)</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">traj_file</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>The particle type (string) of a particle with index <code class="highlighter-rouge">v</code> at time <code class="highlighter-rouge">t</code> is</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">traj</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">v</span><span class="p">].</span><span class="nb">type</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Construct the histogram for each time using <code class="highlighter-rouge">np.histogram(current_sizes, bins=bin_edges)</code>, where <code class="highlighter-rouge">current_sizes</code> is the list of the molecular masses you have obtained, and <code class="highlighter-rouge">bin_edges=np.arange(1,10,1)</code></li>
+  <li>For plotting it might come in handy to convert the <code class="highlighter-rouge">bin_edges</code> to <code class="highlighter-rouge">bin_centers</code>, by calculating the midpoints for each bin</li>
+  <li>
+    <p>Plot the histograms using the following snippet</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="n">bin_centers</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">all_histograms</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">pcolor</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="p">.</span><span class="n">cm</span><span class="p">.</span><span class="n">viridis_r</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">"Time"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">"Degree of polymerization"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">"Distribution of molecular mass"</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><strong>2c)</strong> Calculate a similar distribution of molecular mass, but now only for <em>completely assembled</em> topologies, i.e. topologies with no open <code class="highlighter-rouge">site</code> particles left. What is the percentage of “misfolded” topologies?</p>
+
+<p><strong>2d)</strong> From looking at your distribution of pentamers, hexamers, and heptamers. Can you form a full capsid out of the patchy particles we have used? Have a look at the introductory image with the viruses, what do you notice about the capsomers?</p>
+
+<p><strong>2e) Bonus task</strong>: Introduce a third reactive patch for each patchy particle called <code class="highlighter-rouge">offsite</code>, which allows binding to other <code class="highlighter-rouge">offsite</code> particles. In this way try to assemble a larger super structure out of the hexamers.</p>
+
+
+</section>
+
+<section id="friday">
+<h1>Friday
+</h1>
+
+<p>The idea for the friday session is to either</p>
+<ul>
+  <li>Continue to create spatial patterns with the diffusion-limited LV model</li>
+  <li>Try to simulate a system that you are working on / you know well</li>
+  <li>Think of any other scientifically related/unrelated system</li>
+</ul>
+
+<p>At ca. 15:30h everyone will present their system: a short vmd movie and an explanation of what your system does, how it works.</p>
+
+</section>
+
+<section id="cookbook">
+<h1>Cookbook
+</h1>
+<p>This section has some solutions to common problems you might run into.</p>
+
+<ul>
+  <li><strong>The order</strong> in which you create and manipulate the <code class="highlighter-rouge">system</code> and <code class="highlighter-rouge">simulation</code> matters!</li>
+</ul>
+
+<p>Remember that the workflow should always be</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span> <span class="o">=</span> <span class="n">readdy</span><span class="p">.</span><span class="n">ReactionDiffusionSystem</span><span class="p">(...)</span>
+<span class="c1"># ... system configuration
+</span><span class="n">simulation</span> <span class="o">=</span> <span class="n">system</span><span class="p">.</span><span class="n">simulation</span><span class="p">(...)</span>
+<span class="c1"># ... simulation setup
+</span><span class="n">simulation</span><span class="p">.</span><span class="n">run</span><span class="p">(...)</span>
+<span class="c1"># ... analysis of results
+</span></code></pre></div></div>
+<p>If you made a mistake while registering species, potentials, etc., just create a new <code class="highlighter-rouge">system</code> and run the configuration again. The same goes for the <code class="highlighter-rouge">simulation</code>, just create a new one. In the jupyter notebooks it is sufficient, to just run all the cells again.</p>
+
+<ul>
+  <li><strong>Simulation box</strong> and box potential for confining particles</li>
+</ul>
+
+<p>If you want to confine particles to some cube without periodic boundaries, the box potential must be fully <strong>inside</strong> the simulation box. Remember that the box is centered around <code class="highlighter-rouge">(0,0,0)</code>. For example the following will confine <code class="highlighter-rouge">A</code> particles to a cube of edge length 10</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span> <span class="o">=</span> <span class="n">readdy</span><span class="p">.</span><span class="n">ReactionDiffusionSystem</span><span class="p">(</span>
+    <span class="n">box_size</span><span class="o">=</span><span class="p">[</span><span class="mf">12.</span><span class="p">,</span> <span class="mf">12.</span><span class="p">,</span> <span class="mf">12.</span><span class="p">],</span> <span class="n">unit_system</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="n">periodic_boundary_conditions</span><span class="o">=</span><span class="p">[</span><span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">])</span>
+<span class="n">system</span><span class="p">.</span><span class="n">add_species</span><span class="p">(</span><span class="s">"A"</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+<span class="n">origin</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.</span><span class="p">])</span>
+<span class="n">extent</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">])</span>
+<span class="n">system</span><span class="p">.</span><span class="n">potentials</span><span class="p">.</span><span class="n">add_box</span><span class="p">(</span>
+    <span class="s">"A"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">10.</span><span class="p">,</span>
+    <span class="n">origin</span><span class="o">=</span><span class="n">origin</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">)</span>
+</code></pre></div></div>
+<p class="centered">The two vectors <code class="highlighter-rouge">origin</code> and <code class="highlighter-rouge">extent</code> span a cube in 3D space, the picture you should have in mind is the following</p>
+<p><img src="assets/box_potential_within.png" alt="" /></p>
+
+<ul>
+  <li><strong>Initial placement</strong> of particles inside a certain volume</li>
+</ul>
+
+<p>If you have already defined <code class="highlighter-rouge">origin</code> and <code class="highlighter-rouge">extent</code> of your confining box potential, it is easy to generate random positions uniformly in this volume</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">n_particles</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">uniform</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_particles</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">init_pos</span> <span class="o">=</span> <span class="n">uniform</span> <span class="o">*</span> <span class="n">extent</span> <span class="o">+</span> <span class="n">origin</span>
+</code></pre></div></div>
+<p>Here <code class="highlighter-rouge">uniform</code> is a matrix <code class="highlighter-rouge">Nx3</code> where each row is a vector in the unit cube $\in{[0,1]\times[0,1]\times[0,1]}$ . This is multiplied with <code class="highlighter-rouge">extent</code>, yielding a uniform cube ${[0,\mathrm{extent}_0]\times[0,\mathrm{extent}_1]\times[0,\mathrm{extent}_2]}$. If you add the <code class="highlighter-rouge">origin</code> to this you get this cube at the right position (with respect to our box coordinates centered around <code class="highlighter-rouge">(0,0,0)</code>), i.e.</p>
+
+<div class="kdmath">$$
+\begin{aligned}
+\{&amp;[\mathrm{origin}_0,\mathrm{extent}_0+\mathrm{origin}_0]\\
+\times&amp;[\mathrm{origin}_1,\mathrm{extent}_1+\mathrm{origin}_1]\\
+\times&amp;[\mathrm{origin}_2,\mathrm{extent}_2+\mathrm{origin}_2]\}
+\end{aligned}
+$$</div>
+
+<ul>
+  <li><strong>2D plane</strong></li>
+</ul>
+
+<p>If you want to confine particles to a 2D plane, just use the box potential but make the <code class="highlighter-rouge">extent</code> in one dimension very small, i.e.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span> <span class="o">=</span> <span class="n">readdy</span><span class="p">.</span><span class="n">ReactionDiffusionSystem</span><span class="p">(</span>
+    <span class="n">box_size</span><span class="o">=</span><span class="p">[</span><span class="mf">12.</span><span class="p">,</span> <span class="mf">12.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">],</span> <span class="n">unit_system</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="n">periodic_boundary_conditions</span><span class="o">=</span><span class="p">[</span><span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">])</span>
+<span class="n">system</span><span class="p">.</span><span class="n">add_species</span><span class="p">(</span><span class="s">"A"</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+<span class="n">origin</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.01</span><span class="p">])</span>
+<span class="n">extent</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">])</span>
+<span class="n">system</span><span class="p">.</span><span class="n">potentials</span><span class="p">.</span><span class="n">add_box</span><span class="p">(</span>
+    <span class="s">"A"</span><span class="p">,</span> <span class="n">force_constant</span><span class="o">=</span><span class="mf">10.</span><span class="p">,</span>
+    <span class="n">origin</span><span class="o">=</span><span class="n">origin</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Having defined <code class="highlighter-rouge">origin</code> and <code class="highlighter-rouge">extent</code> it is now easy to add particles to this 2D plane. <strong>Note</strong> that I also made the <code class="highlighter-rouge">box_size</code> in z direction smaller, however it should be large enough.</p>
+
+<ul>
+  <li><strong>Output file size</strong></li>
+</ul>
+
+<p>Please make use of your <code class="highlighter-rouge">/storage/mi/user</code> directories, your <code class="highlighter-rouge">home</code> will fill up quicker.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data_dir</span> <span class="o">=</span> <span class="s">"/storage/mi/user"</span> <span class="c1"># replace user with your username
+</span><span class="n">simulation</span><span class="p">.</span><span class="n">output_file</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s">"myfile.h5"</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Additionally, use a <code class="highlighter-rouge">stride</code> on your observables, e.g.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">record_trajectory</span><span class="p">(</span><span class="n">stride</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="c1"># or
+</span><span class="n">simulation</span><span class="p">.</span><span class="n">observe</span><span class="p">.</span><span class="n">particle_positions</span><span class="p">(</span><span class="n">stride</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>Reaction descriptor language</strong></li>
+</ul>
+
+<p>In expressions like</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system</span><span class="p">.</span><span class="n">reactions</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">"fus: A +(2) B-&gt; C"</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</code></pre></div></div>
+<p>the value in the parentheses <code class="highlighter-rouge">+(2)</code> is the reaction distance.</p>
+
+<ul>
+  <li><strong>look at VMD output if something is fishy</strong></li>
+</ul>
+
+<p>This might reveal some obvious mistakes. Therefore you must have registered the according observable</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>simulation.record_trajectory(stride=100) # use appropriate stride
+# ... run simulation
+traj = readdy.Trajectory(simulation.output_file)
+traj.convert_to_xyz(particle_radii={"A": 0.5, "B": 1.})
+# particle_radii is optional here
+</code></pre></div></div>
+<p>Then in a bash shell do</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vmd <span class="nt">-e</span> myfile.h5.xyz.tcl
+</code></pre></div></div>
+<p>or prefix with <code class="highlighter-rouge">!</code> in the jupyter notebook.</p>
+
+</section>
+
+
+
+        </article>
+        <div class="foot">
+            © Copyright 2020 <a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/">AI4Science (former CMB) Group</a>
+        </div>
+    </div>
+</div>
+<script src="https://readdy.github.io/libraries/perfect-scrollbar/js/perfect-scrollbar.min.js"></script>
+<script src="https://readdy.github.io/assets/js/scrollbar.js"></script>
+</body>
+</html>

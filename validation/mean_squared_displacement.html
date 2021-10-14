@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Diffusion - Mean squared displacement</title>
+
+    <link rel="stylesheet" href="/assets/css/readdy_documentation.css">
+    <link rel="canonical" href="https://readdy.github.io/validation/mean_squared_displacement">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto+Mono|Lora|Lato|Source+Sans+Pro|Roboto+Slab|Merriweather" rel="stylesheet">
+    <link rel="stylesheet" href="https://readdy.github.io/libraries/perfect-scrollbar/css/perfect-scrollbar.min.css"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false},
+                ]
+            });
+        });
+    </script>
+
+    <link rel="icon" type="image/png" href="/assets/icon_black_32px.png">
+
+</head>
+
+
+<body>
+<div class="side-wrapper" id="unique-side-container">
+<div class="side">
+    <div class="side-logo logo-readdy"><a href="https://readdy.github.io/index.html"></a></div>
+    <div style="margin-right: 1.5rem; text-align: center;">
+        <a href="https://readdy.github.io/index.html">ReaDDy - A particle-based<br>reaction-diffusion simulator</a>
+    </div>
+
+    <div class="side-searchbar-wrapper">
+        <form action="https://readdy.github.io/search.html" method="get">
+            <input type="text" id="search-box" name="query" placeholder="Search ...">
+        </form>
+    </div>
+    <nav class="side-nav">
+        <a class="side-nav-item" href="https://readdy.github.io/index.html">Home</a>
+        <a class="side-nav-item" href="https://readdy.github.io/installation.html">Install readdy</a>
+        <div class="nav-supergroup-delimiter">
+            <b>API</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/system.html">System configuration</a>
+        
+        <a class="side-nav-item" href="https://readdy.github.io/simulation.html">Simulation</a>
+        
+        <a class="side-nav-item" href="https://readdy.github.io/results.html">Post-processing</a>
+
+        <div class="nav-supergroup-delimiter">
+            <b>Examples</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/demonstration.html">Demonstration</a>
+        
+
+        <a class="side-nav-item active" href="https://readdy.github.io/validation.html">Validation</a>
+        
+        
+        
+        <a class="side-nav-sub-item" href="https://readdy.github.io/validation/bimolecular_reaction">
+            Bimolecular reaction - well mixed
+
+        </a>
+        
+        <a class="side-nav-sub-item" href="https://readdy.github.io/validation/mean_squared_displacement">
+            Diffusion - Mean squared displacement
+
+        </a>
+        
+        <a class="side-nav-sub-item" href="https://readdy.github.io/validation/boltzmann_distribution_harmonic_repulsion">
+            Harmonic repulsion - Boltzmann distribution
+
+        </a>
+        
+        <a class="side-nav-sub-item" href="https://readdy.github.io/validation/lennard_jones_fluid">
+            Lennard-Jones fluid - thermodynamic state variables
+
+        </a>
+        
+        
+
+        <a class="side-nav-item" href="https://readdy.github.io/benchmark.html">Benchmark</a>
+        
+
+
+        <div class="nav-supergroup-delimiter">
+            <b>Advanced topics</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/cookbook.html">Cookbook</a>
+        <a class="side-nav-item" href="https://readdy.github.io/development.html">Development</a>
+        
+
+        
+
+        <div class="nav-supergroup-delimiter">
+            <b>Legal notices</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/imprint.html">Imprint</a>
+        <a class="side-nav-item" href="https://readdy.github.io/software_license.html">Software license</a>
+
+        
+
+    </nav>
+
+    <div class="github-wrapper">
+        <a href="https://github.com/readdy/readdy" style="width: 16rem; height:100%; position:absolute; top:0; left:0;">
+            <div class="github-text">ReaDDy on GitHub</div>
+            <div class="side-logo logo-github"></div>
+        </a>
+    </div>
+    <div class="side-logo logo-cmb"><a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/"></a></div>
+</div>
+</div>
+
+<div class="main-container" id="unique-main-container">
+    <div class="main notebook">
+        <article>
+            <div class="docpage-heading"><h1>Diffusion - Mean squared displacement</h1></div>
+
+            <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">readdy</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">readdy</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>v2.0.3-27
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Set up a cubic periodic box and register one species <code>A</code> with diffusion constant $D=1$. The simulation adds 800 particles in the origin. We observe the particle positions at every timestep and run the simulation for a given amount of steps.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">system</span> <span class="o">=</span> <span class="n">readdy</span><span class="o">.</span><span class="n">ReactionDiffusionSystem</span><span class="p">(</span>
+    <span class="n">box_size</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> 
+    <span class="n">periodic_boundary_conditions</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+    <span class="n">unit_system</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">system</span><span class="o">.</span><span class="n">add_species</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+<span class="n">simulation</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">simulation</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;SingleCPU&quot;</span><span class="p">)</span>
+
+<span class="n">simulation</span><span class="o">.</span><span class="n">output_file</span> <span class="o">=</span> <span class="s2">&quot;out_msd.h5&quot;</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">observe</span><span class="o">.</span><span class="n">particle_positions</span><span class="p">(</span><span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">init_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">800</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">simulation</span><span class="o">.</span><span class="n">add_particles</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">init_pos</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">output_file</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+
+<span class="n">simulation</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">n_steps</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">timestep</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>  6%|▋         | 32/500 [00:00&lt;00:01, 316.09it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Configured kernel context with:
+--------------------------------
+ - kBT = 1.0
+ - periodic b.c. = (true, true, true)
+ - box size = (10.0, 10.0, 10.0)
+ - particle types:
+     *  particle type &#34;A&#34; with D=1.0
+
+Configured simulation loop with:
+--------------------------------
+ - timeStep = 0.00100000
+ - evaluateObservables = true
+ - progressOutputStride = 100
+ - context written to file = true
+ - Performing actions:
+   * Initialize neighbor list? true
+   * Update neighbor list? true
+   * Clear neighbor list? true
+   * Integrate diffusion? true
+   * Calculate forces? true
+   * Handle reactions? true
+   * Handle topology reactions? true
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>100%|██████████| 500/500 [00:01&lt;00:00, 319.21it/s]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Load the trajectory containing the observables. Since there were no reactions in the system we can assume that the particle positions is of fixed shape <code>(T, N, 3)</code>, where <code>N</code> does not change over time. We may want to cast the positions into a numpy array.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">traj</span> <span class="o">=</span> <span class="n">readdy</span><span class="o">.</span><span class="n">Trajectory</span><span class="p">(</span><span class="n">simulation</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+<span class="n">times</span><span class="p">,</span> <span class="n">positions</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">read_observable_particle_positions</span><span class="p">()</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e-3</span>
+
+<span class="c1"># convert to pure numpy array to make use of fancy operations</span>
+<span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">positions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">pos</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">positions</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">n</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">pos</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">positions</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">n</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">pos</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">positions</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">n</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Wrap the trajectories back to account for periodic boundaries</p>
+<ol>
+<li>find the box index of each point in time for each particle and each coordinate</li>
+<li>wrap the trajectory back to absolute positions for each particle using the box indices</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># step 1.</span>
+<span class="n">box_size</span> <span class="o">=</span> <span class="mf">10.</span>
+<span class="n">box_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]:</span>
+            <span class="n">delta</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">coord</span><span class="p">]</span> <span class="o">-</span> <span class="n">pos</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">coord</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">delta</span> <span class="o">&gt;</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">box_size</span><span class="p">:</span>
+                <span class="n">box_indices</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">coord</span><span class="p">]</span> <span class="o">=</span> <span class="n">box_indices</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">coord</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">delta</span> <span class="o">&lt;</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">box_size</span><span class="p">:</span>
+                <span class="n">box_indices</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">coord</span><span class="p">]</span> <span class="o">=</span> <span class="n">box_indices</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">coord</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">box_indices</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">coord</span><span class="p">]</span> <span class="o">=</span> <span class="n">box_indices</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">coord</span><span class="p">]</span>
+
+<span class="c1"># step 2.</span>
+<span class="n">absolute_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">absolute_pos</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span> <span class="o">+</span> <span class="n">box_indices</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="o">*</span> <span class="n">box_size</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Using the absolute positions we can calculate the displacement from the initial positions and obtain the quadratic variation (the mean squared displacement) and its standard deviation. Since the particles do not interact their trajectories are uncorrelated and we obtain the standard error of the mean from the same experiment.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">difference</span> <span class="o">=</span> <span class="n">absolute_pos</span> <span class="o">-</span> <span class="n">init_pos</span>
+<span class="c1"># sum over coordinates, per particle per timestep</span>
+<span class="n">squared_displacements</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">difference</span> <span class="o">*</span> <span class="n">difference</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># squared_displacements has shape (T,N)</span>
+<span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">squared_displacements</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">std_dev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">squared_displacements</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">std_err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">squared_displacements</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">squared_displacements</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># plot</span>
+<span class="n">stride</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">times</span><span class="p">[::</span><span class="n">stride</span><span class="p">],</span> <span class="n">mean</span><span class="p">[::</span><span class="n">stride</span><span class="p">],</span> <span class="n">yerr</span><span class="o">=</span><span class="n">std_err</span><span class="p">[::</span><span class="n">stride</span><span class="p">],</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Particle diffusion&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">[::</span><span class="n">stride</span><span class="p">],</span> <span class="mf">6.</span> <span class="o">*</span> <span class="n">times</span><span class="p">[::</span><span class="n">stride</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$6 D t$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Time $t$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Mean squared displacement $\langle (x(t) - x_0)^2 \rangle_N$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+ 
+
+
+        </article>
+        <div class="foot">
+            © Copyright 2020 <a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/">AI4Science (former CMB) Group</a>
+        </div>
+    </div>
+</div>
+<script src="https://readdy.github.io/libraries/perfect-scrollbar/js/perfect-scrollbar.min.js"></script>
+<script src="https://readdy.github.io/assets/js/scrollbar.js"></script>
+</body>
+</html>

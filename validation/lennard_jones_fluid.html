@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Lennard-Jones fluid - thermodynamic state variables</title>
+
+    <link rel="stylesheet" href="/assets/css/readdy_documentation.css">
+    <link rel="canonical" href="https://readdy.github.io/validation/lennard_jones_fluid">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto+Mono|Lora|Lato|Source+Sans+Pro|Roboto+Slab|Merriweather" rel="stylesheet">
+    <link rel="stylesheet" href="https://readdy.github.io/libraries/perfect-scrollbar/css/perfect-scrollbar.min.css"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false},
+                ]
+            });
+        });
+    </script>
+
+    <link rel="icon" type="image/png" href="/assets/icon_black_32px.png">
+
+</head>
+
+
+<body>
+<div class="side-wrapper" id="unique-side-container">
+<div class="side">
+    <div class="side-logo logo-readdy"><a href="https://readdy.github.io/index.html"></a></div>
+    <div style="margin-right: 1.5rem; text-align: center;">
+        <a href="https://readdy.github.io/index.html">ReaDDy - A particle-based<br>reaction-diffusion simulator</a>
+    </div>
+
+    <div class="side-searchbar-wrapper">
+        <form action="https://readdy.github.io/search.html" method="get">
+            <input type="text" id="search-box" name="query" placeholder="Search ...">
+        </form>
+    </div>
+    <nav class="side-nav">
+        <a class="side-nav-item" href="https://readdy.github.io/index.html">Home</a>
+        <a class="side-nav-item" href="https://readdy.github.io/installation.html">Install readdy</a>
+        <div class="nav-supergroup-delimiter">
+            <b>API</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/system.html">System configuration</a>
+        
+        <a class="side-nav-item" href="https://readdy.github.io/simulation.html">Simulation</a>
+        
+        <a class="side-nav-item" href="https://readdy.github.io/results.html">Post-processing</a>
+
+        <div class="nav-supergroup-delimiter">
+            <b>Examples</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/demonstration.html">Demonstration</a>
+        
+
+        <a class="side-nav-item active" href="https://readdy.github.io/validation.html">Validation</a>
+        
+        
+        
+        <a class="side-nav-sub-item" href="https://readdy.github.io/validation/bimolecular_reaction">
+            Bimolecular reaction - well mixed
+
+        </a>
+        
+        <a class="side-nav-sub-item" href="https://readdy.github.io/validation/mean_squared_displacement">
+            Diffusion - Mean squared displacement
+
+        </a>
+        
+        <a class="side-nav-sub-item" href="https://readdy.github.io/validation/boltzmann_distribution_harmonic_repulsion">
+            Harmonic repulsion - Boltzmann distribution
+
+        </a>
+        
+        <a class="side-nav-sub-item" href="https://readdy.github.io/validation/lennard_jones_fluid">
+            Lennard-Jones fluid - thermodynamic state variables
+
+        </a>
+        
+        
+
+        <a class="side-nav-item" href="https://readdy.github.io/benchmark.html">Benchmark</a>
+        
+
+
+        <div class="nav-supergroup-delimiter">
+            <b>Advanced topics</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/cookbook.html">Cookbook</a>
+        <a class="side-nav-item" href="https://readdy.github.io/development.html">Development</a>
+        
+
+        
+
+        <div class="nav-supergroup-delimiter">
+            <b>Legal notices</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/imprint.html">Imprint</a>
+        <a class="side-nav-item" href="https://readdy.github.io/software_license.html">Software license</a>
+
+        
+
+    </nav>
+
+    <div class="github-wrapper">
+        <a href="https://github.com/readdy/readdy" style="width: 16rem; height:100%; position:absolute; top:0; left:0;">
+            <div class="github-text">ReaDDy on GitHub</div>
+            <div class="side-logo logo-github"></div>
+        </a>
+    </div>
+    <div class="side-logo logo-cmb"><a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/"></a></div>
+</div>
+</div>
+
+<div class="main-container" id="unique-main-container">
+    <div class="main notebook">
+        <article>
+            <div class="docpage-heading"><h1>Lennard-Jones fluid - thermodynamic state variables</h1></div>
+
+            <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We consider a simple fluid of particles that interact due to the Lennard Jones potential</p>
+$$
+U(r) = 4\varepsilon \left[ \left(\frac{\sigma}{r}\right)^{12} - \left(\frac{\sigma}{r}\right)^6 \right]
+$$<p>To validate the integration of the diffusion process and correct implementation of energies and forces, we compare observables to results from the literature. The observables are: the mean potential energy of the system per particle $U$,  the pressure $P$ and the radial distribution function $g(r)$.</p>
+<p>The thermodynamic quantities of a Lennard Jones fluid are typically expressed in terms of the rescaled density
+$\rho^* = (N/V)\sigma^3$ and the rescaled temperature $T^* = k_BT/\varepsilon$, where $N$ is the number of particles in the system, which is constant over time, and $V$ is the available volume.
+In simulation practice we set $\sigma=1$ and $\varepsilon=1$ to achieve the reduced units. The quantity $\sigma^2 / 4D$ gives rise to a typical time scale, where $D$ is the self diffusion coefficient of the particles. In practice we set the diffusion coefficient to 1.</p>
+<p>We use an Euler-Maruyama scheme to integrate the positions of particles according to the overdamped Langevin equation of motion, in contrast to an integration of positions and momenta in the underdamped limit.</p>
+<p>The pressure can be measured from the acting forces according to [4]</p>
+$$
+PV = Nk_BT + \langle \mathscr{W} \rangle
+$$<p>where</p>
+$$
+\mathscr{W} = \frac{1}{3} \sum_i \sum_{j&gt;i} \mathbf{r}_{ij} \mathbf{f}_{ij},
+$$<p>is the virial that describes the deviation from ideal-gas-behavior. It is measured in terms of pairwise acting forces $\mathbf{f}_{ij}$ between particles $i$ and $j$ which are separated by $\mathbf{r}_{ij}$. This is implemented by ReaDDy's pressure observable.</p>
+<p><strong>Results</strong></p>
+<table>
+<thead><tr>
+<th>origin</th>
+<th>cutoff radius $r_c$</th>
+<th>density $\rho$</th>
+<th>temperature $T$</th>
+<th>pressure $P$</th>
+<th>potential energy per particle $U$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[1]</td>
+<td>4</td>
+<td>0.3</td>
+<td>3</td>
+<td>1.023(2)</td>
+<td>-1.673(2)</td>
+</tr>
+<tr>
+<td>[2]</td>
+<td>4</td>
+<td>0.3</td>
+<td>3</td>
+<td>1.0245</td>
+<td>-1.6717</td>
+</tr>
+<tr>
+<td>HALMD [3]</td>
+<td>4</td>
+<td>0.3</td>
+<td>3</td>
+<td>1.0234(3)</td>
+<td>-1.6731(4)</td>
+</tr>
+<tr>
+<td>ReaDDy</td>
+<td>4</td>
+<td>0.3</td>
+<td>3</td>
+<td>1.035(7)</td>
+<td>-1.679(3)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>[1]</td>
+<td>4</td>
+<td>0.6</td>
+<td>3</td>
+<td>3.69(1)</td>
+<td>-3.212(3)</td>
+</tr>
+<tr>
+<td>[2]</td>
+<td>4</td>
+<td>0.6</td>
+<td>3</td>
+<td>3.7165</td>
+<td>-3.2065</td>
+</tr>
+<tr>
+<td>HALMD [3]</td>
+<td>4</td>
+<td>0.6</td>
+<td>3</td>
+<td>3.6976(8)</td>
+<td>-3.2121(2)</td>
+</tr>
+<tr>
+<td>ReaDDy</td>
+<td>4</td>
+<td>0.6</td>
+<td>3</td>
+<td>3.70(2)</td>
+<td>-3.208(7)</td>
+</tr>
+</tbody>
+</table>
+<p>[1] Molecular dynamics simulations, J. K. Johnson, J. A. Zollweg, and K. E. Gubbins,
+The Lennard-Jones equation of state revisited, Mol. Phys. 78, 591 (1993)</p>
+<p>[2] Integral equations theory, A. Ayadim, M. Oettel, and S Amokrane,
+Optimum free energy in the reference functional approach for the integral equations theory, J. Phys.: Condens. Matter 21, 115103 (2009).</p>
+<p>[3] HAL's MD package, <a href="http://halmd.org/validation.html">http://halmd.org/validation.html</a></p>
+<p>[4] Allen, M. P., &amp; Tildesley, D. J. (1987). Computer Simulation of Liquids. New York: Oxford University Press.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">readdy</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">readdy</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>v2.0.3-27
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Utility methods</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">average_across_first_axis</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+    <span class="n">n_values</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_values</span>  <span class="c1"># shape = n_bins</span>
+    <span class="n">difference</span> <span class="o">=</span> <span class="n">values</span> <span class="o">-</span> <span class="n">mean</span>  <span class="c1"># broadcasting starts with last axis</span>
+    <span class="n">std_dev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">difference</span> <span class="o">*</span> <span class="n">difference</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_values</span><span class="p">)</span>
+    <span class="n">std_err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">difference</span> <span class="o">*</span> <span class="n">difference</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_values</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mean</span><span class="p">,</span> <span class="n">std_dev</span><span class="p">,</span> <span class="n">std_err</span>
+
+
+<span class="k">def</span> <span class="nf">lj_system</span><span class="p">(</span><span class="n">edge_length</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mf">1.</span><span class="p">):</span>
+    <span class="n">system</span> <span class="o">=</span> <span class="n">readdy</span><span class="o">.</span><span class="n">ReactionDiffusionSystem</span><span class="p">(</span>
+        <span class="n">box_size</span><span class="o">=</span><span class="p">[</span><span class="n">edge_length</span><span class="p">,</span> <span class="n">edge_length</span><span class="p">,</span> <span class="n">edge_length</span><span class="p">],</span>
+        <span class="n">unit_system</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">)</span>
+    <span class="n">system</span><span class="o">.</span><span class="n">kbt</span> <span class="o">=</span> <span class="n">temperature</span>
+    <span class="n">system</span><span class="o">.</span><span class="n">add_species</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">diffusion_constant</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+    <span class="n">system</span><span class="o">.</span><span class="n">potentials</span><span class="o">.</span><span class="n">add_lennard_jones</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mf">4.</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">system</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Wrap the whole simulation and analysis in a function and perform it for the two densities 0.3 and 0.6.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">equilibrate_and_measure</span><span class="p">(</span><span class="n">density</span><span class="o">=</span><span class="mf">0.3</span><span class="p">):</span>
+    <span class="n">n_per_axis</span> <span class="o">=</span> <span class="mi">12</span>
+    <span class="n">n_particles</span> <span class="o">=</span> <span class="n">n_per_axis</span> <span class="o">**</span> <span class="mi">3</span>
+    <span class="n">edge_length</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_particles</span> <span class="o">/</span> <span class="n">density</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="mf">3.</span><span class="p">)</span>
+    <span class="n">pos_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">edge_length</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span> <span class="n">edge_length</span><span class="o">/</span><span class="mf">2.</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">n_per_axis</span><span class="p">)</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">pos_x</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">pos_x</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">pos_x</span><span class="p">:</span>
+                <span class="n">pos</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">])</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;n_particles&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">pos</span><span class="p">),</span> <span class="s2">&quot;box edge_length&quot;</span><span class="p">,</span> <span class="n">edge_length</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span><span class="o">==</span><span class="n">n_particles</span>
+    
+    <span class="k">def</span> <span class="nf">pos_callback</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">nonlocal</span> <span class="n">pos</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">pos</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">pos</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">pos</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;saved positions&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># create system</span>
+    <span class="n">system</span> <span class="o">=</span> <span class="n">lj_system</span><span class="p">(</span><span class="n">edge_length</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mf">3.</span><span class="p">)</span>
+    
+    <span class="c1"># equilibrate</span>
+    <span class="n">sim</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">simulation</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;CPU&quot;</span><span class="p">)</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">add_particles</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+
+    <span class="n">sim</span><span class="o">.</span><span class="n">observe</span><span class="o">.</span><span class="n">particle_positions</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">pos_callback</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">observe</span><span class="o">.</span><span class="n">energy</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">save</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="n">sim</span><span class="o">.</span><span class="n">record_trajectory</span><span class="p">(</span><span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">output_file</span> <span class="o">=</span> <span class="s2">&quot;lj_eq.h5&quot;</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">output_file</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">n_steps</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">timestep</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
+
+    <span class="n">traj</span> <span class="o">=</span> <span class="n">readdy</span><span class="o">.</span><span class="n">Trajectory</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+    <span class="n">traj</span><span class="o">.</span><span class="n">convert_to_xyz</span><span class="p">(</span><span class="n">particle_radii</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">})</span>
+    
+    <span class="c1"># measure</span>
+    <span class="n">sim</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">simulation</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;CPU&quot;</span><span class="p">)</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">add_particles</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">observe</span><span class="o">.</span><span class="n">energy</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">observe</span><span class="o">.</span><span class="n">pressure</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">observe</span><span class="o">.</span><span class="n">rdf</span><span class="p">(</span>
+        <span class="mi">200</span><span class="p">,</span> <span class="n">bin_borders</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">4.</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
+        <span class="n">types_count_from</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">types_count_to</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">particle_to_density</span><span class="o">=</span><span class="n">density</span><span class="p">)</span>
+
+    <span class="n">sim</span><span class="o">.</span><span class="n">output_file</span> <span class="o">=</span> <span class="s2">&quot;lj_measure.h5&quot;</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">output_file</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">n_steps</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">timestep</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
+    
+    <span class="c1"># obtain results</span>
+    <span class="n">traj</span> <span class="o">=</span> <span class="n">readdy</span><span class="o">.</span><span class="n">Trajectory</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">output_file</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">energy</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">read_observable_energy</span><span class="p">()</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">bin_centers</span><span class="p">,</span> <span class="n">rdf</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">read_observable_rdf</span><span class="p">()</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">pressure</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">read_observable_pressure</span><span class="p">()</span>
+    
+    <span class="n">energy_mean</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">energy_err</span> <span class="o">=</span> <span class="n">average_across_first_axis</span><span class="p">(</span><span class="n">energy</span><span class="p">)</span> <span class="c1"># time average</span>
+    <span class="n">energy_mean</span> <span class="o">/=</span> <span class="n">n_particles</span>
+    <span class="n">energy_err</span> <span class="o">/=</span> <span class="n">n_particles</span>
+
+    <span class="n">pressure_mean</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">pressure_err</span> <span class="o">=</span> <span class="n">average_across_first_axis</span><span class="p">(</span><span class="n">pressure</span><span class="p">)</span> <span class="c1"># time average</span>
+
+    <span class="n">rdf_mean</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">rdf_err</span> <span class="o">=</span> <span class="n">average_across_first_axis</span><span class="p">(</span><span class="n">rdf</span><span class="p">)</span> <span class="c1"># time average</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;energy_mean&quot;</span><span class="p">:</span> <span class="n">energy_mean</span><span class="p">,</span> <span class="s2">&quot;energy_err&quot;</span><span class="p">:</span> <span class="n">energy_err</span><span class="p">,</span>
+        <span class="s2">&quot;pressure_mean&quot;</span><span class="p">:</span> <span class="n">pressure_mean</span><span class="p">,</span> <span class="s2">&quot;pressure_err&quot;</span><span class="p">:</span> <span class="n">pressure_err</span><span class="p">,</span>
+        <span class="s2">&quot;rdf_mean&quot;</span><span class="p">:</span> <span class="n">rdf_mean</span><span class="p">,</span> <span class="s2">&quot;rdf_err&quot;</span><span class="p">:</span> <span class="n">rdf_err</span><span class="p">,</span> <span class="s2">&quot;rdf_bin_centers&quot;</span><span class="p">:</span> <span class="n">bin_centers</span>
+    <span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">result_low_dens</span> <span class="o">=</span> <span class="n">equilibrate_and_measure</span><span class="p">(</span><span class="n">density</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>  0%|          | 0/1000 [00:00&lt;?, ?it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>n_particles 1728 box edge_length 17.925618986228656
+Configured kernel context with:
+--------------------------------
+ - kBT = 3.0
+ - periodic b.c. = (true, true, true)
+ - box size = (17.9256, 17.9256, 17.9256)
+ - particle types:
+     *  particle type &#34;A&#34; with D=1.0
+ - potentials of order 2:
+     * for types &#34;A&#34; and &#34;A&#34;
+         * 12.0-6.0-Lennard-Jones potential with cutoff=4.0, epsilon=1.0, k=4.0, and with energy shift
+
+Configured simulation loop with:
+--------------------------------
+ - timeStep = 0.000100000
+ - evaluateObservables = true
+ - progressOutputStride = 100
+ - context written to file = true
+ - Performing actions:
+   * Initialize neighbor list? true
+   * Update neighbor list? true
+   * Clear neighbor list? true
+   * Integrate diffusion? true
+   * Calculate forces? true
+   * Handle reactions? true
+   * Handle topology reactions? true
+
+saved positions
+-2006.092638276083
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>  5%|▌         | 50/1000 [00:16&lt;05:38,  2.81it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-2663.1424920832724
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 10%|█         | 100/1000 [00:32&lt;05:05,  2.95it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-2759.8158335119415
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 15%|█▌        | 150/1000 [00:48&lt;04:22,  3.24it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-2769.480985654246
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 20%|██        | 200/1000 [01:02&lt;03:31,  3.78it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>saved positions
+-2758.3520150659533
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 25%|██▌       | 250/1000 [01:15&lt;03:08,  3.97it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-2838.185778357589
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 30%|███       | 300/1000 [01:29&lt;03:00,  3.89it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-2841.100358293537
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 35%|███▌      | 350/1000 [01:43&lt;02:51,  3.79it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-2801.9811061164173
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 40%|████      | 400/1000 [01:57&lt;02:44,  3.66it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>saved positions
+-2865.1272257328483
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 45%|████▌     | 450/1000 [02:11&lt;02:37,  3.49it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-2891.940879474006
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 50%|█████     | 500/1000 [02:26&lt;02:25,  3.43it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-2824.1108673381364
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 55%|█████▌    | 550/1000 [02:41&lt;02:13,  3.38it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-2930.0205689454847
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 60%|██████    | 600/1000 [02:55&lt;01:55,  3.46it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>saved positions
+-2901.9845693204093
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 65%|██████▌   | 650/1000 [03:10&lt;01:46,  3.28it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-2861.9925088341834
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 70%|███████   | 700/1000 [03:25&lt;01:33,  3.21it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-2829.326983694836
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 75%|███████▌  | 750/1000 [03:41&lt;01:16,  3.26it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-2874.095379626244
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 80%|████████  | 800/1000 [03:57&lt;01:04,  3.09it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>saved positions
+-2918.8710282053125
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 85%|████████▌ | 850/1000 [04:13&lt;00:47,  3.14it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-2809.1883820136936
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 90%|█████████ | 900/1000 [04:28&lt;00:30,  3.25it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-2862.796625209495
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 95%|█████████▌| 950/1000 [04:45&lt;00:15,  3.15it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-2996.5870985783413
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>100%|██████████| 1000/1000 [05:01&lt;00:00,  3.32it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>saved positions
+-2969.2603788072392
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>
+  0%|          | 0/1000 [00:00&lt;?, ?it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Configured kernel context with:
+--------------------------------
+ - kBT = 3.0
+ - periodic b.c. = (true, true, true)
+ - box size = (17.9256, 17.9256, 17.9256)
+ - particle types:
+     *  particle type &#34;A&#34; with D=1.0
+ - potentials of order 2:
+     * for types &#34;A&#34; and &#34;A&#34;
+         * 12.0-6.0-Lennard-Jones potential with cutoff=4.0, epsilon=1.0, k=4.0, and with energy shift
+
+Configured simulation loop with:
+--------------------------------
+ - timeStep = 0.000100000
+ - evaluateObservables = true
+ - progressOutputStride = 100
+ - context written to file = true
+ - Performing actions:
+   * Initialize neighbor list? true
+   * Update neighbor list? true
+   * Clear neighbor list? true
+   * Integrate diffusion? true
+   * Calculate forces? true
+   * Handle reactions? true
+   * Handle topology reactions? true
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>100%|██████████| 1000/1000 [05:45&lt;00:00,  2.89it/s]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">result_low_dens</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[5]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;energy_mean&#39;: -1.6663065999844973,
+ &#39;energy_err&#39;: 0.004068511442129084,
+ &#39;pressure_mean&#39;: 1.0241356362812084,
+ &#39;pressure_err&#39;: 0.007471245837546726,
+ &#39;rdf_mean&#39;: array([0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+        8.73771465e-04, 1.42643258e-01, 7.90076755e-01, 1.37058562e+00,
+        1.48700339e+00, 1.40774728e+00, 1.26934966e+00, 1.17417650e+00,
+        1.09760049e+00, 1.03248774e+00, 1.00018151e+00, 9.77339310e-01,
+        9.52078308e-01, 9.54373365e-01, 9.58670740e-01, 9.78288430e-01,
+        9.85144126e-01, 9.96332472e-01, 9.96971138e-01, 1.01546690e+00,
+        1.00858485e+00, 1.01263937e+00, 1.00667808e+00, 1.00287432e+00,
+        1.00332166e+00, 1.00407493e+00, 1.00003326e+00, 9.97703466e-01,
+        1.00256106e+00, 1.00126730e+00, 1.00149326e+00, 9.99601950e-01,
+        9.99207132e-01, 1.00320129e+00, 1.00385635e+00, 1.00234372e+00,
+        1.00496500e+00, 9.96759322e-01, 1.00211504e+00, 1.00032322e+00,
+        9.97838840e-01, 1.00435081e+00, 1.00073824e+00, 9.97157011e-01,
+        1.00660962e+00]),
+ &#39;rdf_err&#39;: array([0.        , 0.        , 0.        , 0.        , 0.00035392,
+        0.00397702, 0.00752209, 0.00932349, 0.00951939, 0.00999279,
+        0.00882471, 0.00700311, 0.00657965, 0.00635551, 0.00550131,
+        0.00465666, 0.00450317, 0.00426148, 0.00446077, 0.00411222,
+        0.00375464, 0.00418982, 0.00456293, 0.00339979, 0.00380776,
+        0.00383472, 0.00351115, 0.00340765, 0.0029781 , 0.00335204,
+        0.00309728, 0.00392425, 0.003419  , 0.00321209, 0.0030782 ,
+        0.00278284, 0.00280004, 0.00268631, 0.00244541, 0.0022105 ,
+        0.00284042, 0.00229337, 0.00223074, 0.00268411, 0.00236706,
+        0.00272272, 0.00256921, 0.00230784, 0.00235968]),
+ &#39;rdf_bin_centers&#39;: array([0.53571429, 0.60714286, 0.67857143, 0.75      , 0.82142857,
+        0.89285714, 0.96428571, 1.03571429, 1.10714286, 1.17857143,
+        1.25      , 1.32142857, 1.39285714, 1.46428571, 1.53571429,
+        1.60714286, 1.67857143, 1.75      , 1.82142857, 1.89285714,
+        1.96428571, 2.03571429, 2.10714286, 2.17857143, 2.25      ,
+        2.32142857, 2.39285714, 2.46428571, 2.53571429, 2.60714286,
+        2.67857143, 2.75      , 2.82142857, 2.89285714, 2.96428571,
+        3.03571429, 3.10714286, 3.17857143, 3.25      , 3.32142857,
+        3.39285714, 3.46428571, 3.53571429, 3.60714286, 3.67857143,
+        3.75      , 3.82142857, 3.89285714, 3.96428571])}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">result_hi_dens</span> <span class="o">=</span> <span class="n">equilibrate_and_measure</span><span class="p">(</span><span class="n">density</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>  0%|          | 0/1000 [00:00&lt;?, ?it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>n_particles 1728 box edge_length 14.227573217960249
+Configured kernel context with:
+--------------------------------
+ - kBT = 3.0
+ - periodic b.c. = (true, true, true)
+ - box size = (14.2276, 14.2276, 14.2276)
+ - particle types:
+     *  particle type &#34;A&#34; with D=1.0
+ - potentials of order 2:
+     * for types &#34;A&#34; and &#34;A&#34;
+         * 12.0-6.0-Lennard-Jones potential with cutoff=4.0, epsilon=1.0, k=4.0, and with energy shift
+
+Configured simulation loop with:
+--------------------------------
+ - timeStep = 0.000100000
+ - evaluateObservables = true
+ - progressOutputStride = 100
+ - context written to file = true
+ - Performing actions:
+   * Initialize neighbor list? true
+   * Update neighbor list? true
+   * Clear neighbor list? true
+   * Integrate diffusion? true
+   * Calculate forces? true
+   * Handle reactions? true
+   * Handle topology reactions? true
+
+saved positions
+-6881.589189751791
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>  5%|▌         | 50/1000 [01:03&lt;19:58,  1.26s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-5551.336656562339
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 10%|█         | 100/1000 [02:07&lt;18:26,  1.23s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-5517.792907415611
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 15%|█▌        | 150/1000 [03:10&lt;18:16,  1.29s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-5578.622215635525
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 20%|██        | 200/1000 [04:15&lt;17:41,  1.33s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>saved positions
+-5565.460833824768
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 25%|██▌       | 250/1000 [05:19&lt;16:23,  1.31s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-5530.96678538631
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 30%|███       | 300/1000 [06:22&lt;14:44,  1.26s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-5748.91818758591
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 35%|███▌      | 350/1000 [07:27&lt;14:08,  1.31s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-5522.570473647219
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 40%|████      | 400/1000 [08:31&lt;12:17,  1.23s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>saved positions
+-5427.976867616478
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 45%|████▌     | 450/1000 [09:40&lt;13:40,  1.49s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-5404.535270232334
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 50%|█████     | 500/1000 [10:53&lt;11:03,  1.33s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-5425.220376798604
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 55%|█████▌    | 550/1000 [11:57&lt;10:02,  1.34s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-5598.445519678548
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 60%|██████    | 600/1000 [13:03&lt;08:40,  1.30s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>saved positions
+-5534.771794722609
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 65%|██████▌   | 650/1000 [14:08&lt;07:34,  1.30s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-5598.408378384099
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 70%|███████   | 700/1000 [15:12&lt;06:14,  1.25s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-5391.389721014838
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 75%|███████▌  | 750/1000 [16:18&lt;05:27,  1.31s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-5525.528134909822
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 80%|████████  | 800/1000 [17:25&lt;04:24,  1.32s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>saved positions
+-5454.222681817357
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 85%|████████▌ | 850/1000 [18:30&lt;03:13,  1.29s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-5578.676448117959
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 90%|█████████ | 900/1000 [19:37&lt;02:11,  1.31s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-5409.8892046793335
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> 95%|█████████▌| 950/1000 [20:43&lt;01:06,  1.33s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-5757.165020514167
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>100%|██████████| 1000/1000 [21:49&lt;00:00,  1.31s/it]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>saved positions
+-5447.436977709065
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>
+  0%|          | 0/1000 [00:00&lt;?, ?it/s]</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Configured kernel context with:
+--------------------------------
+ - kBT = 3.0
+ - periodic b.c. = (true, true, true)
+ - box size = (14.2276, 14.2276, 14.2276)
+ - particle types:
+     *  particle type &#34;A&#34; with D=1.0
+ - potentials of order 2:
+     * for types &#34;A&#34; and &#34;A&#34;
+         * 12.0-6.0-Lennard-Jones potential with cutoff=4.0, epsilon=1.0, k=4.0, and with energy shift
+
+Configured simulation loop with:
+--------------------------------
+ - timeStep = 0.000100000
+ - evaluateObservables = true
+ - progressOutputStride = 100
+ - context written to file = true
+ - Performing actions:
+   * Initialize neighbor list? true
+   * Update neighbor list? true
+   * Clear neighbor list? true
+   * Integrate diffusion? true
+   * Calculate forces? true
+   * Handle reactions? true
+   * Handle topology reactions? true
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>100%|██████████| 1000/1000 [26:54&lt;00:00,  1.61s/it]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">result_hi_dens</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[7]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;energy_mean&#39;: -3.193799119175668,
+ &#39;energy_err&#39;: 0.005697042916386074,
+ &#39;pressure_mean&#39;: 3.736313759014431,
+ &#39;pressure_err&#39;: 0.0193156366839875,
+ &#39;rdf_mean&#39;: array([0.        , 0.        , 0.        , 0.        , 0.00318302,
+        0.21544415, 1.09583401, 1.71095452, 1.71660056, 1.5030973 ,
+        1.28105097, 1.11817947, 1.00079171, 0.9281504 , 0.88249208,
+        0.87185074, 0.87061258, 0.89063383, 0.92622229, 0.97184412,
+        1.01878889, 1.05056475, 1.06129247, 1.04824337, 1.03340413,
+        1.019903  , 1.00605256, 0.99656021, 0.98725976, 0.98180169,
+        0.98345413, 0.98252596, 0.99277386, 0.99484756, 0.99802621,
+        1.00303123, 1.00645232, 1.00655447, 1.00674462, 1.00682027,
+        1.00066395, 0.99939614, 0.99703547, 0.99774215, 0.9951048 ,
+        0.99884033, 0.99708233, 0.99665095, 0.99983404]),
+ &#39;rdf_err&#39;: array([0.        , 0.        , 0.        , 0.        , 0.000414  ,
+        0.00362726, 0.00552918, 0.0078111 , 0.00731   , 0.00614851,
+        0.00501308, 0.0051015 , 0.00379222, 0.00358177, 0.00398928,
+        0.00347434, 0.00301331, 0.00324984, 0.00282947, 0.00364745,
+        0.00313543, 0.00295688, 0.00287935, 0.00295896, 0.00219868,
+        0.00230414, 0.00289815, 0.00289699, 0.00200497, 0.00210439,
+        0.00214856, 0.00240868, 0.00188535, 0.00211364, 0.00206456,
+        0.00200478, 0.00194404, 0.0020108 , 0.00211606, 0.0020575 ,
+        0.00168416, 0.001548  , 0.00144649, 0.00169588, 0.00170068,
+        0.00159604, 0.00160979, 0.00145555, 0.0016807 ]),
+ &#39;rdf_bin_centers&#39;: array([0.53571429, 0.60714286, 0.67857143, 0.75      , 0.82142857,
+        0.89285714, 0.96428571, 1.03571429, 1.10714286, 1.17857143,
+        1.25      , 1.32142857, 1.39285714, 1.46428571, 1.53571429,
+        1.60714286, 1.67857143, 1.75      , 1.82142857, 1.89285714,
+        1.96428571, 2.03571429, 2.10714286, 2.17857143, 2.25      ,
+        2.32142857, 2.39285714, 2.46428571, 2.53571429, 2.60714286,
+        2.67857143, 2.75      , 2.82142857, 2.89285714, 2.96428571,
+        3.03571429, 3.10714286, 3.17857143, 3.25      , 3.32142857,
+        3.39285714, 3.46428571, 3.53571429, 3.60714286, 3.67857143,
+        3.75      , 3.82142857, 3.89285714, 3.96428571])}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;density 0.3:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;mean energy per particle </span><span class="si">{}</span><span class="se">\n</span><span class="s2">err energy per particle </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+    <span class="n">result_low_dens</span><span class="p">[</span><span class="s2">&quot;energy_mean&quot;</span><span class="p">],</span> <span class="n">result_low_dens</span><span class="p">[</span><span class="s2">&quot;energy_err&quot;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;pressure </span><span class="si">{}</span><span class="se">\n</span><span class="s2">err pressure </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+    <span class="n">result_low_dens</span><span class="p">[</span><span class="s2">&quot;pressure_mean&quot;</span><span class="p">],</span> <span class="n">result_low_dens</span><span class="p">[</span><span class="s2">&quot;pressure_err&quot;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;density 0.6:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;mean energy per particle </span><span class="si">{}</span><span class="se">\n</span><span class="s2">err energy per particle </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+    <span class="n">result_hi_dens</span><span class="p">[</span><span class="s2">&quot;energy_mean&quot;</span><span class="p">],</span> <span class="n">result_hi_dens</span><span class="p">[</span><span class="s2">&quot;energy_err&quot;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;pressure </span><span class="si">{}</span><span class="se">\n</span><span class="s2">err pressure </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+    <span class="n">result_hi_dens</span><span class="p">[</span><span class="s2">&quot;pressure_mean&quot;</span><span class="p">],</span> <span class="n">result_hi_dens</span><span class="p">[</span><span class="s2">&quot;pressure_err&quot;</span><span class="p">]))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">result_low_dens</span><span class="p">[</span><span class="s2">&quot;rdf_bin_centers&quot;</span><span class="p">],</span> <span class="n">result_low_dens</span><span class="p">[</span><span class="s2">&quot;rdf_mean&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;density $\rho=0.3$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">result_hi_dens</span><span class="p">[</span><span class="s2">&quot;rdf_bin_centers&quot;</span><span class="p">],</span> <span class="n">result_hi_dens</span><span class="p">[</span><span class="s2">&quot;rdf_mean&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;density $\rho=0.6$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;distance $r/\sigma$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;radial distribution $g(r)$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>density 0.3:
+mean energy per particle -1.6663065999844973
+err energy per particle 0.004068511442129084
+pressure 1.0241356362812084
+err pressure 0.007471245837546726
+density 0.6:
+mean energy per particle -3.193799119175668
+err energy per particle 0.005697042916386074
+pressure 3.736313759014431
+err pressure 0.0193156366839875
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+ 
+
+
+        </article>
+        <div class="foot">
+            © Copyright 2020 <a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/">AI4Science (former CMB) Group</a>
+        </div>
+    </div>
+</div>
+<script src="https://readdy.github.io/libraries/perfect-scrollbar/js/perfect-scrollbar.min.js"></script>
+<script src="https://readdy.github.io/assets/js/scrollbar.js"></script>
+</body>
+</html>

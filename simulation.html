@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Simulation</title>
+
+    <link rel="stylesheet" href="/assets/css/readdy_documentation.css">
+    <link rel="canonical" href="https://readdy.github.io/simulation.html">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata|Roboto+Mono|Lora|Lato|Source+Sans+Pro|Roboto+Slab|Merriweather" rel="stylesheet">
+    <link rel="stylesheet" href="https://readdy.github.io/libraries/perfect-scrollbar/css/perfect-scrollbar.min.css"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false},
+                ]
+            });
+        });
+    </script>
+
+    <link rel="icon" type="image/png" href="/assets/icon_black_32px.png">
+
+</head>
+
+
+<body>
+<div class="side-wrapper" id="unique-side-container">
+<div class="side">
+    <div class="side-logo logo-readdy"><a href="https://readdy.github.io/index.html"></a></div>
+    <div style="margin-right: 1.5rem; text-align: center;">
+        <a href="https://readdy.github.io/index.html">ReaDDy - A particle-based<br>reaction-diffusion simulator</a>
+    </div>
+
+    <div class="side-searchbar-wrapper">
+        <form action="https://readdy.github.io/search.html" method="get">
+            <input type="text" id="search-box" name="query" placeholder="Search ...">
+        </form>
+    </div>
+    <nav class="side-nav">
+        <a class="side-nav-item" href="https://readdy.github.io/index.html">Home</a>
+        <a class="side-nav-item" href="https://readdy.github.io/installation.html">Install readdy</a>
+        <div class="nav-supergroup-delimiter">
+            <b>API</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/system.html">System configuration</a>
+        
+        <a class="side-nav-item active" href="https://readdy.github.io/simulation.html">Simulation</a>
+        
+            
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/simulation.html#simulation_configuration">
+                    Configuration
+
+                </a>
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/simulation.html#observables">
+                    Observables
+
+                </a>
+            
+                <a class="side-nav-sub-item" href="https://readdy.github.io/simulation.html#simulation_run">
+                    Running the simulation
+
+                </a>
+            
+        
+        <a class="side-nav-item" href="https://readdy.github.io/results.html">Post-processing</a>
+
+        <div class="nav-supergroup-delimiter">
+            <b>Examples</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/demonstration.html">Demonstration</a>
+        
+
+        <a class="side-nav-item" href="https://readdy.github.io/validation.html">Validation</a>
+        
+
+        <a class="side-nav-item" href="https://readdy.github.io/benchmark.html">Benchmark</a>
+        
+
+
+        <div class="nav-supergroup-delimiter">
+            <b>Advanced topics</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/cookbook.html">Cookbook</a>
+        <a class="side-nav-item" href="https://readdy.github.io/development.html">Development</a>
+        
+
+        
+
+        <div class="nav-supergroup-delimiter">
+            <b>Legal notices</b>
+        </div>
+        <a class="side-nav-item" href="https://readdy.github.io/imprint.html">Imprint</a>
+        <a class="side-nav-item" href="https://readdy.github.io/software_license.html">Software license</a>
+
+        
+
+    </nav>
+
+    <div class="github-wrapper">
+        <a href="https://github.com/readdy/readdy" style="width: 16rem; height:100%; position:absolute; top:0; left:0;">
+            <div class="github-text">ReaDDy on GitHub</div>
+            <div class="side-logo logo-github"></div>
+        </a>
+    </div>
+    <div class="side-logo logo-cmb"><a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/"></a></div>
+</div>
+</div>
+
+<div class="main-container" id="unique-main-container">
+    <div class="main">
+        <article>
+            <h1 style="font-size: 2.7rem; padding-left: 0.5rem;">Simulation</h1>
+<p>The <code class="highlighter-rouge">system</code> object can generate one or multiple <code class="highlighter-rouge">simulation</code> objects, which determine <em>how</em> to simulate the <code class="highlighter-rouge">system</code>.
+This includes among other things the diffusion integrator, the reaction handler, <a href="/observables.html">observables</a>.
+The initial positions of particles are also set on the <code class="highlighter-rouge">simulation</code> object.</p>
+
+<p>Given a <code class="highlighter-rouge">system</code> one can generate a <code class="highlighter-rouge">simulation</code> by invoking</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span> <span class="o">=</span> <span class="n">system</span><span class="p">.</span><span class="n">simulation</span><span class="p">()</span>
+</code></pre></div></div>
+<p>The function takes a number of arguments that influence the way the simulation is executed:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span> <span class="o">=</span> <span class="n">system</span><span class="p">.</span><span class="n">simulation</span><span class="p">(</span>
+    <span class="n">kernel</span><span class="o">=</span><span class="s">"SingleCPU"</span><span class="p">,</span>
+    <span class="n">output_file</span><span class="o">=</span><span class="s">""</span><span class="p">,</span>
+    <span class="n">integrator</span><span class="o">=</span><span class="s">"EulerBDIntegrator"</span><span class="p">,</span>
+    <span class="n">reaction_handler</span><span class="o">=</span><span class="s">"Gillespie"</span><span class="p">,</span>
+    <span class="n">evaluate_topology_reactions</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">evaluate_forces</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">evaluate_observables</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">skin</span><span class="o">=</span><span class="mi">0</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>Except for the <code class="highlighter-rouge">kernel</code> argument, all of these arguments can also be modified by setting properties on the
+simulation object. The configuration of the reaction diffusion <code class="highlighter-rouge">system</code> is copied into the simulation object,
+so subsequent changes to the reaction diffusion system will not propagate into the simulation.</p>
+
+<h2 id="selecting-a-kernel">Selecting a kernel</h2>
+<p>Currently there are two different kernels that are supported: the <code class="highlighter-rouge">SingleCPU</code> and the <code class="highlighter-rouge">CPU</code> kernel. As the name
+suggests, the <code class="highlighter-rouge">SingleCPU</code> kernel is single-threaded whereas the <code class="highlighter-rouge">CPU</code> kernel attempts to parallelize as much as
+possible, thus making use of more cores.</p>
+
+<p>It can be expected that the <code class="highlighter-rouge">SingleCPU</code> implementation is roughly as fast as the <code class="highlighter-rouge">CPU</code> implementation with two threads,
+as it applies Newton’s third law for calculating pairwise forces and evaluates reactions per particle pair, which are
+the two major performance bottlenecks.</p>
+
+<section id="simulation_configuration">
+<h1>Configuration
+</h1>
+<p>In the following it will be explained how to <a href="#adding-particles">add particles</a>, <a href="#adding-topologies">add topologies</a>,
+<a href="#kernel-configuration">configure</a> specifics of the selected kernel, how to <a href="#recording-a-trajectory">record a trajectory</a>, and how to perform <a href="#checkpointing">checkpointing</a>.</p>
+
+<h2 id="adding-particles">Adding particles</h2>
+
+<p>For adding particles to a system there are two separate methods. One is can be to place a single particle, one
+is for bulk insertion.
+Adding a single particle of type <code class="highlighter-rouge">A</code> to a simulation box amounts to</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">add_particle</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s">"A"</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">pos</span><span class="p">)</span>
+</code></pre></div></div>
+<p>where <code class="highlighter-rouge">pos</code> can be a list <code class="highlighter-rouge">[x, y, z]</code>, tuple <code class="highlighter-rouge">(x, y, z)</code>, or a <code class="highlighter-rouge">numpy.ndarray: np.array([x, y, z])</code> with three entries
+representing the x,y,z components.</p>
+
+<p>When one wants several particles of a certain type to the simulation, one can can exchange multiple calls to
+<code class="highlighter-rouge">simulation.add_particle</code> by the better performing variant</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">random</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">simulation</span><span class="p">.</span><span class="n">add_particles</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s">"A"</span><span class="p">,</span> <span class="n">positions</span><span class="o">=</span><span class="n">X</span><span class="p">)</span>
+</code></pre></div></div>
+<p>taking a <code class="highlighter-rouge">(N, 3)</code>-shaped numpy array as position argument, resulting in <code class="highlighter-rouge">N</code> particles with their respective positions
+being added to the simulation. In this example, 100 particles of type <code class="highlighter-rouge">A</code> would be placed uniformly at random
+in $[0,1)^3$.</p>
+
+<h2 id="adding-topologies">Adding topologies</h2>
+
+<p>A topology can be added by invoking</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_topology</span> <span class="o">=</span> <span class="n">simulation</span><span class="p">.</span><span class="n">add_topology</span><span class="p">(</span><span class="n">topology_type</span><span class="o">=</span><span class="s">"My topology type"</span><span class="p">,</span> <span class="n">particle_types</span><span class="o">=</span><span class="s">"T"</span><span class="p">,</span> 
+                                      <span class="n">positions</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">random</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
+</code></pre></div></div>
+<p>which requires a “My topology type” topology type and a topology species “T” 
+<a href="/system.html#topologies">to be registered</a> in the <code class="highlighter-rouge">ReactionDiffusionSystem</code>. In this example the 
+topology will contain 100 randomly placed topology particles of type “T” that are for now disconnected.
+If the topology should contain several different particle types one can pass a list of particle types to the <code class="highlighter-rouge">particle_types</code> argument
+that contains types for all the positions:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_topology</span> <span class="o">=</span> <span class="n">simulation</span><span class="p">.</span><span class="n">add_topology</span><span class="p">(</span>
+    <span class="n">topology_type</span><span class="o">=</span><span class="s">"My topology type"</span><span class="p">,</span>
+    <span class="n">particle_types</span><span class="o">=</span><span class="p">[</span><span class="s">"T1"</span><span class="p">,</span> <span class="s">"T2"</span><span class="p">,</span> <span class="s">"T3"</span><span class="p">,</span> <span class="s">"T2"</span><span class="p">,</span> <span class="s">"T1"</span><span class="p">],</span>
+    <span class="n">positions</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">random</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>Unless the topology consists out of only one particle, one still needs to set up the connectivity graph before running 
+the simulation. The returned object <code class="highlighter-rouge">my_topology</code> is a topology object as the ones described in 
+<a href="/system.html#the-reaction-function">topology reactions</a>. Edges in the graph can be introduced like</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_graph</span> <span class="o">=</span> <span class="n">my_topology</span><span class="p">.</span><span class="n">get_graph</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">.</span><span class="n">get_vertices</span><span class="p">())</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">my_graph</span><span class="p">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+<p>where the indices that go into <code class="highlighter-rouge">add_edge</code> correspond to the particle positions that were entered in <code class="highlighter-rouge">add_topology</code>.</p>
+
+<p>The simulation can only be executed if the graph of each topology is connected,</p>
+<ul>
+  <li>i.e., there are no independent
+components (between each pair of vertices there is at least one path in the graph that connects them),</li>
+</ul>
+
+<p>and for each edge there is a bond,</p>
+<ul>
+  <li>i.e., all particle type pairs that are contained in the graph have at least one entry in the 
+<a href="/system.html#topology_potentials">topology potential configuration</a>.</li>
+</ul>
+
+<p>Should one of these two conditions be not fulfilled, starting the simulation will raise an error.</p>
+
+<h2 id="kernel-configuration">Kernel configuration</h2>
+
+<p>In case of selecting the CPU kernel with a parallelized implementation of the ReaDDy model, one can change certain
+aspects of its behavior:</p>
+
+<ul>
+  <li>The number of threads to be used can be selected by
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">kernel_configuration</span><span class="p">.</span><span class="n">n_threads</span> <span class="o">=</span> <span class="mi">4</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Mainly due to pairwise interactions and bimolecular reactions there is a neighbor list to reduce the time needed for 
+evaluating these. The neighbor list imposes a spatial discretization on the simulation box into cuboids. In the
+default case, each of these cuboids has an edge length of at least the maximal cutoff radius / reaction radius.
+This means that instead of naively looping over all particle pairs ($\mathcal{O}(N^2)$), one can assign each particle
+to its cuboid and then loop over all particles in a cuboid and its 26 neighboring cuboids to find particle pairs.</p>
+
+    <p>When collecting particle pairs in this fashion one effectively approximates a sphere with cuboids. The number of
+potential interaction or reaction partners can be further reduced by using only a fraction of the edge length but
+increasing the search radius of the neighboring boxes so that one still covers at least the cutoff radius in each
+spatial dimension.</p>
+
+    <p>Reducing the edge length usually comes with a price, at some point the bookkeeping of neighboring boxes dominates
+the runtime.</p>
+
+    <p>The edge length and therefore search radius can be controlled by</p>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">kernel_configuration</span><span class="p">.</span><span class="n">cell_linked_list_radius</span> <span class="o">=</span> <span class="mi">4</span>
+</code></pre></div>    </div>
+    <p>which would yield cuboids with $\frac{1}{4}$ the edge lengths of the default case.</p>
+  </li>
+</ul>
+
+<h2 id="recording-a-trajectory">Recording a trajectory</h2>
+
+<p>ReaDDy records trajectories and observable data in HDF5 files. For doing so one needs to set an output file</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">output_file</span> <span class="o">=</span> <span class="s">"my_trajectory.h5"</span>
+</code></pre></div></div>
+<p>and instruct the simulation to record a trajectory:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">record_trajectory</span><span class="p">(</span><span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">""</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+</code></pre></div></div>
+<p>The <code class="highlighter-rouge">stride</code> arguments causes the trajectory to be recorded every <code class="highlighter-rouge">stride</code> time steps. If a <code class="highlighter-rouge">name</code> (other than
+the default one) is given, the trajectory data will be stored in a different data set. The <code class="highlighter-rouge">chunk_size</code> is mainly
+a performance parameter that has an effect on how large every chunk of data in the binary file is going to be,
+influencing the time needed for IO during the simulation and the resulting file size.</p>
+
+<p>For reading back the trajectory data, please refer to <a href="/results.html">post-processing</a>.</p>
+
+<blockquote>
+  <p><strong><em>NOTE:</em></strong> When running long simulations on a cluster it can happen that the process runs into a timeout causing the already recorded data to be corrupted. This can <em>possibly</em> be mitigated by configuring the job manager to send SIGINT before KILLing the process. That way the file can still be properly closed (see <a href="https://github.com/readdy/readdy/issues/220#issuecomment-938887719">issue #220</a>, thanks <a href="https://github.com/jansteinkuehler">@jansteinkuehler</a>). Please make sure this works in your environment before running long simulations.</p>
+</blockquote>
+
+<h2 id="checkpointing">Checkpointing</h2>
+
+<p>Checkpoints in ReaDDy consist out of the particles’ and topologies’ configurations at specific points in simulation time. They can be enabled by calling</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">make_checkpoints</span><span class="p">(</span><span class="n">stride</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">output_directory</span><span class="o">=</span><span class="s">"checkpoints/"</span><span class="p">,</span> <span class="n">max_n_saves</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div></div>
+<p>which causes checkpoints to be made every 1000 steps. Each checkpoint is a separate file and all checkpoint files will be
+saved to the directory specified by <code class="highlighter-rouge">output_directory</code>. The option <code class="highlighter-rouge">max_n_saves</code> decides how many checkpoint files
+are allowed to be saved to the directory, e.g. if <code class="highlighter-rouge">max_n_saves=10</code> then only the last 10 <em>most recent</em> checkpoints
+are kept.</p>
+
+<p>Once the simulation has run its course and checkpoint files have been written, they can be listed by</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">list_checkpoint_files</span><span class="p">(</span><span class="s">'checkpoints/'</span><span class="p">)</span>
+</code></pre></div></div>
+<p>A particular checkpoint file can in principle also contain multiple checkpoints. They can be inspected by</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">list_checkpoints</span><span class="p">(</span><span class="s">'checkpoints/checkpoint_10000.h5'</span><span class="p">)</span>
+</code></pre></div></div>
+<p>and a system’s state can be restored by a call to</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">load_particles_from_checkpoint</span><span class="p">(</span><span class="s">'checkpoints/checkpoint_10000.h5'</span><span class="p">)</span>
+</code></pre></div></div>
+<p>amounting to restoring the latest checkpoint of that particular file. If the file contains multiple checkpoints, let’s say 5, you can
+select the 5th checkpoint by supplying the optional argument <code class="highlighter-rouge">n=4</code> (enumeration starts at <code class="highlighter-rouge">n=0</code> per file).</p>
+
+<p>Oftentimes you just need the last checkpoint of all checkpoint files in a certain directory. This can be achieved by</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">load_particles_from_latest_checkpoint</span><span class="p">(</span><span class="s">'checkpoints/'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>It should be noted that if the simulation should be continued and the <code class="highlighter-rouge">output_directory</code> for the new checkpoints is the 
+same as of the original simulation, the old checkpoint files will be overwritten. If you want to keep the checkpoints
+of the original simulation, specify another <code class="highlighter-rouge">output_directory</code>.</p>
+
+</section>
+
+<section id="observables">
+<h1>Observables
+</h1>
+<p>The currently available observables are:</p>
+<ul id="markdown-toc">
+  <li><a href="#radial-distribution-function" id="markdown-toc-radial-distribution-function">Radial distribution function</a></li>
+  <li><a href="#particles" id="markdown-toc-particles">Particles</a></li>
+  <li><a href="#particle-positions" id="markdown-toc-particle-positions">Particle positions</a></li>
+  <li><a href="#number-of-particles" id="markdown-toc-number-of-particles">Number of particles</a></li>
+  <li><a href="#energy" id="markdown-toc-energy">Energy</a></li>
+  <li><a href="#forces" id="markdown-toc-forces">Forces</a></li>
+  <li><a href="#reactions" id="markdown-toc-reactions">Reactions</a></li>
+  <li><a href="#reaction-counts" id="markdown-toc-reaction-counts">Reaction counts</a></li>
+  <li><a href="#virial" id="markdown-toc-virial">Virial</a></li>
+  <li><a href="#pressure" id="markdown-toc-pressure">Pressure</a></li>
+</ul>
+
+<p>There are three things that all observables have in common: The evaluation can be strided, they can have a <code class="highlighter-rouge">callback</code> 
+function and they can be saved to the <code class="highlighter-rouge">simulation.output_file</code>.</p>
+
+<p>The <code class="highlighter-rouge">callback</code> is usually a function that takes one argument being the current value of the observable. During the 
+course of the simulation this callback function will be evaluated whenever the particular observable is evaluated.</p>
+
+<p>Per default, whenever an <code class="highlighter-rouge">output_file</code> is given, the registered observables’ outputs are saved to that file. Each
+observable has a certain place in the group hierarchy of the HDF5 file, however this place can be modified so that, 
+e.g., multiple observables of the same type can be recorded into the same file.
+To this end, the <code class="highlighter-rouge">save</code> argument of the respective observable can be modified. By providing</p>
+<ul>
+  <li><code class="highlighter-rouge">None</code> or <code class="highlighter-rouge">False</code> writing the results to file can be switched off,</li>
+  <li>providing a dictionary with keys <code class="highlighter-rouge">'name'</code> and <code class="highlighter-rouge">'chunk_size'</code> can modify the name under which the observable data is stored
+in the group hierarchy and the <a href="https://support.hdfgroup.org/HDF5/doc/Advanced/Chunking/Chunking_Tutorial_EOS13_2009.pdf">hdf5 chunk size</a>.
+The <code class="highlighter-rouge">chunk_size</code> is always to be considered into the “temporal direction”, i.e., if an observable yields data in the form of
+<code class="highlighter-rouge">3x3</code> matrices each time it is evaluated, a chunk would be of shape <code class="highlighter-rouge">(3, 3, chunk_size)</code>.</li>
+</ul>
+
+<h2 id="radial-distribution-function">Radial distribution function</h2>
+
+<p>The radial distribution function for certain particle types can be observed by</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">rdf_callback</span><span class="p">(</span><span class="n">current_value</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">current_value</span><span class="p">)</span>
+
+<span class="n">simulation</span><span class="p">.</span><span class="n">observe</span><span class="p">.</span><span class="n">rdf</span><span class="p">(</span>
+    <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+    <span class="n">bin_borders</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> 
+    <span class="n">types_count_from</span><span class="o">=</span><span class="p">[</span><span class="s">"A"</span><span class="p">],</span> 
+    <span class="n">types_count_to</span><span class="o">=</span><span class="p">[</span><span class="s">"B"</span><span class="p">],</span> 
+    <span class="n">particle_to_density</span><span class="o">=</span><span class="mf">1.</span><span class="o">/</span><span class="n">system</span><span class="p">.</span><span class="n">box_volume</span><span class="p">,</span>
+    <span class="n">callback</span><span class="o">=</span><span class="n">rdf_callback</span><span class="p">)</span>
+</code></pre></div></div>
+<p>which causes the observable to be evaluated in each time step (<code class="highlighter-rouge">stride=1</code>) and print the value (<code class="highlighter-rouge">callback=rdf_callback</code>).
+The RDF is determined by calculating the distance from all particles of a type contained in <code class="highlighter-rouge">types_count_from</code> to
+all particles of a type contained in <code class="highlighter-rouge">types_count_to</code> and then binning the distance into a histogram as given by <code class="highlighter-rouge">bin_borders</code>.
+The histogram is normalized with respect to $g(r) = 4\pi r^2\rho dr$, where $\rho$ is the number density of particles 
+with types contained in <code class="highlighter-rouge">types_count_to</code>, reflected by <code class="highlighter-rouge">particle_to_density</code>.</p>
+
+<h2 id="particles">Particles</h2>
+
+<p>This observable records all particles in the system, as in: Each particle’s type, (unique) id, and position.
+It can be registered by</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">particles_callback</span><span class="p">(</span><span class="n">particles</span><span class="p">):</span>
+    <span class="n">types</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">positions</span> <span class="o">=</span> <span class="n">particles</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Particle 5 has type {}, id {}, and position {}."</span>
+          <span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">types</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">ids</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">positions</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+
+<span class="n">simulation</span><span class="p">.</span><span class="n">observe</span><span class="p">.</span><span class="n">particles</span><span class="p">(</span>
+    <span class="n">stride</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">callback</span><span class="o">=</span><span class="n">particles_callback</span><span class="p">,</span>
+    <span class="n">save</span><span class="o">=</span><span class="bp">False</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>where the argument of the callback function is a 3-tuple containing a list of types, unique ids, and positions
+corresponding to each particle in the system. In this example the callback function prints these properties of the
+fifth particle every fifth time step, the output of the observable is not saved into the trajectory file (<code class="highlighter-rouge">save=False</code>).</p>
+
+<h2 id="particle-positions">Particle positions</h2>
+
+<p>The particles’ positions can be recorded by</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">observe</span><span class="p">.</span><span class="n">particle_positions</span><span class="p">(</span>
+    <span class="n">stride</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> 
+    <span class="n">types</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> 
+    <span class="n">callback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>which makes this observable very similar to the <code class="highlighter-rouge">particles</code> one, however one can select specific types of particles
+that are recorded. In case of <code class="highlighter-rouge">types=None</code>, all particle positions will be recorded, in case of <code class="highlighter-rouge">types=["A", "B"]</code>
+only positions of particles with type <code class="highlighter-rouge">A</code> or <code class="highlighter-rouge">B</code> are returned.
+In this case the callback will simply print <code class="highlighter-rouge">x</code> every 200 steps, where <code class="highlighter-rouge">x</code> is a list of three-dimensional vectors.
+Since <code class="highlighter-rouge">save</code> is not explicitly set to <code class="highlighter-rouge">False</code> or <code class="highlighter-rouge">None</code> the observed data will be recorded into the trajectory file
+if n <code class="highlighter-rouge">simulation.output_file</code> was configured.</p>
+
+<h2 id="number-of-particles">Number of particles</h2>
+
+<p>When one is only interested in the sheer number of particles then one can use this observable. Depending on the input,
+it will either observe the total number of particles or the number of particles per selected type:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">observe</span><span class="p">.</span><span class="n">number_of_particles</span><span class="p">(</span>
+    <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">types</span><span class="o">=</span><span class="p">[</span><span class="s">"A"</span><span class="p">,</span> <span class="s">"B"</span><span class="p">,</span> <span class="s">"C"</span><span class="p">],</span>
+    <span class="n">callback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+    <span class="n">save</span><span class="o">=</span><span class="bp">False</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>This example records the numbers of particles with types <code class="highlighter-rouge">A</code>, <code class="highlighter-rouge">B</code>, <code class="highlighter-rouge">C</code> in each time step. The callback takes
+a list with three elements as argument where each element corresponds to a particle type as given in <code class="highlighter-rouge">types</code> and 
+contains the respective counts. If <code class="highlighter-rouge">types=None</code> was given, the observable would record the total number of particles,
+regardless of their types.</p>
+
+<h2 id="energy">Energy</h2>
+
+<p>The system’s current potential energy can be observed by</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">observe</span><span class="p">.</span><span class="n">energy</span><span class="p">(</span>
+    <span class="n">stride</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span>
+    <span class="n">callback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="s">"Potential energy is {}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">x</span><span class="p">)),</span>
+    <span class="n">save</span><span class="o">=</span><span class="bp">False</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>where <code class="highlighter-rouge">stride=123</code> indicates that the observable will be evaluated every 123rd time step. The argument of the callback
+function is a scalar value and the observable’s output is not saved to a potentially configured trajectory file.</p>
+
+<h2 id="forces">Forces</h2>
+
+<p>The forces acting on particles can be observed by</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">observe</span><span class="p">.</span><span class="n">forces</span><span class="p">(</span>
+    <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">types</span><span class="o">=</span><span class="p">[</span><span class="s">"A"</span><span class="p">],</span>
+    <span class="n">callback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>yielding an observable that is evaluated every time step (<code class="highlighter-rouge">stride=1</code>) and collects the forces acting on all particles
+of type <code class="highlighter-rouge">A</code>. If <code class="highlighter-rouge">types=None</code>, all types are considered. The callback function takes a list of vectors as argument.
+Since <code class="highlighter-rouge">save</code> is not further specified, this observable would be recorded into the trajectory file.</p>
+
+<h2 id="reactions">Reactions</h2>
+
+<p>This observable records all occurred reactions in the system for a particular time step. It can be registered by invoking</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">def</span> <span class="nf">reactions_callback</span><span class="p">(</span><span class="n">reactions</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">reactions</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"{} reaction {} occurred: {} -&gt; {}, position {}"</span>
+              <span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="nb">type</span><span class="p">,</span> <span class="n">r</span><span class="p">.</span><span class="n">reaction_label</span><span class="p">,</span> <span class="n">r</span><span class="p">.</span><span class="n">educts</span><span class="p">,</span> <span class="n">r</span><span class="p">.</span><span class="n">products</span><span class="p">,</span> <span class="n">r</span><span class="p">.</span><span class="n">position</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"----"</span><span class="p">)</span>
+
+<span class="n">simulation</span><span class="p">.</span><span class="n">observe</span><span class="p">.</span><span class="n">reactions</span><span class="p">(</span>
+    <span class="n">stride</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">callback</span><span class="o">=</span><span class="n">reactions_callback</span>
+<span class="p">)</span>   
+</code></pre></div></div>
+<p>where <code class="highlighter-rouge">stride=5</code> indicates that the observable is evaluated every fifth time step. The callback takes a list of
+reaction records as argument, where each reaction record stores information about the</p>
+<ul>
+  <li>type of reaction (<code class="highlighter-rouge">r.type</code>), i.e., one of conversion, fission, fusion, enzymatic, decay,</li>
+  <li>reaction name (<code class="highlighter-rouge">r.reaction_label</code>), i.e., the name under which the reaction was registered in the <code class="highlighter-rouge">system</code>,</li>
+  <li>educt unique particle ids (<code class="highlighter-rouge">r.educts</code>) as in the <a href="/simulation.html#particles">particles observable</a>,</li>
+  <li>product unique particle ids (<code class="highlighter-rouge">r.products</code>),</li>
+  <li>and position (<code class="highlighter-rouge">r.position</code>) of the reaction event which is evaluated to the midpoint between educts in case of a bimolecular reaction.</li>
+</ul>
+
+<p>Since the <code class="highlighter-rouge">save</code> argument was left out, it is defaulted and given a <code class="highlighter-rouge">simulation.output_file</code>, the observed reactions are 
+recorded.</p>
+
+<h2 id="reaction-counts">Reaction counts</h2>
+
+<p>Instead of recording <a href="/simulation.html#reactions">all reaction events</a> one can also record the number 
+of occurred reactions per registered reaction per time step. This can be achieved by</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">observe</span><span class="p">.</span><span class="n">reaction_counts</span><span class="p">(</span>
+    <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">callback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+    <span class="n">save</span><span class="o">=</span><span class="bp">False</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>where <code class="highlighter-rouge">stride=2</code> causes the observable to be evaluated every second time step. The callback function takes
+a dictionary as argument where the keys are the reaction names as given in the 
+<a href="/system.html#reactions">system configuration</a> and the values
+are the occurrences of the corresponding reaction in that time step.</p>
+
+<h2 id="virial">Virial</h2>
+
+<p>This observable evaluates the pressure virial according to pair-wise forces by evaluating</p>
+
+<div class="kdmath">$$
+\mathbf{W}_t = \sum_{i &gt; j} \mathbf{r}_{ij} \otimes\mathbf{f}_{ij},
+$$</div>
+
+<p>where $\mathbf{r}_{ij}$ is the vector difference between the positions of particle i and j, $\mathbf{f}$ the pair-wise force.</p>
+
+<p>It can be registered by</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">observe</span><span class="p">.</span><span class="n">virial</span><span class="p">(</span>
+    <span class="n">stride</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">callback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>which causes it to be evaluated every fifth time step (<code class="highlighter-rouge">stride=5</code>). The callback function takes a numpy array of shape <code class="highlighter-rouge">(3,3)</code> as argument.</p>
+
+<h2 id="pressure">Pressure</h2>
+
+<p>The pressure of a system can be understood in terms of the trace of a pressure tensor</p>
+
+<div class="kdmath">$$
+P_t = \frac{1}{3}\,\mathrm{tr}(\mathbf{P}_t)
+$$</div>
+
+<p>which is defined via the <a href="/simulation.html#virial">virial tensor</a></p>
+
+<div class="kdmath">$$
+\mathbf{P}_tV = N_tk_BT + \mathbf{W}_t,
+$$</div>
+
+<p>where $V$ is the system’s volume, $N_t$ the number of (physical) particles that somehow partake in the dynamics of the system,
+and $k_BT$ the thermal energy.</p>
+
+<p>Observing the pressure in a simulation amounts to</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">observe</span><span class="p">.</span><span class="n">pressure</span><span class="p">(</span>
+    <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">physical_particles</span><span class="o">=</span><span class="p">[</span><span class="s">"A"</span><span class="p">,</span> <span class="s">"B"</span><span class="p">,</span> <span class="s">"C"</span><span class="p">],</span>
+    <span class="n">callback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="s">"current pressure: {}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p>where <code class="highlighter-rouge">stride=1</code> causes the pressure to be evaluated in every time step, <code class="highlighter-rouge">physical_particles</code> are set to be particles of
+type <code class="highlighter-rouge">A</code>, <code class="highlighter-rouge">B</code>, or <code class="highlighter-rouge">C</code> (<code class="highlighter-rouge">physical_particles=None</code> causes all particles to be considered physical), and the callback
+function takes a scalar value as argument.</p>
+
+<p>Internally, the pressure observable builds up on the <a href="/simulation.html#virial">virial</a> observable
+and the <a href="/simulation.html#number-of-particles">number_of_particles</a> observable and when writing it to file
+not the actual pressure is recorded but the output of these other two observables.
+In the HDF5 group hierarchy the observable’s group is per default postfixed by <code class="highlighter-rouge">_pressure</code>, causing the virial
+to be stored under <code class="highlighter-rouge">virial_pressure</code> and the number of particles under <code class="highlighter-rouge">n_particles_pressure</code>.</p>
+
+<p>Changing the postfix amounts to providing a dictionary to the <code class="highlighter-rouge">save</code> argument with</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pressure_save_options</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'name'</span><span class="p">:</span> <span class="s">"empty_or_other_postfix"</span><span class="p">,</span>
+    <span class="s">'chunk_size'</span><span class="p">:</span> <span class="mi">500</span>
+<span class="p">}</span>
+<span class="n">simulation</span><span class="p">.</span><span class="n">observe</span><span class="p">.</span><span class="n">pressure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="s">"A"</span><span class="p">,</span> <span class="s">"B"</span><span class="p">,</span> <span class="s">"C"</span><span class="p">],</span> <span class="n">save</span><span class="o">=</span><span class="n">pressure_save_options</span><span class="p">)</span>
+</code></pre></div></div>
+<p>where the <code class="highlighter-rouge">chunk_size</code> refers to the HDF5 chunk size of data sets.</p>
+
+</section>
+
+<section id="simulation_run">
+<h1>Running the simulation
+</h1>
+<p>Per default, the simulation loop looks like below</p>
+
+<p class="centered"><img src="assets/architecture/simulation_loop_1000px.png" alt="" /></p>
+
+<p>This means that all observables are evaluated at the initial state regardless of their <code class="highlighter-rouge">stride</code>, after which
+the actual loop is performed.</p>
+
+<p>A simulation is started by invoking</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">n_steps</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">timestep</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
+</code></pre></div></div>
+<p>where <code class="highlighter-rouge">n_steps</code> is the number of time steps to perform and the <code class="highlighter-rouge">timestep</code> is the time step. Per default an overview
+of the system configuration is printed upon simulation start, this can be disabled by providing the 
+argument <code class="highlighter-rouge">show_system=False</code>.</p>
+
+<p>One can influence portions of the loop through the <code class="highlighter-rouge">simulation</code> object:</p>
+
+<ul>
+  <li>Per default a progress bar is shown when the simulation is executed, however it can be hidden
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">simulation</span><span class="p">.</span><span class="n">show_progress</span><span class="p">)</span>
+<span class="n">simulation</span><span class="p">.</span><span class="n">show_progress</span> <span class="o">=</span> <span class="bp">False</span>
+</code></pre></div>    </div>
+  </li>
+  <li>If one does not want to evaluate topology reactions at all, one can invoke
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">evaluate_topology_reactions</span> <span class="o">=</span> <span class="bp">False</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Evaluation of forces can be deactivated by invoking
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">evaluate_forces</span><span class="o">=</span><span class="bp">False</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Evaluation of observables can be switched off altogether by
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">evaluate_observables</span><span class="o">=</span><span class="bp">False</span>
+</code></pre></div>    </div>
+    <p>Note that setting this to <code class="highlighter-rouge">False</code> also causes the trajectory to not be recorded.</p>
+  </li>
+  <li>In case of a large simulation box but small interaction radii one can sometimes boost performance by artifically 
+increasing the cuboid size of the neighbor list’s spatial discretization by setting
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">skin</span> <span class="o">=</span> <span class="n">s</span>
+</code></pre></div>    </div>
+    <p>where $s\geq 0$ is a scalar that will be added to the maximal cutoff.</p>
+  </li>
+</ul>
+
+<p>Furthermore, one can select the</p>
+
+<ul id="markdown-toc">
+  <li><a href="#integrator" id="markdown-toc-integrator">Integrator</a></li>
+  <li><a href="#reaction-handler" id="markdown-toc-reaction-handler">Reaction handler</a></li>
+</ul>
+
+<h2 id="integrator">Integrator</h2>
+
+<p>Currently the only available integrator is the <code class="highlighter-rouge">EulerBDIntegrator</code> which is selected by default and can be selected by
+a call to</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">integrator</span> <span class="o">=</span> <span class="s">"EulerBDIntegrator"</span>
+</code></pre></div></div>
+
+<p>It integrates the <a href="/system.html#particle-species">isotropic brownian dynamics</a></p>
+
+<div class="kdmath">$$
+\frac{d\mathbf{x}(t)}{dt} = -D\frac{\nabla V(\mathbf{x}(t))}{k_BT} + \xi(t)
+$$</div>
+
+<p>with an Euler-Maruyama discretization</p>
+
+<div class="kdmath">$$
+\mathbf{x}_{t+\tau} = \mathbf{x}_t - \tau D\frac{\nabla V(\mathbf{x}(t))}{k_BT} + \sqrt{2D\tau}\eta_t,
+$$</div>
+
+<p>where</p>
+
+<div class="kdmath">$$
+\eta_t \sim \begin{pmatrix}\mathcal{N}(0, 1) &amp; \cdots &amp; \mathcal{N}(0, 1) \end{pmatrix}^T.
+$$</div>
+
+<h2 id="reaction-handler">Reaction handler</h2>
+
+<p>Reactions in ReaDDy are evaluated per time step, meaning that each particle might have multiple possible reaction
+partners. In order to solve this, one can chose between two different reaction handlers:</p>
+
+<ul>
+  <li>The <code class="highlighter-rouge">UncontrolledApproximation</code> reaction handler is the less rigorous of the two. It performs as follows:
+    <ol>
+      <li>A list of all possible reaction events is gathered.</li>
+      <li>For each element of this list a decision is made whether it is to be evaluated based on the time step and its 
+rate as described in the section about <a href="/system.html#reactions">reactions</a>.</li>
+      <li>The filtered list is shuffled.</li>
+      <li>For each event in the list evaluate it unless its educts have already been consumed by another reaction event.</li>
+    </ol>
+
+    <p>A problem of this reaction handler is that it does not give preference to reaction events based on their rate in case
+of a conflict, i.e., two events that share educts. However in the limit of small time steps this problem disappears.</p>
+
+    <p>This reaction handler can be selected by invoking</p>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">simulation</span><span class="p">.</span><span class="n">reaction_handler</span> <span class="o">=</span> <span class="s">"UncontrolledApproximation"</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>The <code class="highlighter-rouge">Gillespie</code> reaction handler is the default choice and is statistically exact in the sense that it imposes a 
+Gillespie reaction order on the events of a particular time step:</p>
+
+    <p>A list of all possible reaction events is gathered. Then</p>
+    <ol>
+      <li>Each reaction event is assigned its normalized reaction rate $\lambda_i/\sum_i\lambda_i$</li>
+      <li>A random event is picked from the list based on its normalized reaction rate, i.e., a uniform random 
+  number between 0 and 1 is drawn and then used together with the cumulative normalized reaction rates to determine
+  the event</li>
+      <li>Depending on its rate the reaction described by the event might be performed:
+        <ul>
+          <li>if not the event is simply removed from the list</li>
+          <li>if it was performed it is also removed and any other event that shared educts with this particular event</li>
+        </ul>
+      </li>
+      <li>if there are still events in the list go back to 1., otherwise stop</li>
+    </ol>
+
+    <p>An example of conflicting reaction events with expected outcome might be</p>
+
+    <div class="kdmath">$$
+\left\{ \begin{array}{rcc} A + B &amp;\xrightarrow{\lambda_1}&amp; C\\ A &amp;\xrightarrow{\lambda_2}&amp; D \end{array} 
+ \right. \xrightarrow{\lambda_1 \gg \lambda_2} \left\{ \begin{array}{rcc} A + B &amp;\xrightarrow{\lambda_1}&amp; C\\
+ &amp;\mathrm{ignored}  \end{array} \right.
+$$</div>
+
+    <p>This reaction handler can be selected by invoking</p>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">simulation</span><span class="p">.</span><span class="n">reaction_handler</span> <span class="o">=</span> <span class="s">"Gillespie"</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+</section>
+
+
+
+        </article>
+        <div class="foot">
+            © Copyright 2020 <a href="https://www.mi.fu-berlin.de/en/math/groups/comp-mol-bio/">AI4Science (former CMB) Group</a>
+        </div>
+    </div>
+</div>
+<script src="https://readdy.github.io/libraries/perfect-scrollbar/js/perfect-scrollbar.min.js"></script>
+<script src="https://readdy.github.io/assets/js/scrollbar.js"></script>
+</body>
+</html>
